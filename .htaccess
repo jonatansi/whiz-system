@@ -7,29 +7,10 @@ RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
 RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
 RewriteRule ^directory/ - [L,R=404]
 
-RewriteRule ^cek-login$ cek_login.php
+RewriteRule ^ceklogin$ cek_login.php
 RewriteRule ^keluar$ logout.php
-
-RewriteRule ^home$ media.php?module=home [QSA,L]
 
 RewriteRule ^profile$ media.php?module=profile [QSA,L]
 RewriteRule ^aksi-edit-profile$ content/profile/aksi.php?act=update [QSA,L]
-
-
-### USERS
-RewriteRule ^user-data$ media.php?module=user&kategori=user [QSA,L]
-RewriteRule ^tambah-user-data$ content/user/user/aksi.php?act=tambah [QSA,L]
-RewriteRule ^aksi-tambah-user-data$ content/user/user/aksi.php?act=input [QSA,L]
-RewriteRule ^edit-user-data$ content/user/user/aksi.php?act=edit [QSA,L]
-RewriteRule ^aksi-edit-user-data$ content/user/user/aksi.php?act=update [QSA,L]
-RewriteRule ^aksi-hapus-user-data-([0-9a-zA-Z-]+)$ content/user/user/aksi.php?act=delete&id=$1 [QSA,L]
-
-
-RewriteRule ^user-loglogin$ media.php?module=user&kategori=loglogin [QSA,L]
-RewriteRule ^user-loglogin-data$ content/user/loglogin/data_json.php [QSA,L]
-
-
-RewriteRule ^user-logactivity$ media.php?module=user&kategori=logactivity [QSA,L]
-RewriteRule ^user-logactivity-data$ content/user/logactivity/data_json.php [QSA,L]
 
 </IfModule>

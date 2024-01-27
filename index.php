@@ -27,7 +27,7 @@ include "konfig/base_url.php";
     <!-- Icons Css -->
     <link href="<?php echo $BASE_URL;?>/assets/css/icons.min.css" rel="stylesheet" >
 
-
+    <script src="https://www.google.com/recaptcha/api.js?render=6LdQhl0pAAAAAORLRytMwFzYm6tlEFc5-oYfA6Zc"></script>
 </head>
 
 <body>
@@ -53,22 +53,33 @@ include "konfig/base_url.php";
                                 <div class="card-sigin">
                                     <div class="card-sigin">
                                         <div class="main-signup-header" style="border: 1px solid #CCC; padding:2rem;">
-
                                             <div class="text-center">
                                                 <img src="<?php echo $BASE_URL;?>/images/logocolor.png" class="mb-2" alt="logo" style="max-height:80px;">
                                                 <h6 class="fw-medium mb-4 fs-17">Selamat datang kembali! Silakan masuk untuk melanjutkan.</h6>
                                             </div>
 
-                                            <form>
+                                            <div class="d-flex justify-content-center mb-3">
+                                                <a href="#" title="Master Data Management" data-toggle="tooltip" data-placement="top" class="portalLogin" id="master">
+                                                    <img src="<?php echo $BASE_URL;?>/images/icon/master.jpeg" style="max-height:60px;" class="mx-3">
+                                                </a>
+                                                <a href="#" title="Stock Management" data-toggle="tooltip" data-placement="top" class="portalLogin" id="stock">
+                                                    <img src="<?php echo $BASE_URL;?>/images/icon/stock.jpeg" style="max-height:60px;">
+                                                </a>
+                                            </div>
+
+                                            <div id="title_login" class="text-center fw-bold fs-5"></div>
+                                            <form method="POST" action="ceklogin" id="loginForm">
+                                                <input type="hidden" name="id_portal" id="id_portal">
                                                 <div class="form-group mb-3">
                                                     <label class="form-label">Username</label> 
-                                                    <input class="form-control" placeholder="Enter your username" type="text">
+                                                    <input class="form-control" placeholder="Enter your username" type="text" id="loginUsername">
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label class="form-label">Password</label> 
-                                                    <input class="form-control" placeholder="Enter your password" type="password">
+                                                    <input class="form-control" placeholder="Enter your password" type="password" id="loginPassword">
                                                 </div>
-                                                <button type="submit" class="btn btn-primary btn-block w-100">Sign In</button>
+                                                <div id="error" class="mt-3 mb-1"></div>
+                                                <button type="submit" class="btn btn-primary btn-block w-100" id="btnLogin" disabled>Sign In</button>
                                             </form>
                                         </div>
                                     </div>
@@ -81,6 +92,7 @@ include "konfig/base_url.php";
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
     <!-- Bootstrap JS -->
     <script src="<?php echo $BASE_URL;?>/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -88,6 +100,7 @@ include "konfig/base_url.php";
     <!-- Show Password JS -->
     <script src="<?php echo $BASE_URL;?>/assets/js/show-password.js"></script>
 
+    <script src="<?php echo $BASE_URL;?>/addons/js/login.js"></script>
 </body>
 
 </html>

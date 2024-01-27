@@ -1,0 +1,83 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+RewriteRule ^directory/ - [L,R=404]
+
+RewriteRule ^home$ media.php?module=home [QSA,L]
+
+RewriteRule ^profile$ media.php?module=profile [QSA,L]
+RewriteRule ^aksi-edit-profile$ content/profile/aksi.php?act=update [QSA,L]
+
+### USERS
+RewriteRule ^user$ media.php?module=user&kategori=user [QSA,L]
+RewriteRule ^user-tambah$ content/user/user/aksi.php?act=tambah [QSA,L]
+RewriteRule ^user-input$ content/user/user/aksi.php?act=input [QSA,L]
+RewriteRule ^user-edit$ content/user/user/aksi.php?act=edit [QSA,L]
+RewriteRule ^user-update$ content/user/user/aksi.php?act=update [QSA,L]
+RewriteRule ^user-delete-([0-9a-zA-Z-]+)$ content/user/user/aksi.php?act=delete&id=$1 [QSA,L]
+
+
+RewriteRule ^user-loglogin$ media.php?module=user&kategori=loglogin [QSA,L]
+RewriteRule ^user-loglogin-data$ content/user/loglogin/data_json.php [QSA,L]
+
+
+RewriteRule ^user-logactivity$ media.php?module=user&kategori=logactivity [QSA,L]
+RewriteRule ^user-logactivity-data$ content/user/logactivity/data_json.php [QSA,L]
+
+### CEK USERNAME PEGAWAI
+RewriteRule ^cek-usernamepegawai content/data/index.php?act=cek_username [QSA,L]
+RewriteRule ^cek-nik content/data/index.php?act=cek_nik [QSA,L]
+
+### branch
+RewriteRule ^branch$ media.php?module=branch [QSA,L]
+RewriteRule ^branch-json$ content/branch/aksi.php?act=json [QSA,L]
+RewriteRule ^branch-tambah$ content/branch/aksi.php?act=tambah [QSA,L]
+RewriteRule ^branch-input$ content/branch/aksi.php?act=input [QSA,L]
+RewriteRule ^branch-edit$ content/branch/aksi.php?act=edit [QSA,L]
+RewriteRule ^branch-update$ content/branch/aksi.php?act=update [QSA,L]
+RewriteRule ^branch-delete-([0-9a-zA-Z-]+)$ content/branch/aksi.php?act=delete&id=$1 [QSA,L]
+
+
+### vendor
+RewriteRule ^vendor$ media.php?module=vendor [QSA,L]
+RewriteRule ^vendor-json$ content/vendor/aksi.php?act=json [QSA,L]
+RewriteRule ^vendor-tambah$ content/vendor/aksi.php?act=tambah [QSA,L]
+RewriteRule ^vendor-input$ content/vendor/aksi.php?act=input [QSA,L]
+RewriteRule ^vendor-edit$ content/vendor/aksi.php?act=edit [QSA,L]
+RewriteRule ^vendor-update$ content/vendor/aksi.php?act=update [QSA,L]
+RewriteRule ^vendor-delete-([0-9a-zA-Z-]+)$ content/vendor/aksi.php?act=delete&id=$1 [QSA,L]
+
+### gudang
+RewriteRule ^gudang$ media.php?module=gudang [QSA,L]
+RewriteRule ^gudang-json$ content/gudang/aksi.php?act=json [QSA,L]
+RewriteRule ^gudang-tambah$ content/gudang/aksi.php?act=tambah [QSA,L]
+RewriteRule ^gudang-input$ content/gudang/aksi.php?act=input [QSA,L]
+RewriteRule ^gudang-edit$ content/gudang/aksi.php?act=edit [QSA,L]
+RewriteRule ^gudang-update$ content/gudang/aksi.php?act=update [QSA,L]
+RewriteRule ^gudang-delete-([0-9a-zA-Z-]+)$ content/gudang/aksi.php?act=delete&id=$1 [QSA,L]
+
+
+### material
+RewriteRule ^material$ media.php?module=material [QSA,L]
+RewriteRule ^material-json$ content/material/aksi.php?act=json [QSA,L]
+RewriteRule ^material-tambah$ content/material/aksi.php?act=tambah [QSA,L]
+RewriteRule ^material-input$ content/material/aksi.php?act=input [QSA,L]
+RewriteRule ^material-edit$ content/material/aksi.php?act=edit [QSA,L]
+RewriteRule ^material-update$ content/material/aksi.php?act=update [QSA,L]
+RewriteRule ^material-delete-([0-9a-zA-Z-]+)$ content/material/aksi.php?act=delete&id=$1 [QSA,L]
+
+
+### satuan
+RewriteRule ^satuan$ media.php?module=satuan [QSA,L]
+RewriteRule ^satuan-json$ content/satuan/aksi.php?act=json [QSA,L]
+RewriteRule ^satuan-tambah$ content/satuan/aksi.php?act=tambah [QSA,L]
+RewriteRule ^satuan-input$ content/satuan/aksi.php?act=input [QSA,L]
+RewriteRule ^satuan-edit$ content/satuan/aksi.php?act=edit [QSA,L]
+RewriteRule ^satuan-update$ content/satuan/aksi.php?act=update [QSA,L]
+RewriteRule ^satuan-delete-([0-9a-zA-Z-]+)$ content/satuan/aksi.php?act=delete&id=$1 [QSA,L]
+
+</IfModule>
