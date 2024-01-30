@@ -1,18 +1,4 @@
 <?php
-	function DateToIndo($date) { // fungsi atau method untuk mengubah tanggal ke format indonesia
-   // variabel BulanIndo merupakan variabel array yang menyimpan nama-nama bulan
-		$BulanIndo = array("Januari", "Februari", "Maret",
-						   "April", "Mei", "Juni",
-						   "Juli", "Agustus", "September",
-						   "Oktober", "November", "Desember");
-	
-		$tahun = substr($date, 0, 4); // memisahkan format tahun menggunakan substring
-		$bulan = substr($date, 5, 2); // memisahkan format bulan menggunakan substring
-		$tgl   = substr($date, 8, 2); // memisahkan format tanggal menggunakan substring
-		
-		$result = $tgl . " " . $BulanIndo[(int)$bulan-1] . " ". $tahun;
-		return($result);
-	}
 
 	function WaktuIndo($date) { // fungsi atau method untuk mengubah tanggal ke format indonesia
 		// variabel BulanIndo merupakan variabel array yang menyimpan nama-nama bulan
@@ -23,113 +9,24 @@
 		$result = $tgl . "/" . $bulan . "/". $tahun." ".substr($date, 11, 8);
 		return($result);
 	}
+
 	
-	function GetBulan($date) { // fungsi atau method untuk mengubah tanggal ke format indonesia
-   // variabel BulanIndo merupakan variabel array yang menyimpan nama-nama bulan
-		$BulanIndo = array("Januari", "Februari", "Maret",
-						   "April", "Mei", "Juni",
-						   "Juli", "Agustus", "September",
-						   "Oktober", "November", "Desember");
-	
-		$bulan = substr($date, 5, 2); // memisahkan format bulan menggunakan substring
+	function dateFormat($date) {
 		
-		$result = $BulanIndo[(int)$bulan-1];
-		return($result);
-	}
-	
-	function GetBulan2($bulan) { // fungsi atau method untuk mengubah tanggal ke format indonesia
-   // variabel BulanIndo merupakan variabel array yang menyimpan nama-nama bulan
-		$BulanIndo = array("Januari", "Februari", "Maret",
-						   "April", "Mei", "Juni",
-						   "Juli", "Agustus", "September",
-						   "Oktober", "November", "Desember");
-	
-		$result = $BulanIndo[(int)$bulan-1];
-		return($result);
-	}
-	
-	function DateToIndo2($date) { // fungsi atau method untuk mengubah tanggal ke format indonesia
-   // variabel BulanIndo merupakan variabel array yang menyimpan nama-nama bulan
-	
-		$tahun = substr($date, 0, 4); // memisahkan format tahun menggunakan substring
-		$bulan = substr($date, 5, 2); // memisahkan format bulan menggunakan substring
-		$tgl   = substr($date, 8, 2); // memisahkan format tanggal menggunakan substring
-		
-		$result = $tgl . "/" .$bulan. "/". $tahun;
-		return($result);
-	}
-	
-	function MonthDate($date) { // fungsi atau method untuk mengubah tanggal ke format indonesia
-   // variabel BulanIndo merupakan variabel array yang menyimpan nama-nama bulan
-		$BulanIndo = array("Januari", "Februari", "Maret",
-		"April", "Mei", "Juni",
-		"Juli", "Agustus", "September",
-		"Oktober", "November", "Desember");
-	
-		$tahun = substr($date, 0, 4); // memisahkan format tahun menggunakan substring
-		$bulan = substr($date, 5, 2); // memisahkan format bulan menggunakan substring
-		$tgl   = substr($date, 8, 2); // memisahkan format tanggal menggunakan substring
-		
-		$result = $BulanIndo[(int)$bulan-1] . " ". $tahun;
-		return($result);
-	}
-	
-	
-	function DateToIndo4($date) { // fungsi atau method untuk mengubah tanggal ke format indonesia
-   // variabel BulanIndo merupakan variabel array yang menyimpan nama-nama bulan
 		$BulanIndo = array("Jan", "Feb", "Mar",
-						   "Apr", "Mei", "Jun",
+						   "Apr", "May", "Jun",
 						   "Jul", "Aug", "Sept",
-						   "Oct", "Nov", "Des");
-	
-		$tahun = substr($date, 0, 4); // memisahkan format tahun menggunakan substring
-		$bulan = substr($date, 5, 2); // memisahkan format bulan menggunakan substring
-		$tgl   = substr($date, 8, 2); // memisahkan format tanggal menggunakan substring
-		
-		$result = $tgl . " " . $BulanIndo[(int)$bulan-1];
-		return($result);
-	}
-	
-	function DateToIndo5($date) { // fungsi atau method untuk mengubah tanggal ke format indonesia
-   // variabel BulanIndo merupakan variabel array yang menyimpan nama-nama bulan
-		$tahun = substr($date, 0, 4); // memisahkan format tahun menggunakan substring
-		$bulan = substr($date, 5, 2); // memisahkan format bulan menggunakan substring
-		$tgl   = substr($date, 8, 2); // memisahkan format tanggal menggunakan substring
-		
-		$result = $tgl . "-" .$bulan. "-". $tahun;
-		return($result);
-	}
-	
-	function DateToEng($date) { // fungsi atau method untuk mengubah tanggal ke format indonesia
-   // variabel BulanIndo merupakan variabel array yang menyimpan nama-nama bulan
-	
-		$tahun = substr($date, 6, 4); // memisahkan format tahun menggunakan substring
-		$bulan = substr($date, 3, 2); // memisahkan format bulan menggunakan substring
-		$tgl   = substr($date, 0, 2); // memisahkan format tanggal menggunakan substring
-		
-		$result = $tahun . "-" .$bulan. "-". $tgl;
-		return($result);
-	}
-	
-	/*function DateToEng($date) { // fungsi atau method untuk mengubah tanggal ke format indonesia
-   // variabel BulanIndo merupakan variabel array yang menyimpan nama-nama bulan
-	
-		$tahun = substr($date, 6, 4); // memisahkan format tahun menggunakan substring
-		$bulan = substr($date, 0, 2); // memisahkan format bulan menggunakan substring
-		$tgl   = substr($date, 3, 2); // memisahkan format tanggal menggunakan substring
-		
-		$result = $tahun . "-" .$bulan. "-". $tgl;
-		return($result);
-	}*/
-	
-	function DateToEng2($date) { // fungsi atau method untuk mengubah tanggal ke format indonesia
-   // variabel BulanIndo merupakan variabel array yang menyimpan nama-nama bulan
-	
-		$tahun = substr($date, 0, 4); // memisahkan format tahun menggunakan substring
-		$bulan = substr($date, 5, 2); // memisahkan format bulan menggunakan substring
-		$tgl   = substr($date, 8, 2); // memisahkan format tanggal menggunakan substring
-		
-		$result = $bulan . "/" .$tgl. "/". $tahun;
+						   "Oct", "Nov", "Dec");
+		if($date!=''){
+			$tahun = substr($date, 0, 4); // memisahkan format tahun menggunakan substring
+			$bulan = substr($date, 5, 2); // memisahkan format bulan menggunakan substring
+			$tgl   = substr($date, 8, 2); // memisahkan format tanggal menggunakan substring
+			
+			$result = $BulanIndo[(int)$bulan-1].". ".$tgl .", ". $tahun." ".substr($date, 11, 8);
+		}
+		else{
+			$result="-";
+		}
 		return($result);
 	}
 

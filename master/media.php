@@ -23,6 +23,9 @@ if($_SESSION['login_system']==0){
 else{
     include "../konfig/base_url.php";
     include "../konfig/koneksi.php";
+    include "../konfig/fungsi_tanggal.php";
+
+    $module = $_GET['module'];
 
 ?>
     <!DOCTYPE html>

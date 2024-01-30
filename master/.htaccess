@@ -40,7 +40,6 @@ RewriteRule ^cek-nik content/data/index.php?act=cek_nik [QSA,L]
 
 ### branch
 RewriteRule ^branch$ media.php?module=branch [QSA,L]
-RewriteRule ^branch-json$ content/branch/aksi.php?act=json [QSA,L]
 RewriteRule ^branch-tambah$ content/branch/aksi.php?act=tambah [QSA,L]
 RewriteRule ^branch-input$ content/branch/aksi.php?act=input [QSA,L]
 RewriteRule ^branch-edit$ content/branch/aksi.php?act=edit [QSA,L]
@@ -50,7 +49,6 @@ RewriteRule ^branch-delete-([0-9a-zA-Z-]+)$ content/branch/aksi.php?act=delete&i
 
 ### vendor
 RewriteRule ^vendor$ media.php?module=vendor [QSA,L]
-RewriteRule ^vendor-json$ content/vendor/aksi.php?act=json [QSA,L]
 RewriteRule ^vendor-tambah$ content/vendor/aksi.php?act=tambah [QSA,L]
 RewriteRule ^vendor-input$ content/vendor/aksi.php?act=input [QSA,L]
 RewriteRule ^vendor-edit$ content/vendor/aksi.php?act=edit [QSA,L]
@@ -59,7 +57,6 @@ RewriteRule ^vendor-delete-([0-9a-zA-Z-]+)$ content/vendor/aksi.php?act=delete&i
 
 ### gudang
 RewriteRule ^gudang$ media.php?module=gudang [QSA,L]
-RewriteRule ^gudang-json$ content/gudang/aksi.php?act=json [QSA,L]
 RewriteRule ^gudang-tambah$ content/gudang/aksi.php?act=tambah [QSA,L]
 RewriteRule ^gudang-input$ content/gudang/aksi.php?act=input [QSA,L]
 RewriteRule ^gudang-edit$ content/gudang/aksi.php?act=edit [QSA,L]
@@ -69,7 +66,6 @@ RewriteRule ^gudang-delete-([0-9a-zA-Z-]+)$ content/gudang/aksi.php?act=delete&i
 
 ### material
 RewriteRule ^material$ media.php?module=material [QSA,L]
-RewriteRule ^material-json$ content/material/aksi.php?act=json [QSA,L]
 RewriteRule ^material-tambah$ content/material/aksi.php?act=tambah [QSA,L]
 RewriteRule ^material-input$ content/material/aksi.php?act=input [QSA,L]
 RewriteRule ^material-edit$ content/material/aksi.php?act=edit [QSA,L]
@@ -77,9 +73,17 @@ RewriteRule ^material-update$ content/material/aksi.php?act=update [QSA,L]
 RewriteRule ^material-delete-([0-9a-zA-Z-]+)$ content/material/aksi.php?act=delete&id=$1 [QSA,L]
 
 
+### kategori material
+RewriteRule ^katmaterial$ media.php?module=katmaterial [QSA,L]
+RewriteRule ^katmaterial-tambah$ content/katmaterial/aksi.php?act=tambah [QSA,L]
+RewriteRule ^katmaterial-input$ content/katmaterial/aksi.php?act=input [QSA,L]
+RewriteRule ^katmaterial-edit$ content/katmaterial/aksi.php?act=edit [QSA,L]
+RewriteRule ^katmaterial-update$ content/katmaterial/aksi.php?act=update [QSA,L]
+RewriteRule ^katmaterial-delete-([0-9a-zA-Z-]+)$ content/katmaterial/aksi.php?act=delete&id=$1 [QSA,L]
+
+
 ### satuan
 RewriteRule ^satuan$ media.php?module=satuan [QSA,L]
-RewriteRule ^satuan-json$ content/satuan/aksi.php?act=json [QSA,L]
 RewriteRule ^satuan-tambah$ content/satuan/aksi.php?act=tambah [QSA,L]
 RewriteRule ^satuan-input$ content/satuan/aksi.php?act=input [QSA,L]
 RewriteRule ^satuan-edit$ content/satuan/aksi.php?act=edit [QSA,L]

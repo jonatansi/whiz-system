@@ -21,7 +21,7 @@ else{
 
 	else if($act=='input'){
         
-		$sql="INSERT INTO master_cabang (kode, nama, lok_provinsi_id, lok_kabupaten_id, lok_kecamatan_id, lok_kelurahan_id, alamat, kode_pos, created_at, updated_at) VALUES ('$_POST[kode]', '$_POST[nama]', '$_POST[lok_provinsi_id]', '$_POST[lok_kabupaten_id]', '$_POST[lok_kecamatan_id]', '$_POST[lok_kelurahan_id]', '$_POST[alamat]', '$_POST[kode_pos]', '$waktu_sekarang', '$waktu_sekarang')";
+		$sql="INSERT INTO master_cabang (kode, nama, lok_provinsi_id, lok_kabupaten_id, lok_kecamatan_id, lok_kelurahan_id, alamat, kode_pos, created_at) VALUES ('$_POST[kode]', '$_POST[nama]', '$_POST[lok_provinsi_id]', '$_POST[lok_kabupaten_id]', '$_POST[lok_kecamatan_id]', '$_POST[lok_kelurahan_id]', '$_POST[alamat]', '$_POST[kode_pos]', '$waktu_sekarang')";
 
 		mysqli_query($conn,$sql);
 		$d=mysqli_insert_id($conn);

@@ -30,7 +30,6 @@
                         <thead class="table-info text-center">
                             <tr>
                                 <th width="50px">No</th>
-                                <th>Tgl/Jam</th>
                                 <th>ID Branch</th>
                                 <th>Branch</th>
                                 <th>Alamat</th>
@@ -50,7 +49,6 @@
                                 ?>
                                 <tr>
                                     <td><?php echo $no;?></td>
-                                    <td><?php echo dateFormat($r['updated_at']);?></td>
                                     <td><?php echo $r['kode'];?></td>
                                     <td><?php echo $r['nama'];?></td>
                                     <td>

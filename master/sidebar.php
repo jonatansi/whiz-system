@@ -32,37 +32,44 @@
                     </a>
                 </li>
 
-                <li class="slide">
-                    <a href="<?php echo $BASE_URL_MASTER;?>/branch" class="side-menu__item">
+                <li class="slide <?php if($module=='branch'){echo "active";}?>">
+                    <a href="<?php echo $BASE_URL_MASTER;?>/branch" class="side-menu__item <?php if($module=='branch'){echo "active";}?>">
                         <i class="fa fa-house side-menu__icon"></i>
                         <span class="side-menu__label">Branch</span>
                     </a>
                 </li>
 
-                <li class="slide">
-                    <a href="<?php echo $BASE_URL_MASTER;?>/vendor" class="side-menu__item">
+                <li class="slide <?php if($module=='vendor'){echo "active";}?>">
+                    <a href="<?php echo $BASE_URL_MASTER;?>/vendor" class="side-menu__item <?php if($module=='vendor'){echo "active";}?>">
                         <i class="fa-regular fa-building side-menu__icon"></i>
                         <span class="side-menu__label">Vendor</span>
                     </a>
                 </li>
 
-                <li class="slide">
-                    <a href="<?php echo $BASE_URL_MASTER;?>/gudang" class="side-menu__item">
+                <li class="slide <?php if($module=='gudang'){echo "active";}?>">
+                    <a href="<?php echo $BASE_URL_MASTER;?>/gudang" class="side-menu__item <?php if($module=='gudang'){echo "active";}?>">
                         <i class="fa fa-cubes side-menu__icon"></i>
                         <span class="side-menu__label">Penyimpanan</span>
                     </a>
                 </li>
 
 
-                <li class="slide">
-                    <a href="<?php echo $BASE_URL_MASTER;?>/material" class="side-menu__item">
+                <li class="slide <?php if($module=='material'){echo "active";}?>">
+                    <a href="<?php echo $BASE_URL_MASTER;?>/material" class="side-menu__item <?php if($module=='material'){echo "active";}?>">
                         <i class="fa-brands fa-dropbox side-menu__icon"></i>
                         <span class="side-menu__label">Material</span>
                     </a>
                 </li>
 
-                <li class="slide">
-                    <a href="<?php echo $BASE_URL_MASTER;?>/satuan" class="side-menu__item">
+                <li class="slide <?php if($module=='katmaterial'){echo "active";}?>">
+                    <a href="<?php echo $BASE_URL_MASTER;?>/katmaterial" class="side-menu__item <?php if($module=='katmaterial'){echo "active";}?>">
+                        <i class="fa-brands fa-dropbox side-menu__icon"></i>
+                        <span class="side-menu__label">Kategori Material</span>
+                    </a>
+                </li>
+
+                <li class="slide <?php if($module=='satuan'){echo "active";}?>">
+                    <a href="<?php echo $BASE_URL_MASTER;?>/satuan" class="side-menu__item <?php if($module=='satuan'){echo "active";}?>">
                         <i class="fa fa-tag side-menu__icon"></i>
                         <span class="side-menu__label">Satuan</span>
                     </a>
