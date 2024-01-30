@@ -37,8 +37,6 @@ else{
 		
         $sql="UPDATE master_kategori_material SET  nama='$_POST[nama]', updated_at='$waktu_sekarang' WHERE id='$_POST[id]'";
 
-		echo $sql;
-		
         mysqli_query($conn,$sql);
 
 		log_activity($conn, $_SESSION['login_user'], $module, 'master_kategori_material', $_POST['id'], 'UPDATE', $_SESSION['id_session'], $waktu_sekarang);
