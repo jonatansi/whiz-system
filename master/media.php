@@ -67,13 +67,25 @@ else{
 
         <!-- Choices Css -->
         <link rel="stylesheet" href="<?php echo $BASE_URL;?>/assets/libs/choices.js/public/assets/styles/choices.min.css">
+        
+        <!-- Prism CSS -->
+        <link rel="stylesheet" href="<?php echo $BASE_URL;?>/assets/libs/prismjs/themes/prism-coy.min.css">
+
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css">
+
+        <!-- Sweetalerts CSS -->
+        <link rel="stylesheet" href="<?php echo $BASE_URL;?>/assets/libs/sweetalert2/sweetalert2.min.css">
 
         <link rel="stylesheet" href="<?php echo $BASE_URL_MASTER;?>/addons/css/custom.css">
 
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     </head>
-
+    
     <body>
-
         <!-- Start Switcher -->
         <div class="offcanvas offcanvas-end" tabindex="-1" id="switcher-canvas" aria-labelledby="offcanvasRightLabel">
             <div class="offcanvas-header border-bottom">
@@ -561,6 +573,25 @@ else{
         <div id="responsive-overlay"></div>
         <!-- Scroll To Top -->
 
+
+        <div id="form_modul" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-small-title" aria-hidden="true"></div>
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="successToast" class="toast colored-toast bg-success-transparent" role="alert" aria-live="assertive"
+                aria-atomic="true">
+                <div class="toast-header bg-success text-fixed-white">
+                    <img class="bd-placeholder-img rounded me-2" src="../assets/images/brand-logos/toggle-white.png" alt="...">
+                    <strong class="me-auto">Berhasil</strong></strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+                </div>
+                <div class="toast-body" id="successToastBody">
+                    
+                </div>
+            </div>
+        </div>
+
+
         <!-- Popper JS -->
         <script src="<?php echo $BASE_URL;?>/assets/libs/@popperjs/core/umd/popper.min.js"></script>
 
@@ -593,16 +624,31 @@ else{
         <!-- JSVector Maps MapsJS -->
         <script src="<?php echo $BASE_URL;?>/assets/libs/jsvectormap/maps/world-merc.js"></script>
         <script src="<?php echo $BASE_URL;?>/assets/js/us-merc-en.js"></script>
-
-        <!-- Chartjs Chart JS -->
-        <script src="<?php echo $BASE_URL;?>/assets/js/index.js"></script>
         
-        
+        <!-- Datatables Cdn -->
+        <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.6/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
         <!-- Custom-Switcher JS -->
         <script src="<?php echo $BASE_URL;?>/assets/js/custom-switcher.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        
+        <!-- Prism JS -->
+        <script src="<?php echo $BASE_URL;?>/assets/libs/prismjs/prism.js"></script>
+        <script src="<?php echo $BASE_URL;?>/assets/js/prism-custom.js"></script>
+        
+        <!-- Sweet alert-->
+        <script src="<?php echo $BASE_URL;?>/assets/libs/sweetalert2/sweetalert2.min.js"></script>
         <!-- Custom JS -->
         <script src="<?php echo $BASE_URL;?>/assets/js/custom.js"></script>
-
     </body>
 </html>
 <?php

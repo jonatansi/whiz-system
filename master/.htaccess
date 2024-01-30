@@ -12,6 +12,12 @@ RewriteRule ^home$ media.php?module=home [QSA,L]
 RewriteRule ^profile$ media.php?module=profile [QSA,L]
 RewriteRule ^aksi-edit-profile$ content/profile/aksi.php?act=update [QSA,L]
 
+## LOKASI
+RewriteRule ^lok-propinsi$ content/lok/aksi.php?act=propinsi [QSA,L]
+RewriteRule ^lok-kabupaten$ content/lok/aksi.php?act=kabupaten [QSA,L]
+RewriteRule ^lok-kecamatan$ content/lok/aksi.php?act=kecamatan [QSA,L]
+RewriteRule ^lok-kelurahan$ content/lok/aksi.php?act=kelurahan [QSA,L]
+
 ### USERS
 RewriteRule ^user$ media.php?module=user&kategori=user [QSA,L]
 RewriteRule ^user-tambah$ content/user/user/aksi.php?act=tambah [QSA,L]
