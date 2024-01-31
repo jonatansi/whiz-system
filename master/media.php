@@ -650,8 +650,14 @@ else{
         
         <!-- Sweet alert-->
         <script src="<?php echo $BASE_URL;?>/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+
+        <!-- Input mask Js -->
+    	<script src="<?php echo $BASE_URL;?>/assets/libs/jquery.mask.min.js"></script>
+
+
         <!-- Custom JS -->
         <script src="<?php echo $BASE_URL;?>/assets/js/custom.js"></script>
+        <script src="<?php echo $BASE_URL;?>/addons/js/form-masking-custom.js"></script>
     </body>
 </html>
 <?php

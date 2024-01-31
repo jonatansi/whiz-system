@@ -1,4 +1,4 @@
-<form action="branch-input" method="POST" enctype="multipart/form-data" id="form_crud">
+<form action="vendor-input" method="POST" enctype="multipart/form-data" id="form_crud">
 	<div class="modal-dialog modal-lg a-lightSpeed">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -9,14 +9,21 @@
                 <div class="row">
                     <div class="col-md-6 mb-2">
                         <div class="form-group">
-                            <label>ID Branch <span class="text-danger">*</span></label>
+                            <label>ID Vendor <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" value="" name="kode" required>
                         </div>
                     </div>
 
                     <div class="col-md-6 mb-2">
                         <div class="form-group">
-                            <label>Nama Branch <span class="text-danger">*</span></label>
+                            <label>NPWP <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control npwp" value="" name="npwp" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mb-2">
+                        <div class="form-group">
+                            <label>Nama Vendor <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" value="" name="nama" required>
                         </div>
                     </div>
@@ -71,6 +78,20 @@
                         </div>
                     </div>
 
+                    <div class="col-md-6 mb-2">
+                        <div class="form-group">
+                            <label>PIC Sales <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" value="" name="sales_pic" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-2">
+                        <div class="form-group">
+                            <label>No. HP Sales <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control mob_no" value="" name="sales_hp" required>
+                        </div>
+                    </div>
+
                 </div>
 			</div>
 			<div class="modal-footer p-2">
@@ -99,7 +120,7 @@
             },
 
             success: function(msg) {
-                window.location.href="branch?message=add";
+                window.location.href="vendor?message=add";
                 $("#form_modul").modal('hide');
             }
         });
@@ -108,3 +129,4 @@
 </script>
 <script src="<?php echo $BASE_URL_MASTER;?>/addons/js/select2.js"></script>
 <script src="<?php echo $BASE_URL_MASTER;?>/addons/js/location_general.js"></script>
+<script src="<?php echo $BASE_URL;?>/addons/js/form-masking-custom.js"></script>

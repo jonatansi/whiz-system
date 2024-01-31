@@ -1,7 +1,7 @@
 <?php
-$d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM master_cabang WHERE id='$_POST[id]'"));
+$d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM master_vendor WHERE id='$_POST[id]'"));
 ?>
-<form action="branch-update" method="POST" enctype="multipart/form-data" id="form_crud">
+<form action="vendor-update" method="POST" enctype="multipart/form-data" id="form_crud">
     <input type="hidden" name="id" value="<?php echo $d['id'];?>">
 	<div class="modal-dialog modal-lg a-lightSpeed">
 		<div class="modal-content">
@@ -13,14 +13,21 @@ $d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM master_cabang WHERE id='
                 <div class="row">
                     <div class="col-md-6 mb-2">
                         <div class="form-group">
-                            <label>ID Branch <span class="text-danger">*</span></label>
+                            <label>ID Vendor <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" value="<?php echo $d['kode'];?>" name="kode" required>
                         </div>
                     </div>
 
                     <div class="col-md-6 mb-2">
                         <div class="form-group">
-                            <label>Nama Branch <span class="text-danger">*</span></label>
+                            <label>NPWP <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control npwp" value="<?php echo $d['npwp'];?>" name="npwp" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mb-2">
+                        <div class="form-group">
+                            <label>Nama Vendor <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" value="<?php echo $d['nama'];?>" name="nama" required>
                         </div>
                     </div>
@@ -116,6 +123,20 @@ $d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM master_cabang WHERE id='
                         </div>
                     </div>
 
+                    <div class="col-md-6 mb-2">
+                        <div class="form-group">
+                            <label>PIC Sales <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" value="<?php echo $d['sales_pic'];?>" name="sales_pic" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-2">
+                        <div class="form-group">
+                            <label>No. HP Sales <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control mob_no"  value="<?php echo $d['sales_hp'];?>" name="sales_hp" required>
+                        </div>
+                    </div>
+
                 </div>
 			</div>
 			<div class="modal-footer p-2">
@@ -144,7 +165,7 @@ $d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM master_cabang WHERE id='
             },
 
             success: function(msg) {
-                window.location.href="branch?message=edit";
+                window.location.href="vendor?message=edit";
                 $("#form_modul").modal('hide');
             }
         });
@@ -153,3 +174,4 @@ $d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM master_cabang WHERE id='
 </script>
 <script src="<?php echo $BASE_URL_MASTER;?>/addons/js/select2.js"></script>
 <script src="<?php echo $BASE_URL_MASTER;?>/addons/js/location_general.js"></script>
+<script src="<?php echo $BASE_URL;?>/addons/js/form-masking-custom.js"></script>

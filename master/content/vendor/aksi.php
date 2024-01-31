@@ -13,7 +13,7 @@ else{
 
 	$act=$_GET['act'];
     
-	$module = "Master Branch";
+	$module = "Master vendor";
 	
 	if($act=='tambah'){
 		include "tambah.php";
@@ -21,14 +21,14 @@ else{
 
 	else if($act=='input'){
         
-		$sql="INSERT INTO master_cabang (kode, nama, lok_provinsi_id, lok_kabupaten_id, lok_kecamatan_id, lok_kelurahan_id, alamat, kode_pos, created_at) VALUES ('$_POST[kode]', '$_POST[nama]', '$_POST[lok_provinsi_id]', '$_POST[lok_kabupaten_id]', '$_POST[lok_kecamatan_id]', '$_POST[lok_kelurahan_id]', '$_POST[alamat]', '$_POST[kode_pos]', '$waktu_sekarang')";
+		$sql="INSERT INTO master_vendor (kode, nama, lok_provinsi_id, lok_kabupaten_id, lok_kecamatan_id, lok_kelurahan_id, alamat, kode_pos, npwp, sales_pic, sales_hp, created_at, updated_at) VALUES ('$_POST[kode]', '$_POST[nama]', '$_POST[lok_provinsi_id]', '$_POST[lok_kabupaten_id]', '$_POST[lok_kecamatan_id]', '$_POST[lok_kelurahan_id]', '$_POST[alamat]', '$_POST[kode_pos]', '$_POST[npwp]', '$_POST[sales_pic]', '$_POST[sales_hp]', '$waktu_sekarang', '$waktu_sekarang')";
 
 		mysqli_query($conn,$sql);
 		$d=mysqli_insert_id($conn);
 
-		log_activity($conn, $_SESSION['login_user'], $module, 'master_cabang', $d, 'CREATE', $_SESSION['id_session'], $waktu_sekarang);
+		log_activity($conn, $_SESSION['login_user'], $module, 'master_vendor', $d, 'CREATE', $_SESSION['id_session'], $waktu_sekarang);
 
-		// header("location: branch");
+		// header("location: vendor");
 	
 	}
 
@@ -38,22 +38,22 @@ else{
 
 	else if($act=='update'){
 		
-        $sql="UPDATE master_cabang SET kode='$_POST[kode]', nama='$_POST[nama]', lok_provinsi_id='$_POST[lok_provinsi_id]', lok_kabupaten_id='$_POST[lok_kabupaten_id]', lok_kecamatan_id='$_POST[lok_kecamatan_id]', lok_kelurahan_id='$_POST[lok_kelurahan_id]', updated_at='$waktu_sekarang' WHERE id='$_POST[id]'";
+        $sql="UPDATE master_vendor SET kode='$_POST[kode]', nama='$_POST[nama]', lok_provinsi_id='$_POST[lok_provinsi_id]', lok_kabupaten_id='$_POST[lok_kabupaten_id]', lok_kecamatan_id='$_POST[lok_kecamatan_id]', lok_kelurahan_id='$_POST[lok_kelurahan_id]', alamat='$_POST[alamat]', kode_pos='$_POST[kode_pos]', sales_pic='$_POST[sales_pic]', sales_hp='$_POST[sales_hp]', updated_at='$waktu_sekarang' WHERE id='$_POST[id]'";
 
         mysqli_query($conn,$sql);
 
-		log_activity($conn, $_SESSION['login_user'], $module, 'master_cabang', $_POST['id'], 'UPDATE', $_SESSION['id_session'], $waktu_sekarang);
+		log_activity($conn, $_SESSION['login_user'], $module, 'master_vendor', $_POST['id'], 'UPDATE', $_SESSION['id_session'], $waktu_sekarang);
 
-		// header("location: branch");
+		// header("location: vendor");
 	}
 	
 	else if($act=='delete'){
-		$sql="UPDATE master_cabang SET deleted_at='$waktu_sekarang' WHERE id='$_GET[id]'";
+		$sql="UPDATE master_vendor SET deleted_at='$waktu_sekarang' WHERE id='$_GET[id]'";
 		$result=mysqli_query($conn,$sql);
 
-		log_activity($conn, $_SESSION['login_user'], $module, 'master_cabang', $_GET['id'], 'DELETE', $_SESSION['id_session'], $waktu_sekarang);
+		log_activity($conn, $_SESSION['login_user'], $module, 'master_vendor', $_GET['id'], 'DELETE', $_SESSION['id_session'], $waktu_sekarang);
 
-		header("location: branch?message=delete");
+		header("location: vendor?message=delete");
 	}
 
 	mysqli_close($conn);
