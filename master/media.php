@@ -31,6 +31,8 @@ else{
         $kategori=$_GET['kategori'];
     }
 
+    $pegawai = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai WHERE id='$_SESSION[login_user]'"));
+
 ?>
     <!DOCTYPE html>
     <html lang="en" dir="ltr" data-nav-layout="vertical" data-theme-mode="light" data-header-styles="light" data-menu-styles="light" data-toggled="close">
