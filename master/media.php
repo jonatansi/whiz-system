@@ -26,6 +26,10 @@ else{
     include "../konfig/fungsi_tanggal.php";
 
     $module = $_GET['module'];
+    $kategori='';
+    if(isset($_GET['kategori'])){
+        $kategori=$_GET['kategori'];
+    }
 
 ?>
     <!DOCTYPE html>

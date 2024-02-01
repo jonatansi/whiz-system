@@ -75,22 +75,22 @@
                 
                 <li class="slide__category"><span class="category-name">User Management</span></li>
 
-                <li class="slide">
-                    <a href="<?php echo $BASE_URL_MASTER;?>/user" class="side-menu__item">
+                <li class="slide <?php if($module=='user' AND $kategori=='user'){echo "active";}?>">
+                    <a href="<?php echo $BASE_URL_MASTER;?>/user" class="side-menu__item <?php if($module=='user' AND $kategori=='user'){echo "active";}?>">
                         <i class="fa-regular fa-user side-menu__icon"></i>
                         <span class="side-menu__label">Pengguna</span>
                     </a>
                 </li>
 
-                <li class="slide">
-                    <a href="<?php echo $BASE_URL_MASTER;?>/user-logactivity" class="side-menu__item">
+                <li class="slide <?php if($module=='user' AND $kategori=='logactivity'){echo "active";}?>">
+                    <a href="<?php echo $BASE_URL_MASTER;?>/user-logactivity" class="side-menu__item <?php if($module=='user' AND $kategori=='logactivity'){echo "active";}?>">
                         <i class="fa fa-list side-menu__icon"></i>
                         <span class="side-menu__label">Log Activity</span>
                     </a>
                 </li>
 
-                <li class="slide">
-                    <a href="<?php echo $BASE_URL_MASTER;?>/user-loglogin" class="side-menu__item">
+                <li class="slide <?php if($module=='loglogin' AND $kategori=='user'){echo "active";}?>">
+                    <a href="<?php echo $BASE_URL_MASTER;?>/user-loglogin" class="side-menu__item <?php if($module=='user' AND $kategori=='loglogin'){echo "active";}?>">
                         <i class="fa-solid fa-right-to-bracket side-menu__icon"></i>
                         <span class="side-menu__label">Log Login</span>
                     </a>

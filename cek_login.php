@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 include "konfig/koneksi.php";
 include "konfig/library.php";
 include "konfig/myencrypt.php";
+include "konfig/fungsi_get_ip.php";
 
 session_start();
 if (isset($_POST['username']) && isset($_POST['password'])) {
@@ -43,6 +44,12 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             $_SESSION['login_system'] = 1;
 
             mysqli_query($conn,"UPDATE pegawai SET is_login='Y', last_login_at='$waktu_sekarang' WHERE id='$row[id]'");
+
+			$user_ip = getUserIP();
+
+			$browser = getBrowser();
+
+			mysqli_query($conn,"INSERT INTO pegawai_log_login (pegawai_id, login_at, id_session, ip_address, browser) VALUES ('$_SESSION[login_user]', '$waktu_sekarang', '$_SESSION[id_session]', '$user_ip', '$browser')");
 
             echo "ok";
         }

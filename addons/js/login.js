@@ -37,6 +37,7 @@ $('#loginForm').submit(function(e) {
                     token: token
                 },
                 function(data) {
+                    console.log(data);
                     if (data == "ok") {
                         window.location.href = id_portal+"/home";
                     }
