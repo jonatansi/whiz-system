@@ -46,7 +46,7 @@ else{
         <div class="card">
             <div class="card-header">
                 <div class="card-title">
-                    Data Pengguna
+                    Data Log Aktivitas
                 </div>
             </div>
             <div class="card-body">

@@ -12,7 +12,7 @@
                             <label>Branch <span class="text-danger">*</span></label>
                             <select name="master_cabang_id" class="form-control select2" style="width:100%">
                                 <?php
-                                $tampil=mysqli_query($conn,"SELECT * FROM master_cabang ORDER BY nama ASC");
+                                $tampil=mysqli_query($conn,"SELECT * FROM master_cabang WHERE deleted_at IS NULL ORDER BY nama ASC");
                                 while($r=mysqli_fetch_array($tampil)){
                                     echo"<option value='$r[id]'>$r[nama]</option>";
                                 }
