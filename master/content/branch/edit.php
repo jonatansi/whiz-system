@@ -125,31 +125,8 @@ $d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM master_cabang WHERE id='
 		</div>
 	</div>
 </form>
-<script type="text/javascript">
-    $("#form_crud").submit(function(e) {
-        $(this).find(':submit').attr('disabled','disabled');
-        e.preventDefault(); // avoid to execute the actual submit of the form.
-
-        var form = $(this);
-        var actionUrl = form.attr('action');
-        $.ajax({
-            type: "POST",
-            url: actionUrl,
-            data: form.serialize(), // serializes the form's elements.
-            beforeSend: function() {
-                $(".preloader").show();
-            },
-            complete: function() {
-                $(".preloader").hide();
-            },
-
-            success: function(msg) {
-                window.location.href="branch?message=edit";
-                $("#form_modul").modal('hide');
-            }
-        });
-
-    });
-</script>
-<script src="<?php echo $BASE_URL_MASTER;?>/addons/js/select2.js"></script>
+<?php
+echo form_modal_js("branch?message=edit");
+echo form_select2();
+?>
 <script src="<?php echo $BASE_URL_MASTER;?>/addons/js/location_general.js"></script>

@@ -11,16 +11,16 @@ else{
 	
     $columns = array( 
         0 =>'a.id', 
-        1 =>'b.email',
-        2=> 'b.nama',
-        3=> 'a.login_at',
+        1=> 'a.login_at',
+        2 =>'b.email',
+        3=> 'b.nama',
         4=> 'a.ip_address',
         5=> 'a.browser',
         6=> 'a.id_session',
         7=> 'a.logout_at',
     );
 
-    $pencarian = array('a.id', 'b.email', 'b.nama', 'a.login_at', 'a.ip_address', 'a.browser', 'a.id_session', 'a.logout_at');
+    $pencarian = array('a.id', 'a.login_at', 'b.email', 'b.nama', 'a.ip_address', 'a.browser', 'a.id_session', 'a.logout_at');
 
     $d = mysqli_fetch_array(mysqli_query($conn,"SELECT COUNT(a.id) AS jumlah  FROM pegawai_log_login a LEFT JOIN pegawai b ON a.pegawai_id=b.id WHERE a.login_at BETWEEN '$_POST[tanggal_awal] 00:00:00' AND '$_POST[tanggal_akhir] 23:59:59' AND b.deleted_at IS NULL"));
     $totalData = $d['jumlah'];
@@ -76,9 +76,10 @@ else{
     while( $row=mysqli_fetch_array($sql_data)) {  // preparing an array
         $nestedData=array(); 
         $nestedData[] = $no;
+        $nestedData[] = WaktuIndo($row['login_at']);
         $nestedData[] = $row['email'];
         $nestedData[] = $row["nama"];
-        $nestedData[] = WaktuIndo($row['login_at']);
+
         $nestedData[] = $row['ip_address'];
         $nestedData[] = $row['browser'];
         $nestedData[] = $row['id_session'];

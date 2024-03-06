@@ -51,13 +51,13 @@ else{
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table" id="loglogin">
+                    <table class="table" id="datatable_ajax">
                         <thead class="table-info text-center">
                             <tr>
                                 <th width="50px">No</th>
+                                <th>Waktu Login</th>
                                 <th>Email</th>
                                 <th>Nama</th>
-                                <th>Waktu Login</th>
                                 <th>IP Address</th>
                                 <th>Browser</th>
                                 <th>Session</th>
@@ -71,47 +71,9 @@ else{
     </div>
 </div>
 
-
-<script type="text/javascript">
-$(document).ready( function () {
-    var tanggal_awal = $("#tanggal_awal").val();
-    var tanggal_akhir = $("#tanggal_akhir").val();
-
-    var table = $('#loglogin').DataTable( {
-        "processing": true,
-        "serverSide": true,
-        "order": [[ 0, 'desc' ]],
-        "lengthMenu": [[25, 50, 100, 500], [25, 50, 100, 500]],
-        "ajax": {
-            "url": "user-loglogin-data",
-            "data": function(d) {
-                d.tanggal_awal = $("#tanggal_awal").val();;
-                d.tanggal_akhir = $("#tanggal_akhir").val();
-            },
-            "type": "POST"
-        },
-        'columnDefs': [
-            {
-                "targets": 0, // your case first column
-                "className": "text-center",
-                "width": "50px"
-            },
-            {
-                "targets": 5, // your case first column
-                "className": "text-center",
-            }
-        ],
-        "bDestroy": true,
-        dom :"<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'B><'col-sm-12 col-md-4'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-        buttons: [
-            'copy', 'excel', 'colvis'
-        ]
-    });
-
-    $("#btnFilter").click(function() {
-        table.ajax.reload();
-    });
-});
-</script>
+<?php 
+// $order_column_add = datatable_column("-2", "text-center", "false");
+$order_column_add = "";
+$disabled_column_serch_add = datatable_column_search_disabled(0);
+echo generate_datatable("user-loglogin-data", "1", "desc", $order_column_add, $disabled_column_serch_add);
+?>

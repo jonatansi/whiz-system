@@ -62,19 +62,26 @@
     </div>
 </div>
 
-<script type="text/javascript" src="<?php echo $BASE_URL_MASTER;?>/addons/js/satuan.js"></script>
-<script type="text/javascript" src="<?php echo $BASE_URL_MASTER;?>/addons/js/datatable.js"></script>
+<script type="text/javascript">
+<?php
+echo generate_javascript_action("btnAdd", "satuan-tambah");
+echo generate_javascript_action("btnEdit", "satuan-edit");
+echo generate_javascript_action("btnDelete", "satuan-delete");
+
+echo general_default_datatable();
+?>
+</script>
 
 <?php
 if(isset($_GET['message'])){
     if($_GET['message']=='add'){
-        $pesan = "Berhasil menambahkan data kategori material";
+        $pesan = "Berhasil menambahkan data satuan";
     }
     else if($_GET['message']=='edit'){
-        $pesan = "Berhasil memperbaharui data kategori material";
+        $pesan = "Berhasil memperbaharui data satuan";
     }
     else if($_GET['message']=='delete'){
-        $pesan = "Berhasil menghapus data kategori material";
+        $pesan = "Berhasil menghapus data satuan";
     }
     ?>
     <script type="text/javascript">

@@ -79,9 +79,15 @@
     </div>
 </div>
 
-<script type="text/javascript" src="<?php echo $BASE_URL_MASTER;?>/addons/js/vendor.js"></script>
-<script type="text/javascript" src="<?php echo $BASE_URL_MASTER;?>/addons/js/datatable.js"></script>
+<script type="text/javascript">
+<?php
+echo generate_javascript_action("btnAdd", "vendor-tambah");
+echo generate_javascript_action("btnEdit", "vendor-edit");
+echo generate_javascript_action("btnDelete", "vendor-delete");
 
+echo general_default_datatable();
+?>
+</script>
 <?php
 if(isset($_GET['message'])){
     if($_GET['message']=='add'){

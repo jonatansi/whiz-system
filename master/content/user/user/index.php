@@ -74,19 +74,26 @@
     </div>
 </div>
 
-<script type="text/javascript" src="<?php echo $BASE_URL_MASTER;?>/addons/js/user.js"></script>
-<script type="text/javascript" src="<?php echo $BASE_URL_MASTER;?>/addons/js/datatable.js"></script>
+<script type="text/javascript">
+<?php
+echo generate_javascript_action("btnAdd", "user-tambah");
+echo generate_javascript_action("btnEdit", "user-edit");
+echo generate_javascript_action("btnDelete", "user-delete");
+
+echo general_default_datatable();
+?>
+</script>
 
 <?php
 if(isset($_GET['message'])){
     if($_GET['message']=='add'){
-        $pesan = "Berhasil menambahkan data material";
+        $pesan = "Berhasil menambahkan data user";
     }
     else if($_GET['message']=='edit'){
-        $pesan = "Berhasil memperbaharui data material";
+        $pesan = "Berhasil memperbaharui data user";
     }
     else if($_GET['message']=='delete'){
-        $pesan = "Berhasil menghapus data material";
+        $pesan = "Berhasil menghapus data user";
     }
     ?>
     <script type="text/javascript">

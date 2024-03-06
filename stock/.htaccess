@@ -1,0 +1,54 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+RewriteRule ^directory/ - [L,R=404]
+
+RewriteRule ^keluar$ ../logout.php [QSA,L]
+
+RewriteRule ^home$ media.php?module=home [QSA,L]
+
+RewriteRule ^profile$ media.php?module=profile [QSA,L]
+RewriteRule ^aksi-edit-profile$ content/profile/aksi.php?act=update [QSA,L]
+
+### PO
+RewriteRule ^po$ media.php?module=po [QSA,L]
+
+
+### Terima PO
+RewriteRule ^terima-po$ media.php?module=terima_po [QSA,L]
+
+### Persediaan
+RewriteRule ^persediaan$ media.php?module=persediaan [QSA,L]
+
+
+### material
+RewriteRule ^material$ media.php?module=material [QSA,L]
+RewriteRule ^material-tambah$ content/material/aksi.php?act=tambah [QSA,L]
+RewriteRule ^material-input$ content/material/aksi.php?act=input [QSA,L]
+RewriteRule ^material-edit$ content/material/aksi.php?act=edit [QSA,L]
+RewriteRule ^material-update$ content/material/aksi.php?act=update [QSA,L]
+RewriteRule ^material-delete-([0-9a-zA-Z-]+)$ content/material/aksi.php?act=delete&id=$1 [QSA,L]
+
+
+### kategori material
+RewriteRule ^katmaterial$ media.php?module=katmaterial [QSA,L]
+RewriteRule ^katmaterial-tambah$ content/katmaterial/aksi.php?act=tambah [QSA,L]
+RewriteRule ^katmaterial-input$ content/katmaterial/aksi.php?act=input [QSA,L]
+RewriteRule ^katmaterial-edit$ content/katmaterial/aksi.php?act=edit [QSA,L]
+RewriteRule ^katmaterial-update$ content/katmaterial/aksi.php?act=update [QSA,L]
+RewriteRule ^katmaterial-delete-([0-9a-zA-Z-]+)$ content/katmaterial/aksi.php?act=delete&id=$1 [QSA,L]
+
+
+### satuan
+RewriteRule ^satuan$ media.php?module=satuan [QSA,L]
+RewriteRule ^satuan-tambah$ content/satuan/aksi.php?act=tambah [QSA,L]
+RewriteRule ^satuan-input$ content/satuan/aksi.php?act=input [QSA,L]
+RewriteRule ^satuan-edit$ content/satuan/aksi.php?act=edit [QSA,L]
+RewriteRule ^satuan-update$ content/satuan/aksi.php?act=update [QSA,L]
+RewriteRule ^satuan-delete-([0-9a-zA-Z-]+)$ content/satuan/aksi.php?act=delete&id=$1 [QSA,L]
+
+</IfModule>

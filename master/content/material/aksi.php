@@ -10,6 +10,7 @@ else{
 	include "../../../konfig/fungsi_log_activity.php";
 	include "../../../konfig/fungsi_thumb.php";
     include "../../../konfig/base_url.php";
+	include "../../../konfig/fungsi_form_modal.php";
 
 	$act=$_GET['act'];
     

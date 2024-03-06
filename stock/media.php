@@ -24,7 +24,6 @@ else{
     include "../konfig/base_url.php";
     include "../konfig/koneksi.php";
     include "../konfig/fungsi_tanggal.php";
-    include "../konfig/fungsi_generate_js.php";
 
     $module = $_GET['module'];
     $kategori='';
@@ -88,7 +87,7 @@ else{
         <!-- Sweetalerts CSS -->
         <link rel="stylesheet" href="<?php echo $BASE_URL;?>/assets/libs/sweetalert2/sweetalert2.min.css">
 
-        <link rel="stylesheet" href="<?php echo $BASE_URL_MASTER;?>/addons/css/custom.css">
+        <link rel="stylesheet" href="<?php echo $BASE_URL_STOCK;?>/addons/css/custom.css">
 
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 

@@ -75,8 +75,15 @@
     </div>
 </div>
 
-<script type="text/javascript" src="<?php echo $BASE_URL_MASTER;?>/addons/js/branch.js"></script>
-<script type="text/javascript" src="<?php echo $BASE_URL_MASTER;?>/addons/js/datatable.js"></script>
+<script type="text/javascript">
+<?php
+echo generate_javascript_action("btnAdd", "branch-tambah");
+echo generate_javascript_action("btnEdit", "branch-edit");
+echo generate_javascript_action("btnDelete", "branch-delete");
+
+echo general_default_datatable();
+?>
+</script>
 
 <?php
 if(isset($_GET['message'])){

@@ -10,6 +10,7 @@ else{
 	include "../../../konfig/fungsi_log_activity.php";
 	include "../../../konfig/fungsi_thumb.php";
     include "../../../konfig/base_url.php";
+	include "../../../konfig/fungsi_form_modal.php";
 
 	$act=$_GET['act'];
     
@@ -26,10 +27,7 @@ else{
 		mysqli_query($conn,$sql);
 		$d=mysqli_insert_id($conn);
 
-		log_activity($conn, $_SESSION['login_user'], $module, 'master_gudang', $d, 'CREATE', $_SESSION['id_session'], $waktu_sekarang);
-
-		// header("location: gudang");
-	
+		log_activity($conn, $_SESSION['login_user'], $module, 'master_gudang', $d, 'CREATE', $_SESSION['id_session'], $waktu_sekarang);	
 	}
 
 	else if($act=='edit'){
@@ -43,8 +41,6 @@ else{
         mysqli_query($conn,$sql);
 
 		log_activity($conn, $_SESSION['login_user'], $module, 'master_gudang', $_POST['id'], 'UPDATE', $_SESSION['id_session'], $waktu_sekarang);
-
-		// header("location: gudang");
 	}
 	
 	else if($act=='delete'){

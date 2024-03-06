@@ -73,8 +73,15 @@
     </div>
 </div>
 
-<script type="text/javascript" src="<?php echo $BASE_URL_MASTER;?>/addons/js/material.js"></script>
-<script type="text/javascript" src="<?php echo $BASE_URL_MASTER;?>/addons/js/datatable.js"></script>
+<script type="text/javascript">
+<?php
+echo generate_javascript_action("btnAdd", "material-tambah");
+echo generate_javascript_action("btnEdit", "material-edit");
+echo generate_javascript_action("btnDelete", "material-delete");
+
+echo general_default_datatable();
+?>
+</script>
 
 <?php
 if(isset($_GET['message'])){

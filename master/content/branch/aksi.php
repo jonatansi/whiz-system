@@ -10,6 +10,7 @@ else{
 	include "../../../konfig/fungsi_log_activity.php";
 	include "../../../konfig/fungsi_thumb.php";
     include "../../../konfig/base_url.php";
+	include "../../../konfig/fungsi_form_modal.php";
 
 	$act=$_GET['act'];
     
@@ -28,8 +29,6 @@ else{
 
 		log_activity($conn, $_SESSION['login_user'], $module, 'master_cabang', $d, 'CREATE', $_SESSION['id_session'], $waktu_sekarang);
 
-		// header("location: branch");
-	
 	}
 
 	else if($act=='edit'){
@@ -43,8 +42,6 @@ else{
         mysqli_query($conn,$sql);
 
 		log_activity($conn, $_SESSION['login_user'], $module, 'master_cabang', $_POST['id'], 'UPDATE', $_SESSION['id_session'], $waktu_sekarang);
-
-		// header("location: branch");
 	}
 	
 	else if($act=='delete'){

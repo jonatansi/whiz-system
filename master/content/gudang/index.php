@@ -70,8 +70,15 @@
     </div>
 </div>
 
-<script type="text/javascript" src="<?php echo $BASE_URL_MASTER;?>/addons/js/gudang.js"></script>
-<script type="text/javascript" src="<?php echo $BASE_URL_MASTER;?>/addons/js/datatable.js"></script>
+<script type="text/javascript">
+<?php
+echo generate_javascript_action("btnAdd", "gudang-tambah");
+echo generate_javascript_action("btnEdit", "gudang-edit");
+echo generate_javascript_action("btnDelete", "gudang-delete");
+
+echo general_default_datatable();
+?>
+</script>
 
 <?php
 if(isset($_GET['message'])){

@@ -18,29 +18,6 @@
 		</div>
 	</div>
 </form>
-<script type="text/javascript">
-    $("#form_crud").submit(function(e) {
-        $(this).find(':submit').attr('disabled','disabled');
-        e.preventDefault(); // avoid to execute the actual submit of the form.
-
-        var form = $(this);
-        var actionUrl = form.attr('action');
-        $.ajax({
-            type: "POST",
-            url: actionUrl,
-            data: form.serialize(), // serializes the form's elements.
-            beforeSend: function() {
-                $(".preloader").show();
-            },
-            complete: function() {
-                $(".preloader").hide();
-            },
-
-            success: function(msg) {
-                window.location.href="katmaterial?message=add";
-                $("#form_modul").modal('hide');
-            }
-        });
-
-    });
-</script>
+<?php
+echo form_modal_js("katmaterial?message=add");
+?>
