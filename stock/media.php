@@ -23,7 +23,9 @@ if($_SESSION['login_system']==0){
 else{
     include "../konfig/base_url.php";
     include "../konfig/koneksi.php";
+    include "../konfig/library.php";
     include "../konfig/fungsi_tanggal.php";
+    include "../konfig/fungsi_generate_js.php";
 
     $module = $_GET['module'];
     $kategori='';

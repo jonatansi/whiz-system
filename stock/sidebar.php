@@ -2,10 +2,10 @@
     <!-- Start::main-sidebar-header -->
     <div class="main-sidebar-header">
         <a href="index.html" class="header-logo">
-            <img src="<?php echo $BASE_URL;?>/images/logocolor.png" alt="logo" class="desktop-logo">
-            <img src="<?php echo $BASE_URL;?>/images/icon.png" alt="logo" class="toggle-logo">
-            <img src="<?php echo $BASE_URL;?>/images/logowhite.png" alt="logo" class="desktop-white">
-            <img src="<?php echo $BASE_URL;?>/images/icon.png" alt="logo" class="toggle-white">
+            <img src="<?php echo $BASE_URL;?>/images/logo.png" alt="logo" class="desktop-logo">
+            <img src="<?php echo $BASE_URL;?>/images/logo.png" alt="logo" class="toggle-logo">
+            <img src="<?php echo $BASE_URL;?>/images/logo.png" alt="logo" class="desktop-white">
+            <img src="<?php echo $BASE_URL;?>/images/logo.png" alt="logo" class="toggle-white">
         </a>
     </div>
     <!-- End::main-sidebar-header -->
