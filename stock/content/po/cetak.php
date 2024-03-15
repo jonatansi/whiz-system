@@ -13,8 +13,8 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[id]'"));
 			@page {
                 size: A4;
                 padding: 0;
-                margin: 5mm 6mm 5mm 14mm; 
-                font-family: 'Arial Narrow', sans-serif;
+                margin: 3mm 4mm 4mm 4mm; 
+                /* font-family: 'Arial Narrow', sans-serif; */
             }			  
 
             @media print {
@@ -23,7 +23,7 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[id]'"));
                 }
             }
             body{
-                font-family: 'Arial Narrow', sans-serif;
+                font-family: 'Trebuchet MS', sans-serif;
                 font-size:0.8rem;
                 line-height: 1rem;
                 -webkit-print-color-adjust: exact !important;
@@ -51,7 +51,16 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[id]'"));
 
             table{
                 border-collapse:collapse;
-                font-size:0.75rem;
+                font-size: 0.8rem;
+                width: 100%;
+            }
+
+            table tr td{
+                padding: 4px !important;
+            }
+
+            .fw-bold{
+                font-weight: bold;
             }
 
             .width-23{
@@ -63,7 +72,7 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[id]'"));
             }
 
             .width-33{
-                width:40%;
+                width:33.3%;
                 float:left;
                 margin-bottom: 5px;
                 /* border: 1px solid red; */
@@ -71,7 +80,7 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[id]'"));
 
 
             .width-50{
-                width:48%;
+                width:49%;
                 float:left;
                 margin-bottom: 5px;
                 margin-right:5px;
@@ -125,142 +134,166 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[id]'"));
 
             table.border{
                 border-collapse:collapse;
-                font-size:0.9rem;
+                font-size:0.8rem;
             }
 
             thead.border tr th{
-                border:1px solid #000;
-                font-weight:500;
-                padding:3px;
+                border-bottom:1px solid #CCC;
+                font-weight:bold;
+                padding:10px 5px;
                 font-size:0.8rem;
                 background:#F2F2F2;
             }
 
             tbody.border tr td{
-                border:1px solid #000;
-                padding:3px;
+                border-bottom:1px solid #CCC;
+                padding:10px 5px !important;
                 font-size:0.8rem;
+            }
+
+            tbody.special tr td{
+                padding:10px !important;
+                font-size:0.8rem;
+                background:#F2F2F2;
             }
 
             .footer {
                 position: fixed;
                 bottom: 0;
-                padding:5px;
-                font-style:italic;
-                background-color:#548DD4;
-                text-align:center;
-                width:98%;
             }
 
             .fw-italic{
                 font-style:italic;
             }
-            
-            table{
-                width:100%;
-                border-collapse:collapse;
-            }
-
-            table.mytable tbody tr td{
-                vertical-align: middle;
-            }
-
-            table.head tbody tr td{
-                vertical-align: top;
-                padding: 0;
-            }
-
-            table.detail thead tr th, table.detail tbody tr td, table.detail tfoot tr td{
-                font-size: 0.8rem;
-                padding: 10px;
-                border: 1px solid #000;
-            }
-
-            table.detail thead tr th{
-                background-color: #18A84B;
-                font-weight: normal;
-            }
-
-
-            .img-foto{
-                max-width:240px;
-                border:1px solid #F2F2F2;
-                background-color: #FFF;
-                padding:5px;
-            }
-
-            .text-right{
-                text-align: right;
-            }
-
-            .text-center{
-                text-align: center;
-            }
-
-            
-            .my-2{
-                margin-top: 0.5rem;
-                margin-bottom: 0.2rem;
-            }
-
-            
-            .mt-3{
-                margin-bottom: 2rem;;
-            }
-
-            .mb-3{
-                margin-bottom: 2rem;;
-            }
-
-            .border-head{
-                border-top: 2px solid #468FFC;
-            }
-
-            .border-head2{
-                border-left: 1px solid #468FFC;
-                border-right: 1px solid #468FFC;
-                border-bottom: 1px solid #468FFC;
-            }
-            .clear{
-                clear:both;
-            } 
-            .bg-red{
-                background-color: #468FFC;
-                color: #fff;
-            }
-
-            .text-c-green{
-                color: #18A84B;
-            }
-
-            .fw-bold-arial{
-                font-weight: bold;
-            }
-
-            .m-0{
-                margin:0;
-            }
-            .p-0{
-                padding:0;
-            }
-
-            .border-y{
-                border-left:1px solid #000;
-                border-right:1px solid #000;
-            }
-
-            table.border-y tr td{
-                border-top:1px solid #000;
-                border-bottom:1px solid #000;
-            }
         </style>
+        <script>
+		function myFunction() {
+			window.print();
+			setTimeout(window.close, 0);
+		}
+		</script>
 	</head>
 	<body>
         <div class="width-50">
-tes
+            <h1>Purchase Order</h1>
         </div>
-        <div class="width-50">
-            test
+        <div class="width-50 text-right">
+            <img src="<?php echo $BASE_URL;?>/images/logo.png">
         </div>
+        <div class="clear" style="margin-bottom: 2rem;"></div>
+
+        <div class="width-33">
+            <table>
+                <tr>
+                    <td class="fw-bold">No. Purchase Order</td>
+                    <td class="text-right"><?php echo $d['nomor'];?></td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">Requester</td>
+                    <td class="text-right"><?php echo $d['nama_cabang'];?></td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">PIC Penerima</td>
+                    <td class="text-right"><?php echo $d['pic_nama'];?></td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">No. HP PIC</td>
+                    <td class="text-right"><?php echo $d['pic_hp'];?></td>
+                </tr>
+            </table>
+        </div>
+        <div class="width-33">&nbsp;</div>
+        <div class="width-33">
+            <table>
+                <tr>
+                    <td class="fw-bold">Tanggal PO</td>
+                    <td class="text-right"><?php echo dateFormat($d['tanggal']);?></td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">Vendor</td>
+                    <td class="text-right"><?php echo $d['nama_vendor'];?></td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">No. Penawaran</td>
+                    <td class="text-right"><?php echo $d['nomor_penawaran'];?></td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">Dikirim ke</td>
+                    <td class="text-right"><?php echo $d['alamat_tujuan'];?></td>
+                </tr>
+            </table>
+        </div>
+        <div class="clear" style="margin-bottom: 2rem;"></div>
+        <table class="border">
+            <thead class="border">
+                <tr>
+                    <th>NO</th>
+                    <th class="text-left">KATEGORI</th>
+                    <th class="text-left">MERK/TYPE</th>
+                    <th>JUMLAH</th>
+                    <th>SATUAN</th>
+                    <th>KONDISI</th>
+                    <th>HARGA SATUAN</th>
+                    <th>SUBTOTAL</th>
+                </tr>
+            </thead>
+            <tbody class="border">
+                <?php
+                $no=1;
+                $tampil=mysqli_query($conn,"SELECT a.*, b.merk_type, c.nama AS nama_kondisi, d.nama AS nama_kategori_material, e.nama AS nama_satuan_besar FROM po_detail a
+                LEFT JOIN master_material b ON a.master_material_id=b.id AND b.deleted_at IS NULL
+                LEFT JOIN master_kondisi c ON a.master_kondisi_id=c.id AND c.deleted_at IS NULL
+                LEFT JOIN master_kategori_material d ON a.master_kategori_material_id=d.id AND d.deleted_at IS NULL
+                LEFT JOIN master_satuan e ON a.master_satuan_besar_id=e.id AND e.deleted_at IS NULL
+                WHERE a.deleted_at IS NULL AND a.po_id='$_GET[id]'");
+                $grand_total=0;
+                while($r=mysqli_fetch_array($tampil)){
+                    ?>
+                    <tr>
+                        <td><?php echo $no;?></td>
+                        <td><?php echo $r['nama_kategori_material'];?></td>
+                        <td><?php echo $r['merk_type'];?></td>
+                        <td class="text-center"><?php echo formatAngka($r['jumlah']);?></td>
+                        <td class="text-center"><?php echo $r['nama_satuan_besar'];?></td>
+                        <td class="text-center"><?php echo $r['nama_kondisi'];?></td>
+                        <td class="text-right"><?php echo formatAngka($r['harga']);?></td>
+                        <td class="text-right"><?php echo formatAngka($r['jumlah']*$r['harga']);?></td>
+                    </tr>
+                    <?php
+                    $no++;
+
+                    $grand_total+=($r['jumlah']*$r['harga']);
+                }
+                ?>
+            </tbody>
+        </table>
+        <div style="margin: 2rem 0"></div>
+        <div class="width-33">
+            <table>
+                <tbody class="special">
+                    <tr>
+                        <td width="150px">STATUS :</td>
+                        <td class="fw-bold"><?php echo $d['nama_status'];?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="width-33">&nbsp;</div>
+        <div class="width-33">
+            <table>
+                <tbody class="special">
+                    <tr>
+                        <td width="150px">GRAND TOTAL :</td>
+                        <td class="fw-bold text-right"><h3>Rp <?php echo formatAngka($grand_total);?></h3></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="clear" style="margin-bottom: 2rem;"></div>
+        <footer>
+            <div class="width-50">
+                
+            </div>
+        </footer>
 	</body>
 </html>

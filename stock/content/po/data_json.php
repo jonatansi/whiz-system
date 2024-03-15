@@ -10,12 +10,18 @@ $columns = array(
 
 $pencarian = array('a.id', 'a.nomor', 'a.tanggal', 'b.nama', 'c.nama', 'd.nama');
 
+$pegawai = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai WHERE id='$_SESSION[login_user]'"));
+
 $query = "SELECT a.*, b.nama AS nama_cabang, c.nama AS nama_vendor, d.nama AS nama_status, d.warna AS warna_status, (SELECT SUM(e.jumlah) FROM po_detail e WHERE a.id=e.po_id AND e.deleted_at IS NULL) AS total_item, (SELECT SUM(e.jumlah * e.harga) FROM po_detail e WHERE a.id=e.po_id AND e.deleted_at IS NULL) AS total_harga 
 FROM po a 
 LEFT JOIN master_cabang b ON a.request_master_cabang_id=b.id AND b.deleted_at IS NULL
 LEFT JOIN master_vendor c ON a.master_vendor_id=c.id AND c.deleted_at IS NULL
 LEFT JOIN master_status d ON a.status_id=d.id
 WHERE a.deleted_at IS NULL AND a.tanggal BETWEEN '$_POST[tanggal_awal]' AND '$_POST[tanggal_akhir]'";
+
+if($pegawai['master_cabang_id']!='1'){
+    $query.=" AND a.request_master_cabang_id='$pegawai[master_cabang_id]'";
+}
 
 if($_POST['status_id']!='0'){
     $query.=" AND a.status_id='$_POST[status_id]'";

@@ -9,10 +9,10 @@
             <div class="header-element">
                 <div class="horizontal-logo">
                     <a href="#" class="header-logo">
-                        <img src="<?php echo $BASE_URL;?>/images/logocolor.png" alt="logo" class="desktop-logo">
-                        <img src="<?php echo $BASE_URL;?>/images/logocolor.png" alt="logo" class="toggle-logo">
-                        <img src="<?php echo $BASE_URL;?>/images/logowhite.png" alt="logo" class="desktop-white">
-                        <img src="<?php echo $BASE_URL;?>/images/logowhite.png" alt="logo" class="toggle-white">
+                        <img src="<?php echo $BASE_URL;?>/images/logo.png" alt="logo" class="desktop-logo">
+                        <img src="<?php echo $BASE_URL;?>/images/logo.png" alt="logo" class="toggle-logo">
+                        <img src="<?php echo $BASE_URL;?>/images/logo.png" alt="logo" class="desktop-white">
+                        <img src="<?php echo $BASE_URL;?>/images/logo.png" alt="logo" class="toggle-white">
                     </a>
                 </div>
             </div>

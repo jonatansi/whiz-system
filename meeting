@@ -1,0 +1,23 @@
+Admin HO
+> Daftar PO
+  Format nomor : PO-XXYY-ZZZ00001 
+  PO : purchase order
+  XX : tahun,
+  YY : bulan
+  ZZZ : kode cabang
+  000001 : numbering order
+
+> Penerimaan PO
+  Data yang dimunculkan adalah
+  nomor, nomor penerimaan, tanggal penerimaan, vendor, total jumlah, grand total, status, nomor PO, dan cabang
+
+Admin Branch
+> Daftar PO 
+  List PO yang request cabangnya adalah cabang itu sendiri
+  Hanya bisa view saja
+
+> Penerimaan PO
+  Ketika craete penerimaan PO maka hanya muncul list PO yang on delivery dan partial received
+  
+  Data yang dimunculkan adalah
+  nomor, nomor penerimaan, tanggal penerimaan, vendor, total jumlah, grand total, status, nomor PO

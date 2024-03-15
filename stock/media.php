@@ -49,7 +49,7 @@ else{
         <meta name="Description" content="PT. Whiz Digital Berjaya adalah perusahaan nasional yang bergerak dalam bidang penyediaan jasa dan infrastruktur telekomunikasi beserta IT Service, yang telah memiliki pengalaman panjang pada institusi Pemerintahan, BUMN maupun Koorporasi Swasta di Indonesia.">
         <meta name="Author" content="Whiz Digital">
         
-        <link rel="icon" href="<?php echo $BASE_URL;?>/images/icon.png" type="image/x-icon">
+        <link rel="icon" href="<?php echo $BASE_URL;?>/images/logo.png" type="image/x-icon">
         
         <!-- Choices JS -->
         <script src="<?php echo $BASE_URL;?>/assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
@@ -666,6 +666,12 @@ else{
         <!-- Custom JS -->
         <script src="<?php echo $BASE_URL;?>/assets/js/custom.js"></script>
         <script src="<?php echo $BASE_URL;?>/addons/js/form-masking-custom.js"></script>
+
+        <script type="text/javascript">
+            $('form').submit(function(){
+                $(this).find(':submit').attr('disabled','disabled');
+            });
+        </script>
     </body>
 </html>
 <?php

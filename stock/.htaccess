@@ -42,6 +42,11 @@ RewriteRule ^po-delete-material-edit$ content/po/aksi.php?act=delete_material_ed
 RewriteRule ^po-view-([0-9]+)$ media.php?module=po&act=view&id=$1 [QSA,L]
 
 RewriteRule ^po-cetak-([0-9]+)$ content/po/aksi.php?act=cetak&id=$1 [QSA,L]
+RewriteRule ^po-next$ content/po/aksi.php?act=next [QSA,L]
+RewriteRule ^po-next-action$ content/po/aksi.php?act=next_action [QSA,L]
+
+RewriteRule ^po-cancel$ content/po/aksi.php?act=cancel [QSA,L]
+RewriteRule ^po-cancel-action$ content/po/aksi.php?act=cancel_action [QSA,L]
 
 ### Terima PO
 RewriteRule ^terima-po$ media.php?module=terima_po [QSA,L]
@@ -49,31 +54,5 @@ RewriteRule ^terima-po$ media.php?module=terima_po [QSA,L]
 ### Persediaan
 RewriteRule ^persediaan$ media.php?module=persediaan [QSA,L]
 
-
-### material
-RewriteRule ^material$ media.php?module=material [QSA,L]
-RewriteRule ^material-tambah$ content/material/aksi.php?act=tambah [QSA,L]
-RewriteRule ^material-input$ content/material/aksi.php?act=input [QSA,L]
-RewriteRule ^material-edit$ content/material/aksi.php?act=edit [QSA,L]
-RewriteRule ^material-update$ content/material/aksi.php?act=update [QSA,L]
-RewriteRule ^material-delete-([0-9a-zA-Z-]+)$ content/material/aksi.php?act=delete&id=$1 [QSA,L]
-
-
-### kategori material
-RewriteRule ^katmaterial$ media.php?module=katmaterial [QSA,L]
-RewriteRule ^katmaterial-tambah$ content/katmaterial/aksi.php?act=tambah [QSA,L]
-RewriteRule ^katmaterial-input$ content/katmaterial/aksi.php?act=input [QSA,L]
-RewriteRule ^katmaterial-edit$ content/katmaterial/aksi.php?act=edit [QSA,L]
-RewriteRule ^katmaterial-update$ content/katmaterial/aksi.php?act=update [QSA,L]
-RewriteRule ^katmaterial-delete-([0-9a-zA-Z-]+)$ content/katmaterial/aksi.php?act=delete&id=$1 [QSA,L]
-
-
-### satuan
-RewriteRule ^satuan$ media.php?module=satuan [QSA,L]
-RewriteRule ^satuan-tambah$ content/satuan/aksi.php?act=tambah [QSA,L]
-RewriteRule ^satuan-input$ content/satuan/aksi.php?act=input [QSA,L]
-RewriteRule ^satuan-edit$ content/satuan/aksi.php?act=edit [QSA,L]
-RewriteRule ^satuan-update$ content/satuan/aksi.php?act=update [QSA,L]
-RewriteRule ^satuan-delete-([0-9a-zA-Z-]+)$ content/satuan/aksi.php?act=delete&id=$1 [QSA,L]
 
 </IfModule>

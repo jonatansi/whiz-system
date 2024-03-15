@@ -22,7 +22,13 @@ else{
 
         <div class="d-flex my-xl-auto right-content align-items-center">
             <div class="pe-1 mb-xl-0">
-                <a href="po-tambah"><button type="button" class="btn btn-dark me-2 btn-b btnAdd"><i class="mdi mdi-plus-circle"></i> Buat PO Baru</button></a>
+                <?php
+                if($pegawai['master_cabang_id']=='1'){
+                ?>
+                    <a href="po-tambah"><button type="button" class="btn btn-dark me-2 btn-b btnAdd"><i class="mdi mdi-plus-circle"></i> Buat PO Baru</button></a>
+                <?php
+                }
+                ?>
             </div>
         </div>
     </div>
@@ -83,7 +89,7 @@ else{
 
     <?php 
     $order_column_add = datatable_column("6", "text-center", "false");
-    $order_column_add = datatable_column("7", "text-end", "false");
+    $order_column_add = datatable_column("-1", "text-end", "false");
     $disabled_column_serch_add = datatable_column_search_disabled(0);
     $disabled_column_serch_add.= datatable_column_search_disabled(6);
     $disabled_column_serch_add.= datatable_column_search_disabled(7);

@@ -13,6 +13,7 @@ else{
     include "../../../konfig/base_url.php";
 	include "../../../konfig/fungsi_form_modal.php";
     include "../../../konfig/fungsi_generate_js.php";
+	include "../../../konfig/fungsi_thumb.php";
 
 	$act=$_GET['act'];
     
@@ -80,16 +81,29 @@ else{
 	}
 
 	else if($act=='input'){
-		$d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai WHERE id='$_SESSION[login_user]' AND deleted_at IS NULL"));
+		//GENERATE NUMBER
+		$tanggal_awal = "$thn_sekarang-01-01";
+		$tanggal_akhir = "$thn_sekarang-12:31";
 
-		$sql="INSERT INTO po (nomor, created_master_cabang_id, created_pegawai_id, tanggal, request_master_cabang_id, master_vendor_id, pic_nama, pic_hp, nomor_penawaran, alamat_tujuan, status_id, created_at, updated_at, deskripsi) VALUES ('$_POST[nomor]', '$d[master_cabang_id]', '$_SESSION[login_user]', '$_POST[tanggal]', '$_POST[request_master_cabang_id]', '$_POST[master_vendor_id]', '$_POST[pic_nama]', '$_POST[pic_hp]', '$_POST[nomor_penawaran]', '$_POST[alamat_tujuan]', '1', '$waktu_sekarang', '$waktu_sekarang', '$_POST[deskripsi]')";
+		$a=mysqli_fetch_array(mysqli_query($conn,"SELECT MAX(urutan) AS urutan FROM po WHERE deleted_at IS NULL AND created_at BETWEEN '$tanggal_awal 00:00:00' AND '$tanggal_akhir 23:59:59'"));
+
+		$b=mysqli_fetch_array(mysqli_query($conn,"SELECT kode FROM master_cabang WHERE id='$_POST[request_master_cabang_id]' AND deleted_at IS NULL"));
+		$kode_cabang=$b['kode'];
+
+		$urutan = $a['urutan']+1;
+		$urutan_nomor= sprintf("%05s",$urutan);
+
+		$po_number = "PO-$thn".$bulan."-".$kode_cabang.$urutan_nomor;
+
+		$d=mysqli_fetch_array(mysqli_query($conn,"SELECT master_cabang_id FROM pegawai WHERE id='$_SESSION[login_user]' AND deleted_at IS NULL"));
+
+		$sql="INSERT INTO po (nomor, created_master_cabang_id, created_pegawai_id, tanggal, request_master_cabang_id, master_vendor_id, pic_nama, pic_hp, nomor_penawaran, alamat_tujuan, status_id, created_at, updated_at, deskripsi, urutan) VALUES ('$po_number', '$d[master_cabang_id]', '$_SESSION[login_user]', '$_POST[tanggal]', '$_POST[request_master_cabang_id]', '$_POST[master_vendor_id]', '$_POST[pic_nama]', '$_POST[pic_hp]', '$_POST[nomor_penawaran]', '$_POST[alamat_tujuan]', '1', '$waktu_sekarang', '$waktu_sekarang', '$_POST[deskripsi]', '$urutan')";
 
 		mysqli_query($conn, $sql);
 
 		$id = mysqli_insert_id($conn);
 
 		mysqli_query($conn,"UPDATE po_detail SET po_id='$id', updated_at='$waktu_sekarang' WHERE po_id IS NULL AND created_pegawai_id='$_SESSION[login_user]'");
-
 
 		mysqli_query($conn,"INSERT INTO po_log (po_id, status_id, created_at, pegawai_id) VALUES ('$id', '1', '$waktu_sekarang', '$_SESSION[login_user]')");
 
@@ -98,6 +112,47 @@ else{
 
 	else if($act=='cetak'){
 		include "cetak.php";
+	}
+
+	else if($act=='next'){
+		include "next.php";
+	}
+
+	else if($act=='next_action'){
+		$vdir_upload = "../../../files/po/";
+
+		$acak			 = rand(1111,9999);
+		$lokasi_file     = $_FILES['dokumen']['tmp_name'];
+		$tipe_file       = $_FILES['dokumen']['type'];
+		$nama_file       = $_FILES['dokumen']['name'];
+		$nama_file_unik  = $acak.$nama_file;
+		
+		if ($_FILES["dokumen"]["error"] > 0 OR empty($lokasi_file)){
+			$nama_file_unik = "";
+		}
+	  
+		else{
+			UploadDokumen($nama_file_unik, $vdir_upload);
+		}
+
+		mysqli_query($conn,"INSERT INTO po_log (po_id, status_id, created_at, pegawai_id, dokumen, remark) VALUES ('$_POST[po_id]', '$_POST[next_status_id]', '$waktu_sekarang', '$_SESSION[login_user]', '$nama_file_unik', '$_POST[remark]')");
+
+		mysqli_query($conn,"UPDATE po SET status_id='$_POST[next_status_id]' WHERE id='$_POST[po_id]'");
+
+		header("location: po-view-$_POST[po_id]");
+	}
+
+	else if($act=='cancel'){
+		include "cancel.php";
+	}
+
+	else if($act=='cancel_action'){
+
+		mysqli_query($conn,"INSERT INTO po_log (po_id, status_id, created_at, pegawai_id, remark) VALUES ('$_POST[po_id]', '5', '$waktu_sekarang', '$_SESSION[login_user]', '$nama_file_unik')");
+
+		mysqli_query($conn,"UPDATE po SET status_id='5' WHERE id='$_POST[po_id]'");
+
+		header("location: po-view-$_POST[po_id]");
 	}
 
 	mysqli_close($conn);

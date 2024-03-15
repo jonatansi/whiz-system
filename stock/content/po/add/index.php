@@ -19,11 +19,17 @@
                 <fieldset class="mb-3">
                     <legend>Data PO</legend>
                     <div class="row mb-3">
-                        <label class="col-md-2 pt-2 text-end">
+                        <!-- <label class="col-md-2 pt-2 text-end">
                             No. Purchase Order <small class="text-danger">*</small>
                         </label>
                         <div class="col-md-3">
                             <input type="text" class="form-control" name="nomor" required>
+                        </div> -->
+                        <label class="col-md-2 pt-2 text-end">
+                            No. Penawaran <small class="text-danger">*</small>
+                        </label>
+                        <div class="col-md-3">
+                            <input type="text" name="nomor_penawaran" class="form-control" required>
                         </div>
                         <label class="col-md-2 pt-2 text-end">
                             Tanggal <small class="text-danger">*</small>
@@ -68,19 +74,13 @@
                             <input type="text" name="pic_nama" class="form-control" required>
                         </div>
                         <label class="col-md-2 pt-2 text-end">
-                            No. Penawaran <small class="text-danger">*</small>
-                        </label>
-                        <div class="col-md-3">
-                            <input type="text" name="nomor_penawaran" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-md-2 pt-2 text-end">
                             No. HP PIC <small class="text-danger">*</small>
                         </label>
                         <div class="col-md-3">
                             <input type="text" name="pic_hp" class="form-control mob_no" required>
                         </div>
+                    </div>
+                    <div class="row mb-3">
                         <label class="col-md-2 pt-2 text-end">
                             Dikirim ke <small class="text-danger">*</small>
                         </label>

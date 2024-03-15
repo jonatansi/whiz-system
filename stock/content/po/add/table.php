@@ -28,8 +28,8 @@
                 <td><?php echo $r['nama_kategori_material'];?></td>
                 <td><?php echo $r['merk_type'];?></td>
                 <td class="text-center"><?php echo formatAngka($r['jumlah']);?></td>
-                <td><?php echo $r['nama_satuan_besar'];?></td>
-                <td><?php echo $r['nama_kondisi'];?></td>
+                <td class="text-center"><?php echo $r['nama_satuan_besar'];?></td>
+                <td class="text-center"><?php echo $r['nama_kondisi'];?></td>
                 <td class="text-end"><?php echo formatAngka($r['harga']);?></td>
                 <td class="text-end"><?php echo formatAngka($r['jumlah']*$r['harga']);?></td>
                 <td class="text-center">
