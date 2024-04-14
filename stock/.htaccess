@@ -67,11 +67,29 @@ RewriteRule ^terimapo-sn-([0-9]+)$ media.php?module=terima_po&act=sn&id=$1 [QSA,
 RewriteRule ^terimapo-sn-input$ content/terima_po/aksi.php?act=sn_input [QSA,L]
 RewriteRule ^terimapo-sn-delete-([0-9]+)$ content/terima_po/aksi.php?act=sn_delete&id=$1 [QSA,L]
 
-### Persediaan
+### PERSEDIAAN
 RewriteRule ^persediaan$ media.php?module=persediaan [QSA,L]
 RewriteRule ^persediaan-data$ content/persediaan/aksi.php?act=data_json [QSA,L]
 
+RewriteRule ^persediaan-view-([0-9]+)$ media.php?module=persediaan&act=view&id=$1 [QSA,L]
+
+
+### PENGGUNAAN MATERIAL
 RewriteRule ^guna$ media.php?module=guna [QSA,L]
 RewriteRule ^guna-data$ content/guna/aksi.php?act=data_json [QSA,L]
+
+
+### MUTASI MATERIAL
+RewriteRule ^mutasi$ media.php?module=mutasi [QSA,L]
+RewriteRule ^mutasi-data$ content/mutasi/aksi.php?act=data_json [QSA,L]
+
+RewriteRule ^mutasi-view-([0-9]+)$ media.php?module=mutasi&act=view&id=$1 [QSA,L]
+
+
+### OPNAME STOCK
+RewriteRule ^opname$ media.php?module=opname [QSA,L]
+RewriteRule ^opname-data$ content/opname/aksi.php?act=data_json [QSA,L]
+
+RewriteRule ^opname-view-([0-9]+)$ media.php?module=opname&act=view&id=$1 [QSA,L]
 
 </IfModule>
