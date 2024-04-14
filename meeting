@@ -21,3 +21,40 @@ Admin Branch
   
   Data yang dimunculkan adalah
   nomor, nomor penerimaan, tanggal penerimaan, vendor, total jumlah, grand total, status, nomor PO
+
+
+Meeting 08 April 2024
+Master Data Management
+>> Vendor Data
+   - Untuk ID Vendor hanya 7 karakter dan capslock [DONE]
+
+>> Penyimpanan Gudang
+   - Untuk ID Gudang  hanya 6 karakter dan cpaslock [DONE]
+
+>> Branch
+   - Untuk ID Branch hanya 5 karakter dan capslock [DONE]
+
+>> Kategori Material
+   - Untuk ID Kategori hanya 3 karakter huruf dan capslock [DONE]
+
+>> Material
+   - Untuk ID Material di generate : IDKategoriMaterial. counting_number [DONE]
+   - Minimum stock [DONE]
+
+Stock Management
+>> Purchase Order
+   - Tambah PO
+     untuk dikirim ke diganti menjadi Provinsi, Kabupaten/Kota, Kecamatan, Kelurahan/Desa, Alamat
+     ada pic vendor dan nomor hp pic vendor [DONE]
+     nomor po untuk couting number : reset per tahun [DONE]
+   - Nomor PO diganti formatnya menjadi : PO-UVT-2404-ACH00002 [DONE]
+   - Cabang bisa buat PO tapi hanya status sampai Draft (utk requester cabang sesuai dengan login) [DONE]
+
+>> Penerimaan Material
+   - RN diganti menjadi IN [DONE]
+
+>> Dashboard
+   - PO dengan semua status (dalam bentuk pie chart)
+   - Alert apabila sudah ada barang yang sudah mencapai stok minimum
+   - Penerimaan PO dengan semua status (dalam bentuk pie chart)
+   

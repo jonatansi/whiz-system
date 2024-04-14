@@ -31,6 +31,7 @@
                             <tr>
                                 <th width="50px">No</th>
                                 <th width="200px">Tgl/Jam</th>
+                                <th>ID Kategori</th>
                                 <th>Nama</th>
                                 <th width="120px">Aksi</th>
                             </tr>
@@ -44,6 +45,7 @@
                                 <tr>
                                     <td><?php echo $no;?></td>
                                     <td><?php echo dateFormat($r['updated_at']);?></td>
+                                    <td><?php echo $r['kode'];?></td>
                                     <td><?php echo $r['nama'];?></td>
                                     <td class="text-center">
                                         <button type="button" class="btn btn-sm btn-primary btnEdit" data-toggle="tooltip" data-placement="top" title="Edit" id="<?php echo $r['id'];?>"><i class="bi bi-pen"></i> Edit</button>

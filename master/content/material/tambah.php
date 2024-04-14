@@ -9,13 +9,6 @@
                 <div class="row">
                     <div class="col-md-6 mb-2">
                         <div class="form-group">
-                            <label>ID Material <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" value="" name="kode" required>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 mb-2">
-                        <div class="form-group">
                             <label>Kategori <span class="text-danger">*</span></label>
                             <select name="master_kategori_material_id" class="form-control select2" style="width:100%">
                                 <?php
@@ -36,7 +29,7 @@
                     </div>
                     <div class="col-md-6 mb-2">
                         <div class="form-group">
-                            <label>Satuan <span class="text-danger">*</span></label>
+                            <label>Satuan Dasar<span class="text-danger">*</span></label>
                             <select name="master_satuan_id" class="form-control select2" style="width:100%">
                                 <?php
                                 $tampil=mysqli_query($conn,"SELECT * FROM master_satuan ORDER BY nama ASC");
@@ -49,6 +42,13 @@
                     </div>
 
                     <div class="col-md-6 mb-2">
+                        <div class="form-group">
+                            <label>Minimum stok <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" value="" name="minimum_stok" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mb-2">
                         <div class="form-group">
                             <label>Keterangan</label>
                             <input type="text" class="form-control" value="" name="remark">

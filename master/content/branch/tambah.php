@@ -10,7 +10,7 @@
                     <div class="col-md-6 mb-2">
                         <div class="form-group">
                             <label>ID Branch <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" value="" name="kode" required>
+                            <input type="text" class="form-control text-uppercase" value="" name="kode" required maxlength="5">
                         </div>
                     </div>
 

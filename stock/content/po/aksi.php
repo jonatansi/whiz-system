@@ -93,11 +93,12 @@ else{
 		$urutan = $a['urutan']+1;
 		$urutan_nomor= sprintf("%05s",$urutan);
 
-		$po_number = "PO-$thn".$bulan."-".$kode_cabang.$urutan_nomor;
+		// $po_number = "PO-$thn".$bulan."-".$kode_cabang.$urutan_nomor;
+		$po_number = "PO-UVT-".$thn.$bulan."-".$kode_cabang.$urutan_nomor;;
 
 		$d=mysqli_fetch_array(mysqli_query($conn,"SELECT master_cabang_id FROM pegawai WHERE id='$_SESSION[login_user]' AND deleted_at IS NULL"));
 
-		$sql="INSERT INTO po (nomor, created_master_cabang_id, created_pegawai_id, tanggal, request_master_cabang_id, master_vendor_id, pic_nama, pic_hp, nomor_penawaran, alamat_tujuan, status_id, created_at, updated_at, deskripsi, urutan) VALUES ('$po_number', '$d[master_cabang_id]', '$_SESSION[login_user]', '$_POST[tanggal]', '$_POST[request_master_cabang_id]', '$_POST[master_vendor_id]', '$_POST[pic_nama]', '$_POST[pic_hp]', '$_POST[nomor_penawaran]', '$_POST[alamat_tujuan]', '1', '$waktu_sekarang', '$waktu_sekarang', '$_POST[deskripsi]', '$urutan')";
+		$sql="INSERT INTO po (nomor, created_master_cabang_id, created_pegawai_id, tanggal, request_master_cabang_id, master_vendor_id, request_pic_nama, request_pic_hp, nomor_penawaran, alamat_tujuan, status_id, created_at, updated_at, deskripsi, urutan, lok_provinsi_id, lok_kabupaten_id, lok_kecamatan_id, lok_kelurahan_id, vendor_pic_nama, vendor_pic_hp, tujuan_kode_pos) VALUES ('$po_number', '$d[master_cabang_id]', '$_SESSION[login_user]', '$tgl_sekarang', '$_POST[request_master_cabang_id]', '$_POST[master_vendor_id]', '$_POST[request_pic_nama]', '$_POST[request_pic_hp]', '$_POST[nomor_penawaran]', '$_POST[alamat_tujuan]', '1', '$waktu_sekarang', '$waktu_sekarang', '$_POST[deskripsi]', '$urutan', '$_POST[lok_provinsi_id]', '$_POST[lok_kabupaten_id]', '$_POST[lok_kecamatan_id]', '$_POST[lok_kelurahan_id]', '$_POST[vendor_pic_nama]', '$_POST[vendor_pic_hp]', '$_POST[tujuan_kode_pos]')";
 
 		mysqli_query($conn, $sql);
 
@@ -148,7 +149,7 @@ else{
 
 	else if($act=='cancel_action'){
 
-		mysqli_query($conn,"INSERT INTO po_log (po_id, status_id, created_at, pegawai_id, remark) VALUES ('$_POST[po_id]', '5', '$waktu_sekarang', '$_SESSION[login_user]', '$nama_file_unik')");
+		mysqli_query($conn,"INSERT INTO po_log (po_id, status_id, created_at, pegawai_id, remark) VALUES ('$_POST[po_id]', '5', '$waktu_sekarang', '$_SESSION[login_user]', '$_POST[remark]')");
 
 		mysqli_query($conn,"UPDATE po SET status_id='5' WHERE id='$_POST[po_id]'");
 

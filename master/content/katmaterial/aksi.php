@@ -21,8 +21,9 @@ else{
 	}
 
 	else if($act=='input'){
-        
-		$sql="INSERT INTO master_kategori_material (nama, created_at, updated_at) VALUES ('$_POST[nama]', '$waktu_sekarang', '$waktu_sekarang')";
+		$kode = strtoupper($_POST['kode']);
+
+		$sql="INSERT INTO master_kategori_material (kode, nama, created_at, updated_at) VALUES ('$kode', '$_POST[nama]', '$waktu_sekarang', '$waktu_sekarang')";
 
 		mysqli_query($conn,$sql);
 		$d=mysqli_insert_id($conn);
@@ -35,8 +36,9 @@ else{
 	}
 
 	else if($act=='update'){
-		
-        $sql="UPDATE master_kategori_material SET  nama='$_POST[nama]', updated_at='$waktu_sekarang' WHERE id='$_POST[id]'";
+		$kode = strtoupper($_POST['kode']);
+
+        $sql="UPDATE master_kategori_material SET  kode='$kode', nama='$_POST[nama]', updated_at='$waktu_sekarang' WHERE id='$_POST[id]'";
 
         mysqli_query($conn,$sql);
 

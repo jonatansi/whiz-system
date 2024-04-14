@@ -14,8 +14,13 @@ RewriteRule ^home$ media.php?module=home [QSA,L]
 RewriteRule ^profile$ media.php?module=profile [QSA,L]
 RewriteRule ^aksi-edit-profile$ content/profile/aksi.php?act=update [QSA,L]
 
-
 RewriteRule ^data-material$ content/data/index.php?act=material [QSA,L]
+RewriteRule ^data-satuan-material$ content/data/index.php?act=satuan_material [QSA,L]
+
+RewriteRule ^lok-propinsi$ content/lok/aksi.php?act=propinsi [QSA,L]
+RewriteRule ^lok-kabupaten$ content/lok/aksi.php?act=kabupaten [QSA,L]
+RewriteRule ^lok-kecamatan$ content/lok/aksi.php?act=kecamatan [QSA,L]
+RewriteRule ^lok-kelurahan$ content/lok/aksi.php?act=kelurahan [QSA,L]
 
 ### PO
 RewriteRule ^po$ media.php?module=po [QSA,L]
@@ -30,7 +35,6 @@ RewriteRule ^po-input-material$ content/po/aksi.php?act=input_material [QSA,L]
 RewriteRule ^po-edit-material$ content/po/aksi.php?act=edit_material [QSA,L]
 RewriteRule ^po-update-material$ content/po/aksi.php?act=update_material [QSA,L]
 RewriteRule ^po-delete-material$ content/po/aksi.php?act=delete_material [QSA,L]
-
 
 RewriteRule ^po-edit-([0-9]+)$ media.php?module=po&act=edit&id=$1 [QSA,L]
 RewriteRule ^po-tambah-material-edit$ content/po/aksi.php?act=tambah_material_edit [QSA,L]
@@ -49,10 +53,25 @@ RewriteRule ^po-cancel$ content/po/aksi.php?act=cancel [QSA,L]
 RewriteRule ^po-cancel-action$ content/po/aksi.php?act=cancel_action [QSA,L]
 
 ### Terima PO
-RewriteRule ^terima-po$ media.php?module=terima_po [QSA,L]
+RewriteRule ^terimapo$ media.php?module=terima_po [QSA,L]
+RewriteRule ^terimapo-data$ content/terima_po/aksi.php?act=data_json [QSA,L]
+
+
+RewriteRule ^terimapo-tambahform$ content/terima_po/aksi.php?act=tambah_form [QSA,L]
+RewriteRule ^terimapo-tambah$ media.php?module=terima_po&act=tambah [QSA,L]
+RewriteRule ^terimapo-input$ content/terima_po/aksi.php?act=input [QSA,L]
+
+RewriteRule ^terimapo-view-([0-9]+)$ media.php?module=terima_po&act=view&id=$1 [QSA,L]
+
+RewriteRule ^terimapo-sn-([0-9]+)$ media.php?module=terima_po&act=sn&id=$1 [QSA,L]
+RewriteRule ^terimapo-sn-input$ content/terima_po/aksi.php?act=sn_input [QSA,L]
+RewriteRule ^terimapo-sn-delete-([0-9]+)$ content/terima_po/aksi.php?act=sn_delete&id=$1 [QSA,L]
 
 ### Persediaan
 RewriteRule ^persediaan$ media.php?module=persediaan [QSA,L]
+RewriteRule ^persediaan-data$ content/persediaan/aksi.php?act=data_json [QSA,L]
 
+RewriteRule ^guna$ media.php?module=guna [QSA,L]
+RewriteRule ^guna-data$ content/guna/aksi.php?act=data_json [QSA,L]
 
 </IfModule>

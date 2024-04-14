@@ -21,8 +21,9 @@ else{
 	}
 
 	else if($act=='input'){
-        
-		$sql="INSERT INTO master_gudang (kode, nama, master_cabang_id, remark, created_at, updated_at) VALUES ('$_POST[kode]', '$_POST[nama]', '$_POST[master_cabang_id]', '$_POST[remark]', '$waktu_sekarang', '$waktu_sekarang')";
+		$kode = strtoupper($_POST['kode']);
+
+		$sql="INSERT INTO master_gudang (kode, nama, master_cabang_id, remark, created_at, updated_at) VALUES ('$kode', '$_POST[nama]', '$_POST[master_cabang_id]', '$_POST[remark]', '$waktu_sekarang', '$waktu_sekarang')";
 
 		mysqli_query($conn,$sql);
 		$d=mysqli_insert_id($conn);
@@ -35,8 +36,9 @@ else{
 	}
 
 	else if($act=='update'){
-		
-        $sql="UPDATE master_gudang SET kode='$_POST[kode]', nama='$_POST[nama]', master_cabang_id='$_POST[master_cabang_id]', remark='$_POST[remark]', updated_at='$waktu_sekarang' WHERE id='$_POST[id]'";
+		$kode = strtoupper($_POST['kode']);
+
+        $sql="UPDATE master_gudang SET kode='$kode', nama='$_POST[nama]', master_cabang_id='$_POST[master_cabang_id]', remark='$_POST[remark]', updated_at='$waktu_sekarang' WHERE id='$_POST[id]'";
 
         mysqli_query($conn,$sql);
 

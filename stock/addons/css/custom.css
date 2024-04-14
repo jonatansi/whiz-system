@@ -39,3 +39,16 @@ legend {
     float: none !important;
     width: auto;
 }
+
+table.mytable{
+    border-collapse:collapse;
+    width: 100%;
+}
+
+table.mytable tr td{
+    padding: 4px !important;
+}
+
+table.top tr td{
+    vertical-align: top;
+}

@@ -36,25 +36,6 @@
 
         <!-- Start::header-content-right -->
         <div class="header-content-right">
-
-            <div class="header-element Search-element d-block d-lg-none">
-                <!-- Start::header-link|dropdown-toggle -->
-                <a href="javascript:void(0);" class="header-link dropdown-toggle" data-bs-auto-close="outside" data-bs-toggle="dropdown">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"  class="header-link-icon"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
-                </a>
-                <!-- End::header-link|dropdown-toggle -->
-                <ul class="main-header-dropdown dropdown-menu dropdown-menu-end Search-element-dropdown" data-popper-placement="none">
-                    <li>
-                        <div class="input-group w-100 p-2"> 
-                            <input type="text" class="form-control" placeholder="Search....">
-                            <div class="btn btn-primary"> 
-                                <i class="fa fa-search" aria-hidden="true"></i> 
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
             <!-- Start::header-element -->
             <div class="header-element header-theme-mode">
                 <!-- Start::header-link|layout-setting -->
@@ -74,130 +55,6 @@
             </div>
             <!-- End::header-element -->
 
-        
-
-            <!-- Start::header-element -->
-            <div class="header-element notifications-dropdown main-header-notification">
-                <!-- Start::header-link|dropdown-toggle -->
-                <a href="javascript:void(0);" class="header-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" id="messageDropdown" aria-expanded="false">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="header-link-icon"  height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
-                    <span class="pulse-success"></span>
-                </a>
-                <!-- End::header-link|dropdown-toggle -->
-                <!-- Start::main-header-dropdown -->
-                <div class="main-header-dropdown dropdown-menu dropdown-menu-end main-header-message" data-popper-placement="none">
-                    <div class="menu-header-content bg-primary text-fixed-white">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <h6 class="mb-0 fs-15 fw-semibold text-fixed-white">Notifications</h6>
-                            <span class="badge rounded-pill bg-warning pt-1 text-fixed-black">Mark All Read</span>
-                        </div>
-                        <p class="dropdown-title-text subtext mb-0 text-fixed-white op-6 pb-0 fs-12 ">You have 4 unread Notifications</p>
-                    </div>
-                    <div><hr class="dropdown-divider"></div>
-                    <ul class="list-unstyled mb-0" id="header-notification-scroll">
-                        <li class="dropdown-item px-3">
-                            <div class="d-flex">
-                                <span class="avatar avatar-md me-2 avatar-rounded flex-shrink-0 bg-pink">
-                                    <i class="la la-file-alt fs-20"></i>
-                                </span>
-                                <div class="ms-3">
-                                    <a href="mail.html"><h5 class="notification-label text-dark mb-1">New files available</h5></a>
-                                    <div class="notification-subtext">10 hour ago</div>
-                                </div>
-                                <div class="ms-auto" >
-                                    <a href="mail.html"><i class="las la-angle-right text-end text-muted icon"></i></a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="dropdown-item px-3">
-                            <div class="d-flex">
-                                <span class="avatar avatar-md me-2 avatar-rounded flex-shrink-0 bg-purple">
-                                    <i class="la la-gem fs-20"></i>
-                                </span>
-                                <div class="ms-3">
-                                    <a href="mail.html"><h5 class="notification-label text-dark mb-1">Updates Available</h5></a>
-                                    <div class="notification-subtext">2 days ago</div>
-                                </div>
-                                <div class="ms-auto" >
-                                    <a href="mail.html"><i class="las la-angle-right text-end text-muted icon"></i></a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="dropdown-item px-3">
-                            <div class="d-flex">
-                                <span class="avatar avatar-md me-2 avatar-rounded flex-shrink-0 bg-success">
-                                    <i class="la la-shopping-basket fs-20"></i>
-                                </span>
-                                <div class="ms-3">
-                                    <a href="mail.html"><h5 class="notification-label text-dark mb-1">New Order Received</h5></a>
-                                    <div class="notification-subtext">1 hour ago</div>
-                                </div>
-                                <div class="ms-auto" >
-                                    <a href="mail.html"><i class="las la-angle-right text-end text-muted icon"></i></a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="dropdown-item px-3">
-                            <div class="d-flex">
-                                <span class="avatar avatar-md me-2 avatar-rounded flex-shrink-0 bg-warning">
-                                    <i class="la la-envelope-open fs-20 text-fixed-white"></i>
-                                </span>
-                                <div class="ms-3">
-                                    <a href="mail.html"><h5 class="notification-label text-dark mb-1">New review received</h5></a>
-                                    <div class="notification-subtext">1 day ago</div>
-                                </div>
-                                <div class="ms-auto" >
-                                    <a href="mail.html"><i class="las la-angle-right text-end text-muted icon"></i></a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="dropdown-item px-3">
-                            <div class="d-flex">
-                                <span class="avatar avatar-md me-2 avatar-rounded flex-shrink-0 bg-danger">
-                                    <i class="la la-user-check fs-20"></i>
-                                </span>
-                                <div class="ms-3">
-                                    <a href="mail.html"><h5 class="notification-label text-dark mb-1">22 verified registrations</h5></a>
-                                    <div class="notification-subtext">2 hour ago</div>
-                                </div>
-                                <div class="ms-auto" >
-                                    <a href="mail.html"><i class="las la-angle-right text-end text-muted icon"></i></a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="dropdown-item px-3">
-                            <div class="d-flex">
-                                <span class="avatar avatar-md me-2 avatar-rounded flex-shrink-0 bg-primary">
-                                    <i class="la la-check-circle fs-20"></i>
-                                </span>
-                                <div class="ms-3">
-                                    <a href="mail.html"><h5 class="notification-label text-dark mb-1">Project has been approved</h5></a>
-                                    <div class="notification-subtext">4 hour ago</div>
-                                </div>
-                                <div class="ms-auto" >
-                                    <a href="mail.html"><i class="las la-angle-right text-end text-muted icon"></i></a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="text-center dropdown-footer">
-                        <a href="checkout.html" class="text-primary fs-13">VIEW ALL</a>
-                    </div>
-                </div>
-                <!-- End::main-header-dropdown -->
-            </div>
-            <!-- End::header-element -->
-
-            <!-- Start::header-element -->
-            <div class="header-element header-fullscreen">
-                <!-- Start::header-link -->
-                <a onclick="openFullscreen();" href="javascript:void(0);" class="header-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="full-screen-open full-screen-icon header-link-icon" height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="full-screen-close full-screen-icon header-link-icon d-none" fill="currentColor" height="24" viewBox="0 -960 960 960" width="24"><path d="M320-200v-120H200v-80h200v200h-80Zm240 0v-200h200v80H640v120h-80ZM200-560v-80h120v-120h80v200H200Zm360 0v-200h80v120h120v80H560Z"/></svg>
-                </a>
-                <!-- End::header-link -->
-            </div>
-            <!-- End::header-element -->
 
             
 
@@ -216,8 +73,6 @@
                             </div>
                         </div>
                     </li>
-                    <li><a class="dropdown-item d-flex" href="profile"><i class="bx bx-user-circle fs-18 me-2 op-7"></i>Profile</a></li>
-                    <li><a class="dropdown-item d-flex" href="ubah-password"><i class="bx bx-lock fs-18 me-2 op-7"></i>Ubah Password</a></li>
                     <li><a class="dropdown-item d-flex" href="keluar"><i class="bx bx-log-out fs-18 me-2 op-7"></i>Sign Out</a></li>
                 </ul>
             </div>  

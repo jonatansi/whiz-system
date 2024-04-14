@@ -21,8 +21,9 @@ else{
 	}
 
 	else if($act=='input'){
-        
-		$sql="INSERT INTO master_cabang (kode, nama, lok_provinsi_id, lok_kabupaten_id, lok_kecamatan_id, lok_kelurahan_id, alamat, kode_pos, created_at, updated_at) VALUES ('$_POST[kode]', '$_POST[nama]', '$_POST[lok_provinsi_id]', '$_POST[lok_kabupaten_id]', '$_POST[lok_kecamatan_id]', '$_POST[lok_kelurahan_id]', '$_POST[alamat]', '$_POST[kode_pos]', '$waktu_sekarang', '$waktu_sekarang')";
+		$kode = strtoupper($_POST['kode']);
+
+		$sql="INSERT INTO master_cabang (kode, nama, lok_provinsi_id, lok_kabupaten_id, lok_kecamatan_id, lok_kelurahan_id, alamat, kode_pos, created_at, updated_at) VALUES ('$kode', '$_POST[nama]', '$_POST[lok_provinsi_id]', '$_POST[lok_kabupaten_id]', '$_POST[lok_kecamatan_id]', '$_POST[lok_kelurahan_id]', '$_POST[alamat]', '$_POST[kode_pos]', '$waktu_sekarang', '$waktu_sekarang')";
 
 		mysqli_query($conn,$sql);
 		$d=mysqli_insert_id($conn);
@@ -36,8 +37,9 @@ else{
 	}
 
 	else if($act=='update'){
-		
-        $sql="UPDATE master_cabang SET kode='$_POST[kode]', nama='$_POST[nama]', lok_provinsi_id='$_POST[lok_provinsi_id]', lok_kabupaten_id='$_POST[lok_kabupaten_id]', lok_kecamatan_id='$_POST[lok_kecamatan_id]', lok_kelurahan_id='$_POST[lok_kelurahan_id]', alamat='$_POST[alamat]', kode_pos='$_POST[kode_pos]', updated_at='$waktu_sekarang' WHERE id='$_POST[id]'";
+		$kode = strtoupper($_POST['kode']);
+
+        $sql="UPDATE master_cabang SET kode='$kode', nama='$_POST[nama]', lok_provinsi_id='$_POST[lok_provinsi_id]', lok_kabupaten_id='$_POST[lok_kabupaten_id]', lok_kecamatan_id='$_POST[lok_kecamatan_id]', lok_kelurahan_id='$_POST[lok_kelurahan_id]', alamat='$_POST[alamat]', kode_pos='$_POST[kode_pos]', updated_at='$waktu_sekarang' WHERE id='$_POST[id]'";
 
         mysqli_query($conn,$sql);
 

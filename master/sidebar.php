@@ -37,13 +37,6 @@
                     </a>
                 </li>
 
-                <li class="slide <?php if($module=='vendor'){echo "active";}?>">
-                    <a href="<?php echo $BASE_URL_MASTER;?>/vendor" class="side-menu__item <?php if($module=='vendor'){echo "active";}?>">
-                        <i class="fa-regular fa-building side-menu__icon"></i>
-                        <span class="side-menu__label">Vendor</span>
-                    </a>
-                </li>
-
                 <li class="slide <?php if($module=='gudang'){echo "active";}?>">
                     <a href="<?php echo $BASE_URL_MASTER;?>/gudang" class="side-menu__item <?php if($module=='gudang'){echo "active";}?>">
                         <i class="fa fa-cubes side-menu__icon"></i>
@@ -52,17 +45,10 @@
                 </li>
 
 
-                <li class="slide <?php if($module=='material'){echo "active";}?>">
-                    <a href="<?php echo $BASE_URL_MASTER;?>/material" class="side-menu__item <?php if($module=='material'){echo "active";}?>">
-                        <i class="fa-brands fa-dropbox side-menu__icon"></i>
-                        <span class="side-menu__label">Material</span>
-                    </a>
-                </li>
-
-                <li class="slide <?php if($module=='katmaterial'){echo "active";}?>">
-                    <a href="<?php echo $BASE_URL_MASTER;?>/katmaterial" class="side-menu__item <?php if($module=='katmaterial'){echo "active";}?>">
-                        <i class="fa-brands fa-dropbox side-menu__icon"></i>
-                        <span class="side-menu__label">Kategori Material</span>
+                <li class="slide <?php if($module=='vendor'){echo "active";}?>">
+                    <a href="<?php echo $BASE_URL_MASTER;?>/vendor" class="side-menu__item <?php if($module=='vendor'){echo "active";}?>">
+                        <i class="fa-regular fa-building side-menu__icon"></i>
+                        <span class="side-menu__label">Vendor</span>
                     </a>
                 </li>
 
@@ -71,7 +57,22 @@
                         <i class="fa fa-tag side-menu__icon"></i>
                         <span class="side-menu__label">Satuan</span>
                     </a>
+                </li>   
+
+                <li class="slide <?php if($module=='katmaterial'){echo "active";}?>">
+                    <a href="<?php echo $BASE_URL_MASTER;?>/katmaterial" class="side-menu__item <?php if($module=='katmaterial'){echo "active";}?>">
+                        <i class="fa fa-list-alt side-menu__icon"></i>
+                        <span class="side-menu__label">Kategori Material</span>
+                    </a>
                 </li>
+
+                <li class="slide <?php if($module=='material'){echo "active";}?>">
+                    <a href="<?php echo $BASE_URL_MASTER;?>/material" class="side-menu__item <?php if($module=='material'){echo "active";}?>">
+                        <i class="fa-brands fa-dropbox side-menu__icon"></i>
+                        <span class="side-menu__label">Material</span>
+                    </a>
+                </li>
+                
                 
                 <li class="slide__category"><span class="category-name">User Management</span></li>
 

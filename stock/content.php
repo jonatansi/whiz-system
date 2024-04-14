@@ -10,20 +10,20 @@
         else if($module=='terima_po'){
             include "content/terima_po/index.php";
         }
-        else if($module=='gudang'){
-            include "content/gudang/index.php";
+        else if($module=='persediaan'){
+            include "content/persediaan/index.php";
         }
-        else if($module=='material'){
-            include "content/material/index.php";
+        else if($module=='guna'){
+            include "content/guna/index.php";
         }
-        else if($module=='katmaterial'){
-            include "content/katmaterial/index.php";
+        else if($module=='mutasi'){
+            include "content/mutasi/index.php";
         }
-        else if($module=='satuan'){
-            include "content/satuan/index.php";
+        else if($module=='opname'){
+            include "content/opname/index.php";
         }
-        else if($module=='user'){
-            include "content/user/index.php";
+        else if($module=='profile'){
+            include "content/profiles/index.php";
         }
         ?>
     </div>

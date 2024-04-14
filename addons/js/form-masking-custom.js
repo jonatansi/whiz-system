@@ -12,7 +12,7 @@ $(document).ready(function() {
     $('.dateHour').mask('00/00/0000 00:00:00');
     // [ mobile-num masking ]
     $('.mob_no').mask('0000 0000 0000');
-    $('.npwp').mask('00.000.000.0-000.000');
+    $('.npwp').mask('000.000.000.0-000.000');
     // [ phone masking ]
     $('.phone').mask('0000-0000');
     $('.postcode').mask('00000');

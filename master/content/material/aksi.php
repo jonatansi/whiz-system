@@ -21,8 +21,16 @@ else{
 	}
 
 	else if($act=='input'){
-        
-		$sql="INSERT INTO master_material (kode, master_kategori_material_id, merk_type, master_satuan_id, remark, created_at, updated_at) VALUES ('$_POST[kode]', '$_POST[master_kategori_material_id]', '$_POST[merk_type]', '$_POST[master_satuan_id]', '$_POST[remark]', '$waktu_sekarang', '$waktu_sekarang')";
+        $c=mysqli_fetch_array(mysqli_query($conn,"SELECT kode FROM master_kategori_material WHERE id='$_POST[master_kategori_material_id]'"));
+
+		$m=mysqli_fetch_array(mysqli_query($conn,"SELECT ordering FROM master_material WHERE master_kategori_material_id='$_POST[master_kategori_material_id]'"));
+
+		$ordering = $m['ordering']+1;
+		$kode = $c['kode'].sprintf("%05s",$ordering);
+
+		$sql="INSERT INTO master_material (kode, master_kategori_material_id, merk_type, master_satuan_id, remark, created_at, updated_at, minimum_stok, ordering) VALUES ('$kode', '$_POST[master_kategori_material_id]', '$_POST[merk_type]', '$_POST[master_satuan_id]', '$_POST[remark]', '$waktu_sekarang', '$waktu_sekarang', '$_POST[minimum_stok]', '$ordering')";
+
+		// echo $sql;
 
 		mysqli_query($conn,$sql);
 		$d=mysqli_insert_id($conn);
@@ -39,7 +47,7 @@ else{
 
 	else if($act=='update'){
 		
-        $sql="UPDATE master_material SET kode='$_POST[kode]', master_kategori_material_id='$_POST[master_kategori_material_id]', merk_type='$_POST[merk_type]', master_satuan_id='$_POST[master_satuan_id]', remark='$_POST[remark]', updated_at='$waktu_sekarang' WHERE id='$_POST[id]'";
+        $sql="UPDATE master_material SET master_kategori_material_id='$_POST[master_kategori_material_id]', merk_type='$_POST[merk_type]', master_satuan_id='$_POST[master_satuan_id]', remark='$_POST[remark]', minimum_stok='$_POST[minimum_stok]', updated_at='$waktu_sekarang' WHERE id='$_POST[id]'";
 
         mysqli_query($conn,$sql);
 

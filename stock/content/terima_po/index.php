@@ -11,24 +11,18 @@ else{
 ?>
     <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
         <div class="my-auto">
-            <h5 class="page-title fs-21 mb-1">Purchase Order</h5>
+            <h5 class="page-title fs-21 mb-1">Penerimaan Material</h5>
             <nav>
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Purchase Order</li>
+                    <li class="breadcrumb-item active" aria-current="page">Penerimaan Material</li>
                 </ol>
             </nav>
         </div>
 
         <div class="d-flex my-xl-auto right-content align-items-center">
             <div class="pe-1 mb-xl-0">
-                <?php
-                // if($pegawai['master_cabang_id']=='1'){
-                ?>
-                    <a href="po-tambah"><button type="button" class="btn btn-dark me-2 btn-b btnAdd"><i class="mdi mdi-plus-circle"></i> Buat PO Baru</button></a>
-                <?php
-                // }
-                ?>
+                <button type="button" class="btn btn-dark me-2 btn-b btnAdd"><i class="mdi mdi-plus-circle"></i> Penerimaan Material</button>
             </div>
         </div>
     </div>
@@ -49,11 +43,17 @@ else{
                                 <input type="date" name="tanggal_akhir" value="<?php echo $tanggal_akhir;?>" class="form-control" id="tanggal_akhir" max="<?php echo $tgl_sekarang;?>"/>
                             </div>
                             <div class="col-md-3">
-                                <label>Status</label>
-                                <select name="status_id" class="form-control" id="status_id">
+                                <label>Vendor</label>
+                                <select name="vendor_id" class="form-control" id="vendor_id">
                                     <option value="0">Semua</option>
                                     <?php
-                                    $tampil=mysqli_query($conn,"SELECT * FROM master_status");
+                                    $sql="SELECT a.* FROM master_vendor a WHERE a.deleted_at IS NULL";
+                                    if($pegawai['master_cabang_id']!='1'){
+                                        $sql.=" AND EXISTS(SELECT NULL FROM po b WHERE a.id=b.master_vendor_id AND b.deleted_at IS NULL AND b.request_master_cabang_id='$pegawai[master_cabang_id]')";
+                                    }
+                                    $sql.=" ORDER BY a.nama ASC";
+                                    echo $sql;
+                                    $tampil=mysqli_query($conn,$sql);
                                     while($r=mysqli_fetch_array($tampil)){
                                         echo "<option value='$r[id]'>$r[nama]</option>";
                                     }
@@ -70,13 +70,14 @@ else{
                             <thead class="table-info text-center">
                                 <tr>
                                     <th width="50px">No</th>
-                                    <th class="text-center">Nomor PO</th>
-                                    <th>Tanggal</th>
-                                    <th>Requester</th>
+                                    <th class="text-center">No. Penerimaan</th>
+                                    <th>No. PO</th>
+                                    <th>Tgl Penerimaan</th>
                                     <th>Vendor</th>
+                                    <th>Branch</th>
                                     <th>Status</th>
-                                    <th>Total Item</th>
-                                    <th>Total Harga</th>
+                                    <!-- <th>Total Item</th> -->
+                                    <!-- <th>Total Harga</th> -->
                                 </tr>
                             </thead>
                             
@@ -87,9 +88,16 @@ else{
         </div>
     </div>
 
+    <script type="text/javascript">
+    <?php
+    echo generate_javascript_action("btnAdd", "terimapo-tambahform");
+    echo general_default_datatable();
+    ?>
+    </script>
+
     <?php 
     $order_column_add = datatable_column("6", "text-center", "false");
-    $order_column_add = datatable_column("-1", "text-end", "false");
+    $order_column_add = datatable_column("-1", "text-center", "false");
     $disabled_column_serch_add = datatable_column_search_disabled(0);
     $disabled_column_serch_add.= datatable_column_search_disabled(6);
     $disabled_column_serch_add.= datatable_column_search_disabled(7);
@@ -97,9 +105,9 @@ else{
 
     $filter = datatable_filter("tanggal_awal");
     $filter.= datatable_filter("tanggal_akhir");
-    $filter.= datatable_filter("status_id");
+    $filter.= datatable_filter("vendor_id");
     
-    echo generate_datatable("po-data", "1", "desc", $order_column_add, $disabled_column_serch_add, $filter);
+    echo generate_datatable("terimapo-data", "1", "desc", $order_column_add, $disabled_column_serch_add, $filter);
     ?>
 
     <?php
@@ -128,5 +136,8 @@ else if($_GET['act']=='tambah'){
 }
 else if($_GET['act']=='view'){
     include "view.php";
+}
+else if($_GET['act']=='sn'){
+    include "serial_number.php";
 }
 ?>

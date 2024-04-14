@@ -11,8 +11,6 @@ RewriteRule ^keluar$ ../logout.php [QSA,L]
 
 RewriteRule ^home$ media.php?module=home [QSA,L]
 
-RewriteRule ^profile$ media.php?module=profile [QSA,L]
-RewriteRule ^aksi-edit-profile$ content/profile/aksi.php?act=update [QSA,L]
 
 ## LOKASI
 RewriteRule ^lok-propinsi$ content/lok/aksi.php?act=propinsi [QSA,L]

@@ -40,9 +40,9 @@
                 </li>
 
                 <li class="slide <?php if($module=='terima_po'){echo "active";}?>">
-                    <a href="<?php echo $BASE_URL_STOCK;?>/terima-po" class="side-menu__item <?php if($module=='terima_po'){echo "active";}?>">
+                    <a href="<?php echo $BASE_URL_STOCK;?>/terimapo" class="side-menu__item <?php if($module=='terima_po'){echo "active";}?>">
                         <i class="fe fe-check-square side-menu__icon"></i>
-                        <span class="side-menu__label">Penerima Material</span>
+                        <span class="side-menu__label">Penerimaan Material</span>
                     </a>
                 </li>
 

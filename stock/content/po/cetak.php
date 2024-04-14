@@ -1,9 +1,13 @@
 <?php
-$d=mysqli_fetch_array(mysqli_query($conn,"SELECT a.*, b.nama AS nama_cabang, c.nama AS nama_vendor, d.nama AS nama_status, d.warna AS warna_status, (SELECT SUM(e.jumlah) FROM po_detail e WHERE a.id=e.po_id AND e.deleted_at IS NULL) AS total_item, (SELECT SUM(e.jumlah * e.harga) FROM po_detail e WHERE a.id=e.po_id AND e.deleted_at IS NULL) AS total_harga 
+$d=mysqli_fetch_array(mysqli_query($conn,"SELECT a.*, b.nama AS nama_cabang, c.nama AS nama_vendor, d.nama AS nama_status, d.warna AS warna_status, (SELECT SUM(e.jumlah) FROM po_detail e WHERE a.id=e.po_id AND e.deleted_at IS NULL) AS total_item, (SELECT SUM(e.jumlah * e.harga) FROM po_detail e WHERE a.id=e.po_id AND e.deleted_at IS NULL) AS total_harga, w.nama AS nama_provinsi, x.nama AS nama_kabupaten, y.nama AS nama_kecamatan, z.nama AS nama_kelurahan 
 FROM po a 
 LEFT JOIN master_cabang b ON a.request_master_cabang_id=b.id AND b.deleted_at IS NULL
 LEFT JOIN master_vendor c ON a.master_vendor_id=c.id AND c.deleted_at IS NULL
 LEFT JOIN master_status d ON a.status_id=d.id
+LEFT JOIN lok_provinsi w ON a.lok_provinsi_id=w.id
+LEFT JOIN lok_kabupaten x ON a.lok_kabupaten_id=x.id
+LEFT JOIN lok_kecamatan y oN a.lok_kecamatan_id=y.id
+LEFT JOIN lok_kelurahan z ON a.lok_kelurahan_id=z.id
 WHERE a.deleted_at IS NULL AND a.id='$_GET[id]'"));
 ?>
 <html>
@@ -61,6 +65,10 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[id]'"));
 
             .fw-bold{
                 font-weight: bold;
+            }
+
+            table.top tr td{
+                vertical-align:top;
             }
 
             .width-23{
@@ -183,10 +191,15 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[id]'"));
         <div class="clear" style="margin-bottom: 2rem;"></div>
 
         <div class="width-33">
-            <table>
+            <table class="top">
                 <tr>
                     <td class="fw-bold">No. Purchase Order</td>
                     <td class="text-right"><?php echo $d['nomor'];?></td>
+                </tr>
+
+                <tr>
+                    <td class="fw-bold">Tanggal PO</td>
+                    <td class="text-right"><?php echo dateFormat($d['tanggal']);?></td>
                 </tr>
                 <tr>
                     <td class="fw-bold">Requester</td>
@@ -194,11 +207,19 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[id]'"));
                 </tr>
                 <tr>
                     <td class="fw-bold">PIC Penerima</td>
-                    <td class="text-right"><?php echo $d['pic_nama'];?></td>
+                    <td class="text-right"><?php echo $d['request_pic_nama'];?></td>
                 </tr>
                 <tr>
-                    <td class="fw-bold">No. HP PIC</td>
-                    <td class="text-right"><?php echo $d['pic_hp'];?></td>
+                    <td class="fw-bold">No. HP PIC Penerima</td>
+                    <td class="text-right"><?php echo $d['request_pic_hp'];?></td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">Dikirim ke</td>
+                    <td class="text-right">
+                        <?php 
+                            echo $d['alamat_tujuan'].'<br>Kel. '.$d['nama_kelurahan'].', Kec. '.$d['nama_kecamatan'].'<br>'.$d['nama_kabupaten'].', '.$d['nama_provinsi'].'<br>Kode POS : '.$d['tujuan_kode_pos'];
+                        ?>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -206,20 +227,20 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[id]'"));
         <div class="width-33">
             <table>
                 <tr>
-                    <td class="fw-bold">Tanggal PO</td>
-                    <td class="text-right"><?php echo dateFormat($d['tanggal']);?></td>
+                    <td class="fw-bold">No. Penawaran</td>
+                    <td class="text-right"><?php echo $d['nomor_penawaran'];?></td>
                 </tr>
                 <tr>
                     <td class="fw-bold">Vendor</td>
                     <td class="text-right"><?php echo $d['nama_vendor'];?></td>
                 </tr>
                 <tr>
-                    <td class="fw-bold">No. Penawaran</td>
-                    <td class="text-right"><?php echo $d['nomor_penawaran'];?></td>
+                    <td class="fw-bold">PIC Vendor</td>
+                    <td class="text-right"><?php echo $d['vendor_pic_nama'];?></td>
                 </tr>
                 <tr>
-                    <td class="fw-bold">Dikirim ke</td>
-                    <td class="text-right"><?php echo $d['alamat_tujuan'];?></td>
+                    <td class="fw-bold">No. HP PIC Vendor</td>
+                    <td class="text-right"><?php echo $d['vendor_pic_hp'];?></td>
                 </tr>
             </table>
         </div>

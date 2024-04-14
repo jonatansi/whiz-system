@@ -65,12 +65,21 @@
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <label>Konversi ke Satuan Dasar <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control rupiah" name="jumlah_konversi" required placeholder="Jumlah Barang per Satuan PO">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control rupiah" name="jumlah_konversi" required placeholder="Jumlah Barang per Satuan PO">
+                            </div>
+                            <div class="col-md-6">
+                                <select name="master_satuan_kecil_id" class="form-control select2" id="master_satuan_kecil_id">
+
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-12">
-                        <label>Harga Satuan <span class="text-danger">*</span></label>
+                        <label>Harga Satuan Material PO <span class="text-danger">*</span></label>
                         <input type="text" class="form-control rupiah" name="harga" required>
                     </div>
                 </div>
@@ -83,62 +92,70 @@
 	</div>
 </form>
 <script type="text/javascript">
-    $("#form_crud").submit(function(e) {
-        $(this).find("button[type='submit']").prop('disabled',true);
-        e.preventDefault(); // avoid to execute the actual submit of the form.
-
-        var form = $(this);
-        var actionUrl = form.attr('action');
+    function performAjaxRequest(url, data, successCallback) {
         $.ajax({
             type: "POST",
-            url: actionUrl,
-            data: form.serialize(), // serializes the form's elements.
+            url: url,
+            data: data,
             beforeSend: function() {
                 $(".preloader").show();
             },
             complete: function() {
                 $(".preloader").hide();
             },
-
-            success: function(msg) {
-                // console.log(msg);
-                $("#form_modul").modal('hide');
-                $.ajax({
-                    type: 'POST',
-                    url: 'po-table-material-add',
-                    beforeSend: function() {
-                        $('.preloader').show();
-                    },
-                    complete: function() {
-                        $('.preloader').hide();
-                    },
-                    success: function(msg) {
-                        $('#table_add_material').html(msg);
-                    }
-                });
-            }
+            success: successCallback
         });
+    }
 
+    $("#form_crud").submit(function(e) {
+        e.preventDefault();
+        var form = $(this);
+        var actionUrl = form.attr('action');
+        form.find("button[type='submit']").prop('disabled', true);
+        performAjaxRequest(actionUrl, form.serialize(), function(msg) {
+            $("#form_modul").modal('hide');
+            performAjaxRequest('po-table-material-add', {}, function(msg) {
+                $('#table_add_material').html(msg);
+            });
+        });
     });
 
-    $("#kategori_material_id").change(function() {
-        var kategori_material_id=$("#kategori_material_id").val();
+    function loadMaterialOptions(kategori_material_id) {
         $.ajax({
             type: 'POST',
             url: "data-material",
             cache: false,
-            data:{
-                'kategori_material_id': kategori_material_id
-            },
-            beforeSend: function() {
-            },
-            complete: function() {
-            },
+            data: { 'kategori_material_id': kategori_material_id },
             success: function(data) {
                 $("#material_id").html(data);
+                loadSatuanMaterialOptions($("#material_id").val());
             }
         });
+    }
+
+    function loadSatuanMaterialOptions(material_id) {
+        $.ajax({
+            type: 'POST',
+            url: "data-satuan-material",
+            cache: false,
+            data: { 'material_id': material_id },
+            success: function(data) {
+                $("#master_satuan_kecil_id").html(data);
+            }
+        });
+    }
+
+    $("#kategori_material_id").change(function() {
+        var kategori_material_id = $("#kategori_material_id").val();
+        loadMaterialOptions(kategori_material_id);
     });
+
+    $("#material_id").change(function() {
+        var material_id = $("#material_id").val();
+        loadSatuanMaterialOptions(material_id);
+    });
+
+
 </script>
 
 <script type="text/javascript" src="<?php echo $BASE_URL;?>/addons/js/form-masking-custom.js"></script>

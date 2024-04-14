@@ -25,6 +25,7 @@ else{
     include "../konfig/koneksi.php";
     include "../konfig/library.php";
     include "../konfig/fungsi_tanggal.php";
+    include "../konfig/fungsi_angka.php";
     include "../konfig/fungsi_generate_js.php";
 
     $module = $_GET['module'];
@@ -670,6 +671,9 @@ else{
         <script type="text/javascript">
             $('form').submit(function(){
                 $(this).find(':submit').attr('disabled','disabled');
+            });
+            $(document).ready(function() {
+                $('.select2').select2();
             });
         </script>
     </body>

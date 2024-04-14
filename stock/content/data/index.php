@@ -17,6 +17,13 @@ else{
         }
     }
 
+	else if($act=='satuan_material'){
+		$tampil=mysqli_query($conn,"SELECT b.* FROM master_material a INNER JOIN master_satuan b ON a.master_satuan_id=b.id AND b.deleted_at IS NULL WHERE a.deleted_at IS NULL AND a.id='$_POST[material_id]'");
+        while($r=mysqli_fetch_array($tampil)){
+            echo "<option value='$r[id]'>$r[nama]</option>";
+        }
+	}
+
 	mysqli_close($conn);
 	
 }
