@@ -2,10 +2,10 @@
     <!-- Start::main-sidebar-header -->
     <div class="main-sidebar-header">
         <a href="index.html" class="header-logo">
-            <img src="<?php echo $BASE_URL;?>/images/logocolor.png" alt="logo" class="desktop-logo">
-            <img src="<?php echo $BASE_URL;?>/images/icon.png" alt="logo" class="toggle-logo">
-            <img src="<?php echo $BASE_URL;?>/images/logowhite.png" alt="logo" class="desktop-white">
-            <img src="<?php echo $BASE_URL;?>/images/icon.png" alt="logo" class="toggle-white">
+            <img src="<?php echo $BASE_URL;?>/images/logo.png" alt="logo" class="desktop-logo">
+            <img src="<?php echo $BASE_URL;?>/images/logo.png" alt="logo" class="toggle-logo">
+            <img src="<?php echo $BASE_URL;?>/images/logo.png" alt="logo" class="desktop-white">
+            <img src="<?php echo $BASE_URL;?>/images/logo.png" alt="logo" class="toggle-white">
         </a>
     </div>
     <!-- End::main-sidebar-header -->
@@ -40,9 +40,9 @@
                 </li>
 
                 <li class="slide <?php if($module=='terima_po'){echo "active";}?>">
-                    <a href="<?php echo $BASE_URL_STOCK;?>/terima-po" class="side-menu__item <?php if($module=='terima_po'){echo "active";}?>">
+                    <a href="<?php echo $BASE_URL_STOCK;?>/terimapo" class="side-menu__item <?php if($module=='terima_po'){echo "active";}?>">
                         <i class="fe fe-check-square side-menu__icon"></i>
-                        <span class="side-menu__label">Penerima Material</span>
+                        <span class="side-menu__label">Penerimaan Material</span>
                     </a>
                 </li>
 

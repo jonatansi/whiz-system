@@ -14,7 +14,7 @@ $d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM master_cabang WHERE id='
                     <div class="col-md-6 mb-2">
                         <div class="form-group">
                             <label>ID Branch <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" value="<?php echo $d['kode'];?>" name="kode" required>
+                            <input type="text" class="form-control text-uppercase" value="<?php echo $d['kode'];?>" name="kode" required maxlength="5">
                         </div>
                     </div>
 

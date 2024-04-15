@@ -75,5 +75,9 @@ else{
 // $order_column_add = datatable_column("-2", "text-center", "false");
 $order_column_add = "";
 $disabled_column_serch_add = datatable_column_search_disabled(0);
-echo generate_datatable("user-loglogin-data", "1", "desc", $order_column_add, $disabled_column_serch_add);
+
+$filter = datatable_filter("tanggal_awal");
+$filter.= datatable_filter("tanggal_akhir");
+
+echo generate_datatable("user-loglogin-data", "1", "desc", $order_column_add, $disabled_column_serch_add, $filter);
 ?>

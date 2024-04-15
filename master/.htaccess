@@ -11,8 +11,6 @@ RewriteRule ^keluar$ ../logout.php [QSA,L]
 
 RewriteRule ^home$ media.php?module=home [QSA,L]
 
-RewriteRule ^profile$ media.php?module=profile [QSA,L]
-RewriteRule ^aksi-edit-profile$ content/profile/aksi.php?act=update [QSA,L]
 
 ## LOKASI
 RewriteRule ^lok-propinsi$ content/lok/aksi.php?act=propinsi [QSA,L]
@@ -26,7 +24,7 @@ RewriteRule ^user-tambah$ content/user/user/aksi.php?act=tambah [QSA,L]
 RewriteRule ^user-input$ content/user/user/aksi.php?act=input [QSA,L]
 RewriteRule ^user-edit$ content/user/user/aksi.php?act=edit [QSA,L]
 RewriteRule ^user-update$ content/user/user/aksi.php?act=update [QSA,L]
-RewriteRule ^user-delete-([0-9a-zA-Z-]+)$ content/user/user/aksi.php?act=delete&id=$1 [QSA,L]
+RewriteRule ^user-delete-([0-9]+)$ content/user/user/aksi.php?act=delete&id=$1 [QSA,L]
 
 
 RewriteRule ^user-loglogin$ media.php?module=user&kategori=loglogin [QSA,L]

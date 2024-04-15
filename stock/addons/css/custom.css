@@ -1,0 +1,54 @@
+.side-menu__icon{
+    font-size: 1.2rem !important;
+    line-height: 20px !important;
+}
+
+.dt-button{
+    background-color: #CCC !important;
+    color: #000;
+}
+
+.text-center{
+    text-align: center !important;
+}
+
+.form-control2 {
+    width: 90%;
+    height: 20px !important;
+    padding: 2px 6px;
+}
+
+.dataTables_wrapper button{
+    font-size: 12px !important;
+    padding: 0.25rem 0.65rem !important;
+}
+
+.dt-buttons{
+    float: right !important;
+}
+
+fieldset {
+    border: 1px solid #e1e1e1;
+    padding: 1em;
+    /* font: 80%/1 sans-serif; */
+}
+
+legend {
+    padding: 0.2em 0.5em;
+    font-size: 0.9rem;
+    float: none !important;
+    width: auto;
+}
+
+table.mytable{
+    border-collapse:collapse;
+    width: 100%;
+}
+
+table.mytable tr td{
+    padding: 4px !important;
+}
+
+table.top tr td{
+    vertical-align: top;
+}

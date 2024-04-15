@@ -11,12 +11,6 @@ $d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM master_material WHERE id
 			</div>
 			<div class="modal-body" id="form-data">
                 <div class="row">
-                    <div class="col-md-6 mb-2">
-                        <div class="form-group">
-                            <label>ID Material <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" value="<?php echo $d['kode'];?>" name="kode" required>
-                        </div>
-                    </div>
 
                     <div class="col-md-6 mb-2">
                         <div class="form-group">
@@ -63,6 +57,13 @@ $d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM master_material WHERE id
                     </div>
 
                     <div class="col-md-6 mb-2">
+                        <div class="form-group">
+                            <label>Minimum stok <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" value="<?php echo $d['minimum_stok'];?>" name="minimum_stok" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mb-2">
                         <div class="form-group">
                             <label>Keterangan</label>
                             <input type="text" class="form-control" value="<?php echo $d['remark'];?>" name="remark">
