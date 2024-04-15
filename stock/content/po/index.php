@@ -53,7 +53,11 @@ else{
                                 <select name="status_id" class="form-control" id="status_id">
                                     <option value="0">Semua</option>
                                     <?php
+<<<<<<< HEAD
                                     $tampil=mysqli_query($conn,"SELECT * FROM master_status WHERE remark='PO'");
+=======
+                                    $tampil=mysqli_query($conn,"SELECT * FROM master_status");
+>>>>>>> refs/remotes/origin/main
                                     while($r=mysqli_fetch_array($tampil)){
                                         echo "<option value='$r[id]'>$r[nama]</option>";
                                     }
