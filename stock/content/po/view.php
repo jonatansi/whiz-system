@@ -18,7 +18,7 @@ if(isset($d['id'])!=''){
         <nav>
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="javascript:void(0);">Purchase Order</a></li>
+                <li class="breadcrumb-item"><a href="po">Purchase Order</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Detail</li>
             </ol>
         </nav>

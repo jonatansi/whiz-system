@@ -15,7 +15,7 @@ if(isset($d['id'])!=''){
         <nav>
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="javascript:void(0);">Persediaan</a></li>
+                <li class="breadcrumb-item"><a href="persediaan">Persediaan</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Detail</li>
             </ol>
         </nav>
@@ -23,68 +23,129 @@ if(isset($d['id'])!=''){
 </div>
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
         <div class="card">
             <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <table>
-                            <tr>
-                                <td width="150px">Kategori</td>
-                                <td width="10px">:</td>
-                                <td class="fw-bold"><?php echo $d['nama_kategori'];?></td>
-                            </tr>
-                            <tr>
-                                <td>Merk/Type</td>
-                                <td>:</td>
-                                <td><?php echo $d['merk_type'];?></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="col-md-6">
-                        <table>
-                            <tr>
-                                <td width="150px">Gudang</td>
-                                <td width="10px">:</td>
-                                <td class="fw-bold"><?php echo $d['nama_gudang'];?></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
+                <table>
+                    <tr>
+                        <td width="150px">Kategori</td>
+                        <td width="10px">:</td>
+                        <td class="fw-bold"><?php echo $d['nama_kategori'];?></td>
+                    </tr>
+                    <tr>
+                        <td>Merk/Type</td>
+                        <td>:</td>
+                        <td><?php echo $d['merk_type'];?></td>
+                    </tr>
+                    <tr>
+                        <td width="150px">Gudang</td>
+                        <td width="10px">:</td>
+                        <td class="fw-bold"><?php echo $d['nama_gudang'];?></td>
+                    </tr>
+                </table>
             </div>
         </div>
+    </div>
 
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <table>
+                    <?php
+                    $total=0;
+                    $tampil=mysqli_query($conn,"SELECT a.nama, b.* FROM master_kondisi a LEFT JOIN stok_kondisi b ON a.id=b.master_kondisi_id AND b.stok_id='$_GET[id]' ORDER BY a.nama");
+                    while($r=mysqli_fetch_array($tampil)){
+                        ?>
+                        <tr>
+                            <td width="150px"><?php echo $r['nama'];?></td>
+                            <td width="10px">:</td>
+                            <td class="fw-bold text-end" width="50px"><?php echo formatAngka($r['jumlah']);?></td>
+                        </tr>
+                        <?php
+                        $total+=$r['jumlah'];
+                    }
+                    ?>
+                    <tr>
+                        <td style="border-top:1px solid #000;">Total</td>
+                        <td style="border-top:1px solid #000;">:</td>
+                        <td  style="border-top:1px solid #000;" class="fw-bold text-end"><?php echo formatAngka($total);?></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
         <div class="card">
             <div class="card-header border-bottom">
-                Log Stok
+                <b>Barang Serial Number</b>
             </div>
             <div class="card-body table-responsive">
-                <table class="table">
+                
+                <table class="table" id="datatable_ajax_sn">
                     <thead class="table-info">
                         <tr>
-                            <th width="20%">Tanggal / Jam</th>
-                            <th width="15%">Keterangan</th>
+                            <th width="15%">Tanggal / Jam</th>
+                            <th>Serial Number</th>
+                            <th>Status</th>
+                            <th>Kondisi</th>
+                            <th>Harga</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header border-bottom">
+                <b>Log Stok</b>
+            </div>
+            <div class="card-body table-responsive">
+                <fieldset class="mb-3">
+                    <legend>Filter Data</legend>
+                    <input type="hidden" name="id" value="<?php echo $_GET['id'];?>" id="stok_id">
+                    <div class="row justify-content-center">
+                        <label class="col-md-2 text-end pt-2">Bulan</label>
+                        <div class="col-md-3">
+                            <select name="id_bulan" class="form-control" id="id_bulan">
+                                <?php
+                                $tampil=mysqli_query($conn,"SELECT * FROM master_bulan");
+                                while($r=mysqli_fetch_array($tampil)){
+                                    if($r['id']==$bln_sekarang){
+                                        echo "<option value='$r[id]' selected>$r[nama]</option>";
+                                    }
+                                    else{
+                                        echo "<option value='$r[id]'>$r[nama]</option>";
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <label class="col-md-2 text-end pt-2">Tahun</label>
+                        <div class="col-md-2">
+                            <input type="number" name="tahun" value="<?php echo $thn_sekarang;?>" class="form-control" id="tahun"/>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-primary" id="btnFilter"><i class="fa fa-search"></i> Filter</button>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <table class="table" id="datatable_ajax">
+                    <thead class="table-info">
+                        <tr>
+                            <th width="15%">Tanggal / Jam</th>
+                            <th width="30%">Keterangan</th>
                             <th>Masuk</th>
                             <th>Keluar</th>
                             <th>Saldo</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php
-                        $tampil=mysqli_query($conn,"SELECT * FROM stok_log WHERE stok_id='$_GET[id]' ORDER BY created_at ASC");
-                        while($r=mysqli_fetch_array($tampil)){
-                            ?>
-                            <tr>
-                                <td><?php echo WaktuIndo($r['created_at']);?></td>
-                                <td><?php echo $r['remark'];?></td>
-                                <td><?php echo $r['masuk'];?></td>
-                                <td><?php echo $r['keluar'];?></td>
-                                <td><?php echo $r['balance'];?></td>
-                            </tr>
-                            <?php
-                        }
-                        ?>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
@@ -92,24 +153,19 @@ if(isset($d['id'])!=''){
 </div>
 
 <script type="text/javascript">
-    $(".btnCetak").click(function() {
-        var id = this.id;
-        window.open("po-cetak-"+id, "popupWindow", "width=600,height=600,scrollbars=yes");
-    });
-
-    var frame = document.getElementById("Iframe");    
-    frame.onload = function(){
-        frame.style.height = 
-        frame.contentWindow.document.body.scrollHeight + 'px';
-        frame.style.width  = 
-        frame.contentWindow.document.body.scrollWidth+'px';   
-    }
-    <?php
-    echo generate_javascript_action("btnNext", "po-next");
-    echo generate_javascript_action("btnCancel", "po-cancel");
-    ?>
+    
 </script>
 <?php
+// $order_column_add = datatable_column("0", "text-start", "false");
+
+$filter = datatable_filter("id_bulan");
+$filter.= datatable_filter("tahun");
+$filter.= datatable_filter("stok_id");
+
+echo generate_datatable("persediaan-view-data", "1", "asc", '', '', $filter, "datatable_ajax");
+
+$filter= datatable_filter("stok_id");
+echo generate_datatable("persediaan-view-data-sn", "1", "asc", '', '', $filter, "datatable_ajax_sn");
 }
 else{
     ?>

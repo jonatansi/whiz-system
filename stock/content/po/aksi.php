@@ -42,13 +42,6 @@ else{
 
 		mysqli_query($conn,$sql);
 	}
-
-	else if($act=='edit_material'){
-		include "add/edit_material.php";
-	}
-
-	else if($act=='update_material'){
-	}
 	
 	else if($act=='delete_material'){
 		$sql="UPDATE po_detail SET deleted_at='$waktu_sekarang' WHERE id='$_POST[id]'";
@@ -58,26 +51,6 @@ else{
 
     else if($act=='table_add_material'){
         include "add/table.php";
-	}
-
-    //EDIT PO
-    else if($act=='tambah_material_edit'){
-		include "edit/tambah_material.php";
-	}
-
-	else if($act=='input_material_edit'){
-        
-	}
-
-	else if($act=='edit_material_edit'){
-		include "edit/edit_material.php";
-	}
-
-	else if($act=='update_material_edit'){
-	}
-	
-	else if($act=='delete_material_edit'){
-		
 	}
 
 	else if($act=='input'){

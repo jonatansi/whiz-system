@@ -102,7 +102,7 @@ $d=mysqli_fetch_array(mysqli_query($conn,$sql_cabang));
     $filter.= datatable_filter("master_gudang_id");
     $filter.= datatable_filter("master_cabang_id");
     
-    echo generate_datatable("persediaan-data", "1", "asc", $order_column_add, $disabled_column_serch_add, $filter);
+    echo generate_datatable("persediaan-data", "1", "asc", $order_column_add, $disabled_column_serch_add, $filter, "datatable_ajax");
     ?>
 
     <script type="text/javascript">

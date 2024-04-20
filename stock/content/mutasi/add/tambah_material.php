@@ -8,11 +8,11 @@
 			<div class="modal-body" id="form-data">
                 <div class="row mb-3">
                     <div class="col-md-12">
-                        <label>Kategori <span class="text-danger">*</span></label>
-                        <select name="master_kategori_material_id" class="form-control select2" id="kategori_material_id" required>
+                        <label>Gudang <span class="text-danger">*</span></label>
+                        <select name="master_gudang_asal_id" class="form-control select2" id="master_gudang_asal_id" required>
                             <option value="">Pilih</option>
                             <?php
-                            $tampil=mysqli_query($conn,"SELECT * FROM master_kategori_material WHERE deleted_at IS NULL ORDER BY nama");
+                            $tampil=mysqli_query($conn,"SELECT * FROM master_gudang WHERE master_cabang_id='$_SESSION[master_cabang_id]' AND  deleted_at IS NULL ORDER BY nama");
                             while($r=mysqli_fetch_array($tampil)){
                                 echo "<option value='$r[id]'>$r[nama]</option>";
                             }

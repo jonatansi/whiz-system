@@ -32,16 +32,16 @@ RewriteRule ^po-input$ content/po/aksi.php?act=input [QSA,L]
 
 RewriteRule ^po-tambah-material$ content/po/aksi.php?act=tambah_material [QSA,L]
 RewriteRule ^po-input-material$ content/po/aksi.php?act=input_material [QSA,L]
-RewriteRule ^po-edit-material$ content/po/aksi.php?act=edit_material [QSA,L]
-RewriteRule ^po-update-material$ content/po/aksi.php?act=update_material [QSA,L]
+###RewriteRule ^po-edit-material$ content/po/aksi.php?act=edit_material [QSA,L]
+###RewriteRule ^po-update-material$ content/po/aksi.php?act=update_material [QSA,L]
 RewriteRule ^po-delete-material$ content/po/aksi.php?act=delete_material [QSA,L]
 
-RewriteRule ^po-edit-([0-9]+)$ media.php?module=po&act=edit&id=$1 [QSA,L]
-RewriteRule ^po-tambah-material-edit$ content/po/aksi.php?act=tambah_material_edit [QSA,L]
-RewriteRule ^po-input-material-edit$ content/po/aksi.php?act=input_material_edit [QSA,L]
-RewriteRule ^po-edit-material-edit$ content/po/aksi.php?act=edit_material_edit [QSA,L]
-RewriteRule ^po-update-material-edit$ content/po/aksi.php?act=update_material_edit [QSA,L]
-RewriteRule ^po-delete-material-edit$ content/po/aksi.php?act=delete_material_edit [QSA,L]
+###RewriteRule ^po-edit-([0-9]+)$ media.php?module=po&act=edit&id=$1 [QSA,L]
+###RewriteRule ^po-tambah-material-edit$ content/po/aksi.php?act=tambah_material_edit [QSA,L]
+###RewriteRule ^po-input-material-edit$ content/po/aksi.php?act=input_material_edit [QSA,L]
+###RewriteRule ^po-edit-material-edit$ content/po/aksi.php?act=edit_material_edit [QSA,L]
+###RewriteRule ^po-update-material-edit$ content/po/aksi.php?act=update_material_edit [QSA,L]
+###RewriteRule ^po-delete-material-edit$ content/po/aksi.php?act=delete_material_edit [QSA,L]
 
 RewriteRule ^po-view-([0-9]+)$ media.php?module=po&act=view&id=$1 [QSA,L]
 
@@ -72,7 +72,8 @@ RewriteRule ^persediaan$ media.php?module=persediaan [QSA,L]
 RewriteRule ^persediaan-data$ content/persediaan/aksi.php?act=data_json [QSA,L]
 
 RewriteRule ^persediaan-view-([0-9]+)$ media.php?module=persediaan&act=view&id=$1 [QSA,L]
-
+RewriteRule ^persediaan-view-data$ content/persediaan/aksi.php?act=data_json_view [QSA,L]
+RewriteRule ^persediaan-view-data-sn$ content/persediaan/aksi.php?act=data_json_view_sn [QSA,L]
 
 ### PENGGUNAAN MATERIAL
 RewriteRule ^guna$ media.php?module=guna [QSA,L]
@@ -83,7 +84,19 @@ RewriteRule ^guna-data$ content/guna/aksi.php?act=data_json [QSA,L]
 RewriteRule ^mutasi$ media.php?module=mutasi [QSA,L]
 RewriteRule ^mutasi-data$ content/mutasi/aksi.php?act=data_json [QSA,L]
 
+RewriteRule ^mutasi-tambah$ media.php?module=mutasi&act=tambah [QSA,L]
+RewriteRule ^mutasi-table-material-add$ content/mutasi/aksi.php?act=table_add_material [QSA,L]
+RewriteRule ^mutasi-input$ content/mutasi/aksi.php?act=input [QSA,L]
+
+RewriteRule ^mutasi-tambah-material$ content/mutasi/aksi.php?act=tambah_material [QSA,L]
+RewriteRule ^mutasi-input-material$ content/mutasi/aksi.php?act=input_material [QSA,L]
+RewriteRule ^mutasi-delete-material$ content/mutasi/aksi.php?act=delete_material [QSA,L]
+
 RewriteRule ^mutasi-view-([0-9]+)$ media.php?module=mutasi&act=view&id=$1 [QSA,L]
+
+RewriteRule ^mutasi-sn-([0-9]+)$ media.php?module=mutasi&act=sn&id=$1 [QSA,L]
+RewriteRule ^mutasi-sn-input$ content/mutasi/aksi.php?act=sn_input [QSA,L]
+RewriteRule ^mutasi-sn-delete-([0-9]+)$ content/mutasi/aksi.php?act=sn_delete&id=$1 [QSA,L]
 
 
 ### OPNAME STOCK

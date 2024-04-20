@@ -107,7 +107,7 @@ else{
     $filter.= datatable_filter("tanggal_akhir");
     $filter.= datatable_filter("vendor_id");
     
-    echo generate_datatable("terimapo-data", "1", "desc", $order_column_add, $disabled_column_serch_add, $filter);
+    echo generate_datatable("terimapo-data", "1", "desc", $order_column_add, $disabled_column_serch_add, $filter, "datatable_ajax");
     ?>
 
     <?php

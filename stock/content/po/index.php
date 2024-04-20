@@ -99,7 +99,7 @@ else{
     $filter.= datatable_filter("tanggal_akhir");
     $filter.= datatable_filter("status_id");
     
-    echo generate_datatable("po-data", "1", "desc", $order_column_add, $disabled_column_serch_add, $filter);
+    echo generate_datatable("po-data", "1", "desc", $order_column_add, $disabled_column_serch_add, $filter, "datatable_ajax");
     ?>
 
     <?php

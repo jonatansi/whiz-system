@@ -7,20 +7,20 @@
             <th>Jlh Satuan Besar</th>
             <th>Jlh Satuan Dasar</th>
             <th>Kondisi</th>
-            <th>Harga Satuan</th>
-            <th>Jumlah Harga</th>
+            <th>Gudang Asal</th>
             <th width="60px">Aksi</th>
         </tr>
     </thead>
     <tbody>
         <?php
-        $tampil=mysqli_query($conn,"SELECT a.*, b.merk_type, c.nama AS nama_kondisi, d.nama AS nama_kategori_material, e.nama AS nama_satuan_besar, f.nama AS nama_satuan_kecil FROM po_detail a
+        $tampil=mysqli_query($conn,"SELECT a.*, b.merk_type, c.nama AS nama_kategori_material, d.nama AS nama_satuan_besar, e.nama AS nama_satuan_kecil, f.nama AS nama_gudang, g.nama AS nama_kondisi FROM mutasi_detail a
         LEFT JOIN master_material b ON a.master_material_id=b.id AND b.deleted_at IS NULL
-        LEFT JOIN master_kondisi c ON a.master_kondisi_id=c.id AND c.deleted_at IS NULL
-        LEFT JOIN master_kategori_material d ON a.master_kategori_material_id=d.id AND d.deleted_at IS NULL
-        LEFT JOIN master_satuan e ON a.master_satuan_besar_id=e.id AND e.deleted_at IS NULL
-        LEFT JOIN master_satuan f ON a.master_satuan_kecil_id=f.id AND f.deleted_at IS NULL
-        WHERE a.deleted_at IS NULL AND a.po_id IS NULL AND a.created_pegawai_id='$_SESSION[login_user]'");
+        LEFT JOIN master_kategori_material c ON a.master_kategori_material_id=c.id AND c.deleted_at IS NULL
+        LEFT JOIN master_satuan d ON a.master_satuan_besar_id=d.id AND d.deleted_at IS NULL
+        LEFT JOIN master_satuan e ON a.master_satuan_kecil_id=e.id AND e.deleted_at IS NULL
+        LEFT JOIN master_gudang f ON a.master_gudang_asal_id=f.id AND f.deleted_at IS NULL
+        LEFT JOIN master_kondisi g ON a.master_kondisi_id=g.id AND g.deleted_at IS NULL
+        WHERE a.mutasi_id IS NULL AND  a.created_pegawai_id='$_SESSION[login_user]'");
         $no=1;
         while($r=mysqli_fetch_array($tampil)){
             ?>
@@ -31,8 +31,8 @@
                 <td class="text-center"><?php echo formatAngka($r['jumlah']).' '.$r['nama_satuan_besar'];?></td>
                 <td class="text-center"><?php echo formatAngka($r['jumlah']*$r['jumlah_konversi']).' '.$r['nama_satuan_kecil'];?></td>
                 <td class="text-center"><?php echo $r['nama_kondisi'];?></td>
-                <td class="text-end"><?php echo formatAngka($r['harga']);?></td>
-                <td class="text-end"><?php echo formatAngka($r['jumlah']*$r['harga']);?></td>
+                <td class="text-center"><?php echo $r['nama_gudang'];?></td>
+                
                 <td class="text-center">
                     <button type="button" class="btn btn-sm btn-danger btnDelete" data-toggle="tooltip" data-placement="top" title="Hapus" id="<?php echo $r['id'];?>"><i class="bi bi-trash"></i></button>
                 </td>
@@ -68,14 +68,14 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: 'POST',
-                    url: 'po-delete-material',
+                    url: 'mutasi-delete-material',
                     data:{
                         'id' : id
                     },
                     success: function() {
                         $.ajax({
                             type: 'POST',
-                            url: 'po-table-material-add',
+                            url: 'mutasi-table-material-add',
                             beforeSend: function() {
                                 $('.preloader').show();
                                 $('#table_add_material').html("Loading...");

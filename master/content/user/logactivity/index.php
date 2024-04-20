@@ -78,5 +78,5 @@ $disabled_column_serch_add = datatable_column_search_disabled(0);
 $filter = datatable_filter("tanggal_awal");
 $filter.= datatable_filter("tanggal_akhir");
 
-echo generate_datatable("user-logactivity-data", "1", "desc", $order_column_add, $disabled_column_serch_add, $filter);
+echo generate_datatable("user-logactivity-data", "1", "desc", $order_column_add, $disabled_column_serch_add, $filter, "datatable_ajax");
 ?>

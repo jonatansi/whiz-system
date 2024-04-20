@@ -1,30 +1,21 @@
 <?php
 $columns = array( 
-    0 =>'a.id', 
-    1=> 'e.nama',
-    2 =>'b.merk_type',
-    3=> 'a.jumlah',
-    4=> 'd.nama',
-    5=> 'c.nama',
+    0 =>'a.created_at', 
+    1=> 'a.serial_number',
+    2 =>'b.nama',
+    3=> 'c.nama',
+    4=> 'a.harga'
 );
 
-$pencarian = array('a.id', 'e.nama', 'b.merk_type', 'a.jumlah', 'd.nama', 'c.nama');
+$pencarian = array('a.created_at', 'a.serial_number', 'b.nama', 'c.nama', 'a.harga');
 
+$d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM stok WHERE id='$_POST[stok_id]'"));
 
-$query = "SELECT a.id, a.jumlah, b.merk_type, c.nama AS nama_gudang, d.nama AS nama_satuan, e.nama AS nama_kategori FROM stok a 
-INNER JOIN master_material b ON a.master_material_id=b.id
-INNER JOIN master_gudang c ON a.master_gudang_id=c.id
-INNER JOIN master_satuan d ON b.master_satuan_id=d.id
-INNER JOIN master_kategori_material e ON b.master_kategori_material_id=e.id
-WHERE a.master_cabang_id='$_POST[master_cabang_id]'";
-
-if($_POST['master_gudang_id']!='0'){
-    $query.=" AND a.master_gudang_id='$_POST[master_gudang_id]'";
-}
-
-if($_POST['master_kategori_material_id']!='0'){
-    $query.=" AND b.master_kategori_material_id='$_POST[master_kategori_material_id]'";
-}
+$query = "SELECT a.*, b.nama AS nama_status, b.warna AS warna_status, c.nama AS nama_kondisi
+FROM material_sn a 
+LEFT JOIN master_status b ON a.status_id=b.id
+LEFT JOIN master_kondisi c ON a.master_kondisi_id=c.id
+WHERE a.master_gudang_id='$d[master_gudang_id]' AND a.master_material_id='$d[master_material_id]'";
 
 $totalData = mysqli_num_rows(mysqli_query($conn, $query));
 
@@ -75,13 +66,13 @@ $data = array();
 $no=$start+1;
 
 while( $row=mysqli_fetch_array($sql_data)) {  // preparing an array
+    $status="<span class='badge bg-$row[warna_status]'>$row[nama_status]</span>";
     $nestedData=array(); 
-    $nestedData[] = $no;
-    $nestedData[] = $row['nama_kategori'];
-    $nestedData[] = $row["merk_type"];
-    $nestedData[] = "<a href='persediaan-view-$row[id]' target='_blank' class='text-primary'>$row[jumlah]</a>";
-    $nestedData[] = $row['nama_satuan'];
-    $nestedData[] = $row['nama_gudang'];
+    $nestedData[] = WaktuIndo($row['created_at']);
+    $nestedData[] = $row["serial_number"];
+    $nestedData[] = $status;
+    $nestedData[] = $row['nama_kondisi'];
+    $nestedData[] = formatAngka($row['harga']);
                     
     //$nestedData[] = $sql;
     $data[] = $nestedData;

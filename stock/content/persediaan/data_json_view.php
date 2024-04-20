@@ -1,30 +1,18 @@
 <?php
 $columns = array( 
-    0 =>'a.id', 
-    1=> 'e.nama',
-    2 =>'b.merk_type',
-    3=> 'a.jumlah',
-    4=> 'd.nama',
-    5=> 'c.nama',
+    0 =>'created_at', 
+    1=> 'remark',
+    2 =>'masuk',
+    3=> 'keluar',
+    4=> 'balance'
 );
 
-$pencarian = array('a.id', 'e.nama', 'b.merk_type', 'a.jumlah', 'd.nama', 'c.nama');
+$pencarian = array('created_at', 'remark', 'masuk', 'keluar', 'balance');
 
+$tanggal_awal = "$_POST[tahun]-$_POST[id_bulan]-01";
+$tanggal_akhir = date('Y-m-t', strtotime($tanggal_awal));
 
-$query = "SELECT a.id, a.jumlah, b.merk_type, c.nama AS nama_gudang, d.nama AS nama_satuan, e.nama AS nama_kategori FROM stok a 
-INNER JOIN master_material b ON a.master_material_id=b.id
-INNER JOIN master_gudang c ON a.master_gudang_id=c.id
-INNER JOIN master_satuan d ON b.master_satuan_id=d.id
-INNER JOIN master_kategori_material e ON b.master_kategori_material_id=e.id
-WHERE a.master_cabang_id='$_POST[master_cabang_id]'";
-
-if($_POST['master_gudang_id']!='0'){
-    $query.=" AND a.master_gudang_id='$_POST[master_gudang_id]'";
-}
-
-if($_POST['master_kategori_material_id']!='0'){
-    $query.=" AND b.master_kategori_material_id='$_POST[master_kategori_material_id]'";
-}
+$query = "SELECT * FROM stok_log WHERE stok_id='$_POST[stok_id]' AND created_at BETWEEN '$tanggal_awal 00:00:00' AND '$tanggal_akhir 23:59:59'";
 
 $totalData = mysqli_num_rows(mysqli_query($conn, $query));
 
@@ -76,12 +64,11 @@ $no=$start+1;
 
 while( $row=mysqli_fetch_array($sql_data)) {  // preparing an array
     $nestedData=array(); 
-    $nestedData[] = $no;
-    $nestedData[] = $row['nama_kategori'];
-    $nestedData[] = $row["merk_type"];
-    $nestedData[] = "<a href='persediaan-view-$row[id]' target='_blank' class='text-primary'>$row[jumlah]</a>";
-    $nestedData[] = $row['nama_satuan'];
-    $nestedData[] = $row['nama_gudang'];
+    $nestedData[] = WaktuIndo($row['created_at']);
+    $nestedData[] = $row["remark"];
+    $nestedData[] = formatAngka($row['masuk']);
+    $nestedData[] = formatAngka($row['keluar']);
+    $nestedData[] = formatAngka($row['balance']);
                     
     //$nestedData[] = $sql;
     $data[] = $nestedData;

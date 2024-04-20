@@ -25,7 +25,7 @@ else{
                 <?php
                 // if($pegawai['master_cabang_id']=='1'){
                 ?>
-                    <a href="po-tambah"><button type="button" class="btn btn-dark me-2 btn-b btnAdd"><i class="mdi mdi-plus-circle"></i> Buat Mutasi Baru</button></a>
+                    <a href="mutasi-tambah"><button type="button" class="btn btn-dark me-2 btn-b btnAdd"><i class="mdi mdi-plus-circle"></i> Buat Mutasi Baru</button></a>
                 <?php
                 // }
                 ?>
@@ -70,13 +70,10 @@ else{
                             <thead class="table-info text-center">
                                 <tr>
                                     <th width="50px">No</th>
-                                    <th class="text-center">Nomor PO</th>
+                                    <th class="text-center">Nomor Mutasi</th>
                                     <th>Tanggal</th>
-                                    <th>Requester</th>
-                                    <th>Vendor</th>
-                                    <th>Status</th>
                                     <th>Total Item</th>
-                                    <th>Total Harga</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             
@@ -99,7 +96,7 @@ else{
     $filter.= datatable_filter("tanggal_akhir");
     $filter.= datatable_filter("status_id");
     
-    echo generate_datatable("po-data", "1", "desc", $order_column_add, $disabled_column_serch_add, $filter);
+    echo generate_datatable("mutasi-data", "1", "desc", $order_column_add, $disabled_column_serch_add, $filter, "datatable_ajax");
     ?>
 
     <?php

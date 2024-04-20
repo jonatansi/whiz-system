@@ -50,7 +50,7 @@ else{
 		$status_po=25;
 
 		foreach($_POST['po_detail_id'] AS $po_detail_id){
-			$d=mysqli_fetch_array(mysqli_query($conn,"SELECT master_material_id, jumlah_konversi, jumlah, jumlah_diterima  AS jumlah_diterima_sebelumnya FROM po_detail WHERE id='$po_detail_id' AND deleted_at IS NULL"));
+			$d=mysqli_fetch_array(mysqli_query($conn,"SELECT master_material_id, jumlah_konversi, jumlah, jumlah_diterima  AS jumlah_diterima_sebelumnya, master_kondisi_id FROM po_detail WHERE id='$po_detail_id' AND deleted_at IS NULL"));
 
 			$jumlah_satuan_besar = $_POST["jumlah_$po_detail_id"];
 			$gudang_id = $_POST["gudang_$po_detail_id"];
@@ -81,7 +81,20 @@ else{
 				$stok_id = mysqli_insert_id($conn);
 			}
 
-			mysqli_query($conn,"INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name) VALUES ('$stok_id', '$jumlah_masuk', '0', '$balance_current', '$waktu_sekarang', 'Receipt of materials', '$po_terima_detail_id', '101', 'po_terima_detail')");
+			//CEK APAKAH INI BARANG BARU ATAU BEKAS UNTUK DIRELAKSI KE KONDISI PADA BAGIAN STOK GUDANG
+			$cek_saldo_kondisi = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM stok_kondisi WHERE stok_id='$stok_id' AND deleted_at IS NULL AND master_kondisi_id='$d[master_kondisi_id]'"));
+			if(isset($cek_saldo_kondisi['id'])!=''){
+				$balance_current = $cek_saldo_kondisi['jumlah']+$jumlah_masuk;
+				mysqli_query($conn,"UPDATE stok_kondisi SET jumlah='$balance_current', updated_at='$waktu_sekarang' WHERE id='$cek_saldo_kondisi[id]'");
+			}
+			else{
+				$balance_current = $jumlah_masuk;
+
+				mysqli_query($conn,"INSERT INTO stok_kondisi (stok_id, master_kondisi_id, jumlah, created_at, updated_at) VALUES ('$stok_id', '$d[master_kondisi_id]', '$balance_current', '$waktu_sekarang', '$waktu_sekarang')");
+			}
+
+			//CATAT KE DALAM LOG
+			mysqli_query($conn,"INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name) VALUES ('$stok_id', '$jumlah_masuk', '0', '$balance_current', '$waktu_sekarang', 'Receipt of materials $number', '$po_terima_detail_id', '101', 'po_terima_detail')");
 
 
 			//UPDATE PO
@@ -102,21 +115,21 @@ else{
 
 	else if($act=='sn_input'){
 
-		$d=mysqli_fetch_array(mysqli_query($conn,"SELECT a.*, b.po_id, b.harga, b.master_material_id, b.jumlah_konversi, c.nama AS nama_gudang, d.nama AS nama_satuan_besar, e.nama AS nama_satuan_kecil, f.merk_type
+		$d=mysqli_fetch_array(mysqli_query($conn,"SELECT a.*, b.po_id, b.harga, b.master_material_id, b.master_kondisi_id, b.jumlah_konversi, c.nama AS nama_gudang, d.nama AS nama_satuan_besar, e.nama AS nama_satuan_kecil, f.merk_type, g.nomor AS nomor_po_terima
 		FROM po_terima_detail a
 		LEFT JOIN po_detail b ON a.po_detail_id=b.id AND b.deleted_at IS NULL
 		LEFT JOIN master_material f ON b.master_material_id=f.id AND f.deleted_at IS NULL
 		LEFT JOIN master_gudang c ON a.master_gudang_id=c.id AND c.deleted_at IS NULL
 		LEFT JOIN master_satuan d ON b.master_satuan_besar_id=d.id AND d.deleted_at IS NULL
 		LEFT JOIN master_satuan e ON b.master_satuan_kecil_id=e.id AND e.deleted_at IS NULL
+		LEFT JOIN po_terima g ON a.po_terima_id=g.id AND g.deleted_at IS NULL
 		WHERE a.deleted_at IS NULL AND a.id='$_POST[po_terima_detail_id]'"));
-
-	
 
 		$jumlah_item = $d['jumlah_diterima']*$d['jumlah_konversi'];
 		$harga = $d['harga']/$jumlah_item;
 		
-		$sql="INSERT INTO material_sn (material_id, status_id, serial_number, master_gudang_id, created_at, table_id, table_name, harga) VALUES ('$d[master_material_id]', '1', '$_POST[serial_number]', '$d[master_gudang_id]', '$waktu_sekarang', '$d[id]', 'po_terima_detail', '$harga')";
+		//MASUKKAN DATA SERIAL NUMBER
+		$sql="INSERT INTO material_sn (master_material_id, status_id, serial_number, master_gudang_id, created_at, table_id, table_name, harga, master_kategori_material_id, master_kondisi_id) VALUES ('$d[master_material_id]', '500', '$_POST[serial_number]', '$d[master_gudang_id]', '$waktu_sekarang', '$d[id]', 'po_terima_detail', '$harga', '$d[master_material_id]', '$d[master_kondisi_id]')";
 
 		$exists_data = 0;
 		if($_POST['serial_number']=='0'){
@@ -124,6 +137,10 @@ else{
 
 			for($i=$a['tot'];$i<$jumlah_item;$i++){
 				mysqli_query($conn, $sql);
+				$material_sn_id = mysqli_insert_id($conn);
+
+				//MASUKKAN DATA LOG SERIAL NUMBER
+				mysqli_query($conn,"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark) VALUES ('$material_sn_id', '515', '$waktu_sekarang', 'Penerimaan PO $d[nomor_po_terima]')");
 			}
 		}
 		else{
@@ -131,16 +148,21 @@ else{
 			
 			if(isset($a['id'])==''){
 				mysqli_query($conn, $sql);
+				$material_sn_id = mysqli_insert_id($conn);
+
+				//MASUKKAN DATA LOG SERIAL NUMBER
+				mysqli_query($conn,"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark) VALUES ('$material_sn_id', '515', '$waktu_sekarang', 'Penerimaan PO $d[nomor_po_terima]')");
 			}
 			else{
 				$exists_data = 1;
 			}
 		}
+		
 
 		if($exists_data=='0'){
 			//UPDATE STATUS
 			$status_terima = 210;
-			$tampil=mysqli_query($conn,"SELECT a.id, (a.jumlah_diterima*b.jumlah_konversi) AS jumlah_material, (SELECT COUNT(c.id) AS tot FROM material_sn c WHERE c.table_id=a.id AND c.status_id='1' AND c.table_name='po_terima_detail') AS total_sn
+			$tampil=mysqli_query($conn,"SELECT a.id, (a.jumlah_diterima*b.jumlah_konversi) AS jumlah_material, (SELECT COUNT(c.id) AS tot FROM material_sn c WHERE c.table_id=a.id AND c.table_name='po_terima_detail') AS total_sn
 			FROM po_terima_detail a
 			LEFT JOIN po_detail b ON a.po_detail_id=b.id AND b.deleted_at IS NULL
 			WHERE a.deleted_at IS NULL AND po_terima_id='$d[po_terima_id]'");
