@@ -15,6 +15,9 @@ else{
     include "../../../konfig/fungsi_generate_js.php";
 	include "../../../konfig/fungsi_thumb.php";
 
+	include "../../../services/send_discord.php";
+    include "../../../services/get_error.php";
+	
 	$act=$_GET['act'];
     
 	$module = "Purchase Order";
@@ -77,7 +80,7 @@ else{
 
 		$id = mysqli_insert_id($conn);
 
-		mysqli_query($conn,"UPDATE po_detail SET po_id='$id', updated_at='$waktu_sekarang' WHERE po_id IS NULL AND created_pegawai_id='$_SESSION[login_user]'");
+		mysqli_query($conn,"UPDATE po_detail SET po_id='$id', updated_at='$waktu_sekarang' WHERE po_id IS NULL AND created_pegawai_id='$_SESSION[login_user]' AND deleted_at IS NULL");
 
 		mysqli_query($conn,"INSERT INTO po_log (po_id, status_id, created_at, pegawai_id) VALUES ('$id', '1', '$waktu_sekarang', '$_SESSION[login_user]')");
 

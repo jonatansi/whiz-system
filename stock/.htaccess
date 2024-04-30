@@ -15,7 +15,10 @@ RewriteRule ^profile$ media.php?module=profile [QSA,L]
 RewriteRule ^aksi-edit-profile$ content/profile/aksi.php?act=update [QSA,L]
 
 RewriteRule ^data-material$ content/data/index.php?act=material [QSA,L]
+RewriteRule ^data-material-gudang$ content/data/index.php?act=material_gudang [QSA,L]
 RewriteRule ^data-satuan-material$ content/data/index.php?act=satuan_material [QSA,L]
+RewriteRule ^data-stok-gudang$ content/data/index.php?act=stok_gudang [QSA,L]
+
 
 RewriteRule ^lok-propinsi$ content/lok/aksi.php?act=propinsi [QSA,L]
 RewriteRule ^lok-kabupaten$ content/lok/aksi.php?act=kabupaten [QSA,L]
@@ -93,6 +96,13 @@ RewriteRule ^mutasi-input-material$ content/mutasi/aksi.php?act=input_material [
 RewriteRule ^mutasi-delete-material$ content/mutasi/aksi.php?act=delete_material [QSA,L]
 
 RewriteRule ^mutasi-view-([0-9]+)$ media.php?module=mutasi&act=view&id=$1 [QSA,L]
+
+RewriteRule ^mutasi-cetak-([0-9]+)$ content/mutasi/aksi.php?act=cetak&id=$1 [QSA,L]
+RewriteRule ^mutasi-next$ content/mutasi/aksi.php?act=next [QSA,L]
+RewriteRule ^mutasi-next-action$ content/mutasi/aksi.php?act=next_action [QSA,L]
+
+RewriteRule ^mutasi-cancel$ content/mutasi/aksi.php?act=cancel [QSA,L]
+RewriteRule ^mutasi-cancel-action$ content/mutasi/aksi.php?act=cancel_action [QSA,L]
 
 RewriteRule ^mutasi-sn-([0-9]+)$ media.php?module=mutasi&act=sn&id=$1 [QSA,L]
 RewriteRule ^mutasi-sn-input$ content/mutasi/aksi.php?act=sn_input [QSA,L]

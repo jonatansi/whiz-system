@@ -12,6 +12,9 @@ else{
     include "../../../konfig/base_url.php";
 	include "../../../konfig/fungsi_form_modal.php";
 
+	include "../../../services/send_discord.php";
+    include "../../../services/get_error.php";
+	
 	$act=$_GET['act'];
     
 	$module = "Master Kategori Material";

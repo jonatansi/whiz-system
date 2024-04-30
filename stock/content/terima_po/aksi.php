@@ -15,6 +15,9 @@ else{
     include "../../../konfig/fungsi_generate_js.php";
 	include "../../../konfig/fungsi_thumb.php";
 
+	include "../../../services/send_discord.php";
+    include "../../../services/get_error.php";
+	
 	$act=$_GET['act'];
     
 	$module = "Penerimaan Material";

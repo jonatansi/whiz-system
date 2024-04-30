@@ -9,6 +9,9 @@ include "konfig/library.php";
 include "konfig/myencrypt.php";
 include "konfig/fungsi_get_ip.php";
 
+include "services/send_discord.php";
+include "services/get_error.php";
+include "services/send_wa.php";
 session_start();
 if (isset($_POST['username']) && isset($_POST['password'])) {
 	// username and password sent from Form

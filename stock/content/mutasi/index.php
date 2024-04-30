@@ -73,6 +73,7 @@ else{
                                     <th class="text-center">Nomor Mutasi</th>
                                     <th>Tanggal</th>
                                     <th>Total Item</th>
+                                    <th>Gudang Tujuan</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -86,7 +87,7 @@ else{
 
     <?php 
     $order_column_add = datatable_column("6", "text-center", "false");
-    $order_column_add = datatable_column("-1", "text-end", "false");
+    $order_column_add = datatable_column("-1", "text-center", "false");
     $disabled_column_serch_add = datatable_column_search_disabled(0);
     $disabled_column_serch_add.= datatable_column_search_disabled(6);
     $disabled_column_serch_add.= datatable_column_search_disabled(7);
@@ -125,5 +126,8 @@ else if($_GET['act']=='tambah'){
 }
 else if($_GET['act']=='view'){
     include "view.php";
+}
+else if($_GET['act']=='sn'){
+    include "serial_number.php";
 }
 ?>

@@ -2,7 +2,7 @@
 $columns = array( 
     0 =>'a.id', 
     1=> 'a.nomor',
-    2 =>'a.tanggal',
+    2=> 'a.tanggal',
     3=> 'b.nama',
     4=> 'c.nama',
     5=> 'd.nama',
@@ -12,16 +12,12 @@ $pencarian = array('a.id', 'a.nomor', 'a.tanggal', 'b.nama', 'c.nama', 'd.nama')
 
 $pegawai = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai WHERE id='$_SESSION[login_user]'"));
 
-$query = "SELECT a.*, b.nama AS nama_cabang, c.nama AS nama_vendor, d.nama AS nama_status, d.warna AS warna_status, (SELECT SUM(e.jumlah) FROM po_detail e WHERE a.id=e.po_id AND e.deleted_at IS NULL) AS total_item, (SELECT SUM(e.jumlah * e.harga) FROM po_detail e WHERE a.id=e.po_id AND e.deleted_at IS NULL) AS total_harga 
-FROM po a 
-LEFT JOIN master_cabang b ON a.request_master_cabang_id=b.id AND b.deleted_at IS NULL
-LEFT JOIN master_vendor c ON a.master_vendor_id=c.id AND c.deleted_at IS NULL
+$query = "SELECT a.*, b.nama AS nama_cabang, c.nama AS nama_gudang, d.nama AS nama_status, d.warna AS warna_status, (SELECT SUM(e.jumlah) FROM mutasi_detail e WHERE a.id=e.mutasi_id AND e.deleted_at IS NULL) AS total_item
+FROM mutasi a 
+LEFT JOIN master_cabang b ON a.created_master_cabang_id=b.id AND b.deleted_at IS NULL
+LEFT JOIN master_gudang c ON a.master_gudang_tujuan_id=c.id AND c.deleted_at IS NULL
 LEFT JOIN master_status d ON a.status_id=d.id
 WHERE a.deleted_at IS NULL AND a.tanggal BETWEEN '$_POST[tanggal_awal]' AND '$_POST[tanggal_akhir]'";
-
-if($pegawai['master_cabang_id']!='1'){
-    $query.=" AND a.request_master_cabang_id='$pegawai[master_cabang_id]'";
-}
 
 if($_POST['status_id']!='0'){
     $query.=" AND a.status_id='$_POST[status_id]'";
@@ -79,13 +75,11 @@ while( $row=mysqli_fetch_array($sql_data)) {  // preparing an array
     $status = "<span class='badge bg-$row[warna_status]'>$row[nama_status]</span>";
     $nestedData=array(); 
     $nestedData[] = $no;
-    $nestedData[] = "<a href='po-view-$row[id]' target='_blank' class='text-primary'>$row[nomor]</a>";
+    $nestedData[] = "<a href='mutasi-view-$row[id]' target='_blank' class='text-primary'>$row[nomor]</a>";
     $nestedData[] = DateIndo($row["tanggal"]);
-    $nestedData[] = $row['nama_cabang'];
-    $nestedData[] = $row['nama_vendor'];
-    $nestedData[] = $status;
     $nestedData[] = formatAngka($row['total_item']);
-    $nestedData[] = formatAngka($row['total_harga']);
+    $nestedData[] = $row['nama_gudang'];
+    $nestedData[] = $status;
                     
     //$nestedData[] = $sql;
     $data[] = $nestedData;
