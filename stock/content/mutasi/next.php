@@ -4,6 +4,10 @@ if($d['status_id']=='250'){
     $next_status_id = 260;
     $title = "On Progress";
 }
+else if($d['status_id']=='260'){
+    $next_status_id = 270;
+    $title = "Completed";
+}
 ?>
 <form action="mutasi-next-action" method="POST" enctype="multipart/form-data" id="form_crud">
     <input type="hidden" name="next_status_id" value="<?php echo $next_status_id;?>">

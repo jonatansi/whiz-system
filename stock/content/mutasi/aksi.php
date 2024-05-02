@@ -114,27 +114,50 @@ else{
 	}
 
 	else if($act=='next_action'){
-		$vdir_upload = "../../../files/mutasi/";
+		mysqli_begin_transaction($conn);
+		try {
+			$vdir_upload = "../../../files/mutasi/";
 
-		$acak			 = rand(1111,9999);
-		$lokasi_file     = $_FILES['dokumen']['tmp_name'];
-		$tipe_file       = $_FILES['dokumen']['type'];
-		$nama_file       = $_FILES['dokumen']['name'];
-		$nama_file_unik  = $acak.$nama_file;
+			$acak			 = rand(1111,9999);
+			$lokasi_file     = $_FILES['dokumen']['tmp_name'];
+			$tipe_file       = $_FILES['dokumen']['type'];
+			$nama_file       = $_FILES['dokumen']['name'];
+			$nama_file_unik  = $acak.$nama_file;
+			
+			if ($_FILES["dokumen"]["error"] > 0 OR empty($lokasi_file)){
+				$nama_file_unik = "";
+			}
 		
-		if ($_FILES["dokumen"]["error"] > 0 OR empty($lokasi_file)){
-			$nama_file_unik = "";
+			else{
+				UploadDokumen($nama_file_unik, $vdir_upload);
+			}
+
+			mysqli_query($conn,"INSERT INTO mutasi_log (mutasi_id, status_id, created_at, pegawai_id, dokumen, remark) VALUES ('$_POST[mutasi_id]', '$_POST[next_status_id]', '$waktu_sekarang', '$_SESSION[login_user]', '$nama_file_unik', '$_POST[remark]')");
+
+			mysqli_query($conn,"UPDATE mutasi SET status_id='$_POST[next_status_id]' WHERE id='$_POST[mutasi_id]'");
+
+			if($_POST['next_status_id']=='270'){
+				$d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM mutasi WHERE id='$_POST[mutasi_id]' AND deleted_at IS NULL"));
+
+				//UPDATE BAHWA TELAH JADI DIMUTASKAN
+				mysqli_query($conn,"UPDATE mutasi_sn a INNER JOIN mutasi_detail b ON a.mutasi_detail_id = b.id SET a.status='2' WHERE b.mutasi_id='$_POST[mutasi_id]'");
+
+				//UPDATE KE BAGIAN MATERIAL SN DAN CATAT DI LOG MATERIAL SN
+				$data=mysqli_query($conn,"SELECT a.* FROM mutasi_sn a INNER JOIN mutasi_detail b ON a.mutasi_detail_id = b.id WHERE b.mutasi_id='$_POST[mutasi_id]' AND a.status='2'");
+				while($r=mysqli_fetch_array($data)){
+					mysqli_query($conn,"UPDATE material_sn SET master_gudang_id='$d[master_gudang_tujuan_id]' WHERE id='$r[material_sn_id]'");
+					
+					mysqli_query($conn,"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark) VALUES ('$r[material_sn_id]', '520', '$waktu_sekarang', 'Mutasi pada Transaksi $d[nomor]')");
+				}
+			}
+			mysqli_commit($conn);
 		}
-	  
-		else{
-			UploadDokumen($nama_file_unik, $vdir_upload);
+		catch (Exception $e) {
+			// Tangkap kesalahan dan lakukan rollback
+			mysqli_rollback($conn);
 		}
 
-		mysqli_query($conn,"INSERT INTO mutasi_log (mutasi_id, status_id, created_at, pegawai_id, dokumen, remark) VALUES ('$_POST[mutasi_id]', '$_POST[next_status_id]', '$waktu_sekarang', '$_SESSION[login_user]', '$nama_file_unik', '$_POST[remark]')");
-
-		mysqli_query($conn,"UPDATE mutasi SET status_id='$_POST[next_status_id]' WHERE id='$_POST[mutasi_id]'");
-
-		header("location: mutasi-view-$_POST[mutasi_id]");
+		// header("location: mutasi-view-$_POST[mutasi_id]");
 	}
 
 	else if($act=='cancel'){
@@ -143,19 +166,31 @@ else{
 
 	else if($act=='cancel_action'){
 
-		mysqli_query($conn,"INSERT INTO mutasi_log (mutasi_id, status_id, created_at, pegawai_id, remark) VALUES ('$_POST[mutasi_id]', '255', '$waktu_sekarang', '$_SESSION[login_user]', '$_POST[remark]')");
+		mysqli_begin_transaction($conn);
+		try {
+			mysqli_query($conn,"INSERT INTO mutasi_log (mutasi_id, status_id, created_at, pegawai_id, remark) VALUES ('$_POST[mutasi_id]', '255', '$waktu_sekarang', '$_SESSION[login_user]', '$_POST[remark]')");
 
+			mysqli_query($conn,"UPDATE mutasi SET status_id='255' WHERE id='$_POST[mutasi_id]'");
+			mysqli_query($conn,"UPDATE mutasi_sn a INNER JOIN mutasi_detail b ON a.mutasi_detail_id = b.id SET a.status='3' WHERE b.mutasi_id='$_POST[mutasi_id]'");
+
+			mysqli_commit($conn);
+		}
+		catch (Exception $e) {
+			// Tangkap kesalahan dan lakukan rollback
+			mysqli_rollback($conn);
+		}
 		header("location: mutasi-view-$_POST[mutasi_id]");
 	}
 
 	else if($act=='sn_input'){
 		//CEK APAKAH SERIAL NUMBER ITU MEMANG ADA DI GUDANG ITU
 		$cek = mysqli_fetch_array(mysqli_query($conn,"SELECT a.* FROM material_sn a 
-		INNER JOIN mutasi_detail b ON a.master_gudang_id=b.master_gudang_asal_id AND b.deleted_at IS NULL WHERE a.serial_number='$_POST[serial_number]' AND b.id='$_POST[mutasi_detail_id]'"));
+		INNER JOIN mutasi_detail b ON a.master_gudang_id=b.master_gudang_asal_id AND b.deleted_at IS NULL AND a.master_material_id=b.master_material_id
+		WHERE a.serial_number='$_POST[serial_number]' AND b.id='$_POST[mutasi_detail_id]'"));
 
 		if(isset($cek['id'])!=''){
 			//CEK APAKAH SERIAL NUMBER INI SUDAH ADA DI DALAM LIST MUTASI SN ATAU BELUM DIKECUALIKAN UNTUK '0'
-			$d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM mutasi_sn WHERE mutasi_detail_id='$_POST[mutasi_detail_id]' AND serial_number='$_POST[serial_number]' AND serial_number!='0'"));
+			$d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM mutasi_sn WHERE mutasi_detail_id='$_POST[mutasi_detail_id]' AND serial_number='$_POST[serial_number]' AND serial_number!='0' AND status='1'"));
 			if(isset($d['id'])==''){
 				mysqli_query($conn,"INSERT INTO mutasi_sn (mutasi_detail_id, serial_number, created_at, material_sn_id) VALUES ('$_POST[mutasi_detail_id]', '$_POST[serial_number]', '$waktu_sekarang', '$cek[id]')");
 
@@ -173,7 +208,7 @@ else{
 		else{
 			?>
 			<script type="text/javascript">
-				alert("Serial number tersebut tidak ada dalam gudang itu");
+				alert("Serial number tersebut tidak ada dalam gudang itu atau serial number tidak sesuai");
 				window.history.back();
 			</script>
 			<?php

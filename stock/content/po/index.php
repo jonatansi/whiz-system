@@ -5,7 +5,7 @@ if(isset($_GET['tanggal_awal'])){
     $tanggal_akhir=$_GET['tanggal_akhir'];
 }
 else{
-    $tanggal_awal = date('Y-m-01');
+    $tanggal_awal = date('Y-01-01');
 	$tanggal_akhir = date('Y-m-d');
 }
 ?>

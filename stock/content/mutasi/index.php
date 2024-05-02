@@ -5,7 +5,7 @@ if(isset($_GET['tanggal_awal'])){
     $tanggal_akhir=$_GET['tanggal_akhir'];
 }
 else{
-    $tanggal_awal = date('Y-m-01');
+    $tanggal_awal = date('Y-01-01');
 	$tanggal_akhir = date('Y-m-d');
 }
 ?>
@@ -72,8 +72,10 @@ else{
                                     <th width="50px">No</th>
                                     <th class="text-center">Nomor Mutasi</th>
                                     <th>Tanggal</th>
-                                    <th>Total Item</th>
+                                    <th>Branch</th>
                                     <th>Gudang Tujuan</th>
+                                    <th>Total Item</th>
+                                    <th>Total SN</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -86,12 +88,12 @@ else{
     </div>
 
     <?php 
-    $order_column_add = datatable_column("6", "text-center", "false");
-    $order_column_add = datatable_column("-1", "text-center", "false");
+
+    $order_column_add = datatable_column("4", "text-center", "true");
+    $order_column_add.= datatable_column("5", "text-center", "true");
+    $order_column_add.= datatable_column("-1", "text-center", "false");
     $disabled_column_serch_add = datatable_column_search_disabled(0);
-    $disabled_column_serch_add.= datatable_column_search_disabled(6);
     $disabled_column_serch_add.= datatable_column_search_disabled(7);
-    $disabled_column_serch_add.= datatable_column_search_disabled(8);
 
     $filter = datatable_filter("tanggal_awal");
     $filter.= datatable_filter("tanggal_akhir");

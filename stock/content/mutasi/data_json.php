@@ -5,18 +5,22 @@ $columns = array(
     2=> 'a.tanggal',
     3=> 'b.nama',
     4=> 'c.nama',
-    5=> 'd.nama',
+    5=> 'total_item',
+    6=> 'total_sn'
 );
 
-$pencarian = array('a.id', 'a.nomor', 'a.tanggal', 'b.nama', 'c.nama', 'd.nama');
+$pencarian = array('a.id', 'a.nomor', 'a.tanggal', 'b.nama', 'c.nama', 'total_item', 'total_sn');
 
 $pegawai = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai WHERE id='$_SESSION[login_user]'"));
 
-$query = "SELECT a.*, b.nama AS nama_cabang, c.nama AS nama_gudang, d.nama AS nama_status, d.warna AS warna_status, (SELECT SUM(e.jumlah) FROM mutasi_detail e WHERE a.id=e.mutasi_id AND e.deleted_at IS NULL) AS total_item
+$query = "SELECT a.*,  b.nama AS nama_cabang, c.nama AS nama_gudang, d.nama AS nama_status, d.warna AS warna_status, COALESCE(total_item_query.total_item, 0) AS total_item, COALESCE(total_sn_query.total_sn, 0) AS total_sn
 FROM mutasi a 
-LEFT JOIN master_cabang b ON a.created_master_cabang_id=b.id AND b.deleted_at IS NULL
-LEFT JOIN master_gudang c ON a.master_gudang_tujuan_id=c.id AND c.deleted_at IS NULL
-LEFT JOIN master_status d ON a.status_id=d.id
+LEFT JOIN master_cabang b ON a.created_master_cabang_id = b.id AND b.deleted_at IS NULL
+LEFT JOIN master_gudang c ON a.master_gudang_tujuan_id = c.id AND c.deleted_at IS NULL
+LEFT JOIN master_status d ON a.status_id = d.id
+LEFT JOIN (SELECT mutasi_id, SUM(jumlah) AS total_item FROM mutasi_detail WHERE deleted_at IS NULL AND mutasi_id IS NOT NULL GROUP BY mutasi_id) AS total_item_query 
+ON a.id = total_item_query.mutasi_id
+LEFT JOIN (SELECT g.mutasi_id, COUNT(f.id) AS total_sn FROM mutasi_sn f INNER JOIN mutasi_detail g ON f.mutasi_detail_id = g.id AND g.deleted_at IS NULL GROUP BY g.mutasi_id) AS total_sn_query ON a.id = total_sn_query.mutasi_id
 WHERE a.deleted_at IS NULL AND a.tanggal BETWEEN '$_POST[tanggal_awal]' AND '$_POST[tanggal_akhir]'";
 
 if($_POST['status_id']!='0'){
@@ -77,8 +81,10 @@ while( $row=mysqli_fetch_array($sql_data)) {  // preparing an array
     $nestedData[] = $no;
     $nestedData[] = "<a href='mutasi-view-$row[id]' target='_blank' class='text-primary'>$row[nomor]</a>";
     $nestedData[] = DateIndo($row["tanggal"]);
-    $nestedData[] = formatAngka($row['total_item']);
+    $nestedData[] = $row['nama_cabang'];
     $nestedData[] = $row['nama_gudang'];
+    $nestedData[] = formatAngka($row['total_item']);
+    $nestedData[] = formatAngka($row['total_sn']);
     $nestedData[] = $status;
                     
     //$nestedData[] = $sql;

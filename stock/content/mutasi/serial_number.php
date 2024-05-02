@@ -17,6 +17,7 @@ if(isset($d['id'])!=''){
 $mutasi_id=$d['mutasi_id'];
 $jumlah_item = $d['jumlah'];
 
+$m=mysqli_fetch_array(mysqli_query($conn,"SELECT status_id FROM mutasi WHERE id='$mutasi_id'"));
 ?>
 <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
     <div class="my-auto">
@@ -60,6 +61,9 @@ $jumlah_item = $d['jumlah'];
 
                 <div class="row mb-3">
                     <div class="col-md-12">
+                        <?php
+                        if($m['status_id']=='260'){
+                        ?>
                         <fieldset class="mb-3">
                             <legend>Input Serial Number</legend>
                             <form method="POST" action="mutasi-sn-input">
@@ -77,8 +81,11 @@ $jumlah_item = $d['jumlah'];
                                 </div>
                             </form>
                         </fieldset>
+                        <?php
+                        }
+                        ?>
                         <fieldset>
-                            <legend>Data Serial Number yang akan dimutasikan</legend>
+                            <legend>Data Serial Number yang dimutasikan</legend>
                             <div class="table table-responsive">
                                 <table class="table table-sm" id="my_datatable">
                                     <thead class="table-info text-center">

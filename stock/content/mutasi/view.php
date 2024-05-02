@@ -1,10 +1,13 @@
 <?php
-$sql="SELECT a.*, b.nama AS nama_cabang, c.nama AS nama_gudang, d.nama AS nama_status, d.warna AS warna_status, (SELECT SUM(e.jumlah) FROM mutasi_detail e WHERE a.id=e.mutasi_id AND e.deleted_at IS NULL) AS total_item
+$sql="SELECT a.*,  b.nama AS nama_cabang, c.nama AS nama_gudang, d.nama AS nama_status, d.warna AS warna_status, COALESCE(total_item_query.total_item, 0) AS total_item, COALESCE(total_sn_query.total_sn, 0) AS total_sn
 FROM mutasi a 
-LEFT JOIN master_cabang b ON a.created_master_cabang_id=b.id AND b.deleted_at IS NULL
-LEFT JOIN master_gudang c ON a.master_gudang_tujuan_id=c.id AND c.deleted_at IS NULL
-LEFT JOIN master_status d ON a.status_id=d.id
-WHERE a.deleted_at IS NULL AND a.id='$_GET[id]' AND created_master_cabang_id='$_SESSION[master_cabang_id]'";
+LEFT JOIN master_cabang b ON a.created_master_cabang_id = b.id AND b.deleted_at IS NULL
+LEFT JOIN master_gudang c ON a.master_gudang_tujuan_id = c.id AND c.deleted_at IS NULL
+LEFT JOIN master_status d ON a.status_id = d.id
+LEFT JOIN (SELECT mutasi_id, SUM(jumlah) AS total_item FROM mutasi_detail WHERE deleted_at IS NULL AND mutasi_id IS NOT NULL GROUP BY mutasi_id) AS total_item_query 
+ON a.id = total_item_query.mutasi_id
+LEFT JOIN (SELECT g.mutasi_id, COUNT(f.id) AS total_sn FROM mutasi_sn f INNER JOIN mutasi_detail g ON f.mutasi_detail_id = g.id AND g.deleted_at IS NULL GROUP BY g.mutasi_id) AS total_sn_query ON a.id = total_sn_query.mutasi_id
+WHERE a.deleted_at IS NULL AND a.id='$_GET[id]'";
 
 $d=mysqli_fetch_array(mysqli_query($conn,$sql));
 if(isset($d['id'])!=''){
@@ -37,6 +40,12 @@ if(isset($d['id'])!=''){
                         if($d['status_id']=='250' AND $d['created_master_cabang_id']==$_SESSION['master_cabang_id']){
                             ?>
                             <button class='btn btn-success btn-sm ml-2 btnNext' id='<?php echo $d['id'];?>'><i class='fas fa-check'></i> On Progress</button>
+                            <button class='btn btn-danger btn-sm ml-2 btnCancel' id='<?php echo $d['id'];?>'><i class='fas fa-times'></i> Cancel</button>
+                            <?php
+                        }
+                        if($d['status_id']=='260' AND $d['created_master_cabang_id']==$_SESSION['master_cabang_id'] AND $d['total_item']==$d['total_sn']){
+                            ?>
+                            <button class='btn btn-success btn-sm ml-2 btnNext' id='<?php echo $d['id'];?>'><i class='fas fa-check'></i> Completed</button>
                             <button class='btn btn-danger btn-sm ml-2 btnCancel' id='<?php echo $d['id'];?>'><i class='fas fa-times'></i> Cancel</button>
                             <?php
                         }
