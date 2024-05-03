@@ -29,7 +29,7 @@ else{
         include "kelurahan.php";
     }
 
-    mysqli_close($conn_api);
+    mysqli_close($conn);
 	
 }
 ?>

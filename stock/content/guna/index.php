@@ -11,11 +11,11 @@ else{
 ?>
     <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
         <div class="my-auto">
-            <h5 class="page-title fs-21 mb-1">Mutasi Material</h5>
+            <h5 class="page-title fs-21 mb-1">Penggunaan Material</h5>
             <nav>
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Mutasi Material</li>
+                    <li class="breadcrumb-item active" aria-current="page">Penggunaan Material</li>
                 </ol>
             </nav>
         </div>
@@ -25,7 +25,7 @@ else{
                 <?php
                 if($pegawai['master_cabang_id']!='1'){
                 ?>
-                    <a href="mutasi-tambah"><button type="button" class="btn btn-dark me-2 btn-b btnAdd"><i class="mdi mdi-plus-circle"></i> Buat Mutasi Baru</button></a>
+                    <a href="guna-tambah"><button type="button" class="btn btn-dark me-2 btn-b btnAdd"><i class="mdi mdi-plus-circle"></i> Buat Penggunaan Baru</button></a>
                 <?php
                 }
                 ?>
@@ -53,7 +53,7 @@ else{
                                 <select name="status_id" class="form-control" id="status_id">
                                     <option value="0">Semua</option>
                                     <?php
-                                    $tampil=mysqli_query($conn,"SELECT * FROM master_status WHERE remark='Mutasi'");
+                                    $tampil=mysqli_query($conn,"SELECT * FROM master_status WHERE remark='guna'");
                                     while($r=mysqli_fetch_array($tampil)){
                                         echo "<option value='$r[id]'>$r[nama]</option>";
                                     }
@@ -70,10 +70,10 @@ else{
                             <thead class="table-info text-center">
                                 <tr>
                                     <th width="50px">No</th>
-                                    <th class="text-center">Nomor Mutasi</th>
+                                    <th class="text-center">Nomor</th>
                                     <th>Tanggal</th>
                                     <th>Branch</th>
-                                    <th>Gudang Tujuan</th>
+                                    <th>Penggunaan</th>
                                     <th>Total Item</th>
                                     <th>Total SN</th>
                                     <th>Status</th>
@@ -99,7 +99,7 @@ else{
     $filter.= datatable_filter("tanggal_akhir");
     $filter.= datatable_filter("status_id");
     
-    echo generate_datatable("mutasi-data", "1", "desc", $order_column_add, $disabled_column_serch_add, $filter, "datatable_ajax");
+    echo generate_datatable("guna-data", "1", "desc", $order_column_add, $disabled_column_serch_add, $filter, "datatable_ajax");
     ?>
 
     <?php

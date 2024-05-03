@@ -22,7 +22,7 @@ $pegawai = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai WHERE id
                 </div>
                 <div class="form-group">
                     <label class="mb-2">Tanggal<span class="text-danger">*</span></label>
-                    <input type="date" class="form-control" name="tanggal" max="<?php echo $tgl_sekarang;?>">
+                    <input type="date" class="form-control" name="tanggal" max="<?php echo $tgl_sekarang;?>" value="<?php echo $tgl_sekarang;?>">
                 </div>
 			</div>
 			<div class="modal-footer p-2">

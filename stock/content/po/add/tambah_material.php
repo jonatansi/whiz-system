@@ -1,4 +1,4 @@
-<form action="mutasi-input-material" method="POST" enctype="multipart/form-data" id="form_crud">
+<form action="po-input-material" method="POST" enctype="multipart/form-data" id="form_crud">
 	<div class="modal-dialog modal-md a-lightSpeed">
 		<div class="modal-content">
 			<div class="modal-header">

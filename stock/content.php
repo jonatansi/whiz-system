@@ -23,7 +23,7 @@
             include "content/opname/index.php";
         }
         else if($module=='profile'){
-            include "content/profiles/index.php";
+            include "content/profile/index.php";
         }
         ?>
     </div>

@@ -58,3 +58,18 @@ Stock Management
    - Alert apabila sudah ada barang yang sudah mencapai stok minimum
    - Penerimaan PO dengan semua status (dalam bentuk pie chart)
    
+
+TRUNCATE TABLE material_sn;
+TRUNCATE TABLE material_sn_log;
+TRUNCATE TABLE mutasi;
+TRUNCATE TABLE mutasi_detail;
+TRUNCATE TABLE mutasi_log;
+TRUNCATE TABLE mutasi_sn;
+TRUNCATE TABLE po;
+TRUNCATE TABLE po_detail;
+TRUNCATE TABLE po_log;
+TRUNCATE TABLE po_terima;
+TRUNCATE TABLE po_terima_detail;
+TRUNCATE TABLE stok;
+TRUNCATE TABLE stok_kondisi;
+TRUNCATE TABLE stok_log;

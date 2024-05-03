@@ -156,16 +156,21 @@ if(isset($d['id'])!=''){
     
 </script>
 <?php
-// $order_column_add = datatable_column("0", "text-start", "false");
+$order_column_add = datatable_column("2", "text-end", "true");
+$order_column_add.= datatable_column("3", "text-end", "true");
+$order_column_add.= datatable_column("4", "text-end", "true");
 
 $filter = datatable_filter("id_bulan");
 $filter.= datatable_filter("tahun");
 $filter.= datatable_filter("stok_id");
 
-echo generate_datatable("persediaan-view-data", "1", "asc", '', '', $filter, "datatable_ajax");
+echo generate_datatable("persediaan-view-data", "0", "asc", $order_column_add, '', $filter, "datatable_ajax");
 
+$order_column_add= datatable_column("2", "text-center", "true");
+$order_column_add.= datatable_column("3", "text-center", "true");
+$order_column_add.= datatable_column("4", "text-end", "true");
 $filter= datatable_filter("stok_id");
-echo generate_datatable("persediaan-view-data-sn", "1", "asc", '', '', $filter, "datatable_ajax_sn");
+echo generate_datatable("persediaan-view-data-sn", "0", "asc", $order_column_add, '', $filter, "datatable_ajax_sn");
 }
 else{
     ?>

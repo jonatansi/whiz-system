@@ -13,6 +13,7 @@ RewriteRule ^home$ media.php?module=home [QSA,L]
 
 RewriteRule ^profile$ media.php?module=profile [QSA,L]
 RewriteRule ^aksi-edit-profile$ content/profile/aksi.php?act=update [QSA,L]
+RewriteRule ^profile-cekpass$ content/profile/aksi.php?act=cekpass [QSA,L]
 
 RewriteRule ^data-material$ content/data/index.php?act=material [QSA,L]
 RewriteRule ^data-material-gudang$ content/data/index.php?act=material_gudang [QSA,L]
@@ -78,11 +79,6 @@ RewriteRule ^persediaan-view-([0-9]+)$ media.php?module=persediaan&act=view&id=$
 RewriteRule ^persediaan-view-data$ content/persediaan/aksi.php?act=data_json_view [QSA,L]
 RewriteRule ^persediaan-view-data-sn$ content/persediaan/aksi.php?act=data_json_view_sn [QSA,L]
 
-### PENGGUNAAN MATERIAL
-RewriteRule ^guna$ media.php?module=guna [QSA,L]
-RewriteRule ^guna-data$ content/guna/aksi.php?act=data_json [QSA,L]
-
-
 ### MUTASI MATERIAL
 RewriteRule ^mutasi$ media.php?module=mutasi [QSA,L]
 RewriteRule ^mutasi-data$ content/mutasi/aksi.php?act=data_json [QSA,L]
@@ -107,6 +103,32 @@ RewriteRule ^mutasi-cancel-action$ content/mutasi/aksi.php?act=cancel_action [QS
 RewriteRule ^mutasi-sn-([0-9]+)$ media.php?module=mutasi&act=sn&id=$1 [QSA,L]
 RewriteRule ^mutasi-sn-input$ content/mutasi/aksi.php?act=sn_input [QSA,L]
 RewriteRule ^mutasi-sn-delete-([0-9]+)$ content/mutasi/aksi.php?act=sn_delete&id=$1 [QSA,L]
+
+
+###PENGGUNAAN MATERIAL
+RewriteRule ^guna$ media.php?module=guna [QSA,L]
+RewriteRule ^guna-data$ content/guna/aksi.php?act=data_json [QSA,L]
+
+RewriteRule ^guna-tambah$ media.php?module=guna&act=tambah [QSA,L]
+RewriteRule ^guna-table-material-add$ content/guna/aksi.php?act=table_add_material [QSA,L]
+RewriteRule ^guna-input$ content/guna/aksi.php?act=input [QSA,L]
+
+RewriteRule ^guna-tambah-material$ content/guna/aksi.php?act=tambah_material [QSA,L]
+RewriteRule ^guna-input-material$ content/guna/aksi.php?act=input_material [QSA,L]
+RewriteRule ^guna-delete-material$ content/guna/aksi.php?act=delete_material [QSA,L]
+
+RewriteRule ^guna-view-([0-9]+)$ media.php?module=guna&act=view&id=$1 [QSA,L]
+
+RewriteRule ^guna-cetak-([0-9]+)$ content/guna/aksi.php?act=cetak&id=$1 [QSA,L]
+RewriteRule ^guna-next$ content/guna/aksi.php?act=next [QSA,L]
+RewriteRule ^guna-next-action$ content/guna/aksi.php?act=next_action [QSA,L]
+
+RewriteRule ^guna-cancel$ content/guna/aksi.php?act=cancel [QSA,L]
+RewriteRule ^guna-cancel-action$ content/guna/aksi.php?act=cancel_action [QSA,L]
+
+RewriteRule ^guna-sn-([0-9]+)$ media.php?module=guna&act=sn&id=$1 [QSA,L]
+RewriteRule ^guna-sn-input$ content/guna/aksi.php?act=sn_input [QSA,L]
+RewriteRule ^guna-sn-delete-([0-9]+)$ content/guna/aksi.php?act=sn_delete&id=$1 [QSA,L]
 
 
 ### OPNAME STOCK

@@ -40,7 +40,7 @@
                                     Jabatan Requester <small class="text-danger">*</small>
                                 </label>
                                 <div class="col-md-7">
-                                    <input type="text" name="request_pegawai_jabatan" class="form-control" required>
+                                    <input type="text" name="request_pegawai_jabatan" class="form-control" required id="request_pegawai_jabatan">
                                 </div>
                             </div>
                             
@@ -82,7 +82,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button type="button" class="btn btn-success has-ripple"  onclick="showSweetAlert()"><i class="bi bi-check"></i> Simpan</button>
+                <button type="button" class="btn btn-success has-ripple"  onclick="showSweetAlert()" id="btnSubmit"><i class="bi bi-check"></i> Simpan</button>
                 <a href="mutasi"><button type="button" class="btn btn-danger has-ripple"><i class="bi bi-x"></i> Batal</button></a>
             </div>
         </div>
@@ -108,22 +108,35 @@ $(document).ready( function () {
     });
 });  
 
-function showSweetAlert() {
-    // Tampilkan SweetAlert
-    Swal.fire({
-    title: 'Konfirmasi Pembuatan?',
-    text: 'Apakah Anda yakin ingin menyimpan data ini?',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Ya, Submit!'
-    }).then((result) => {
-    if (result.isConfirmed) {
-        // Lanjutkan untuk mengirim formulir setelah SweetAlert dikonfirmasi
-        document.querySelector('form').submit();
+function validateForm() {
+    var requestPegawaiJabatan = $("#request_pegawai_jabatan").val();
+
+    if (requestPegawaiJabatan === "") {
+        // Jika ada bidang yang kosong, tampilkan pesan kesalahan
+        Swal.fire('Error', 'Harap lengkapi semua form yang wajib!', 'error');
+        return false; // Mencegah formulir dari pengiriman
     }
-    });
+    return true; // Mengizinkan formulir untuk diserahkan jika semua bidang telah diisi
+}
+
+function showSweetAlert() {
+    if (validateForm()) {
+        // Tampilkan SweetAlert
+        Swal.fire({
+        title: 'Konfirmasi Pembuatan?',
+        text: 'Apakah Anda yakin ingin menyimpan data ini?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Submit!'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            // Lanjutkan untuk mengirim formulir setelah SweetAlert dikonfirmasi
+            document.querySelector('form').submit();
+        }
+        });
+    }
 }
 <?php
 echo generate_javascript_action("btnAdd", "mutasi-tambah-material");

@@ -90,9 +90,8 @@ $d=mysqli_fetch_array(mysqli_query($conn,$sql_cabang));
     </div>
 
     <?php 
-    // $order_column_add = datatable_column("6", "text-center", "false");
-    // $order_column_add = datatable_column("-1", "text-end", "false");
-    $order_column_add="";
+    $order_column_add = datatable_column("4", "text-center", "true");
+    $order_column_add.= datatable_column("3", "text-end", "true");
     $disabled_column_serch_add = datatable_column_search_disabled(0);
     // $disabled_column_serch_add.= datatable_column_search_disabled(6);
     // $disabled_column_serch_add.= datatable_column_search_disabled(7);

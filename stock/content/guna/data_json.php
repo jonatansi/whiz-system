@@ -2,33 +2,30 @@
 $columns = array( 
     0 =>'a.id', 
     1=> 'a.nomor',
-    2 =>'a.tanggal',
+    2=> 'a.tanggal',
     3=> 'b.nama',
     4=> 'c.nama',
-    5=> 'd.nama',
+    5=> 'total_item',
+    6=> 'total_sn'
 );
 
-$pencarian = array('a.id', 'a.nomor', 'a.tanggal', 'b.nama', 'c.nama', 'd.nama');
+$pencarian = array('a.id', 'a.nomor', 'a.tanggal', 'b.nama', 'c.nama', 'total_item', 'total_sn');
 
 $pegawai = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai WHERE id='$_SESSION[login_user]'"));
 
-$query = "SELECT a.*, b.id AS po_id, b.nomor AS nomor_po, c.nama AS nama_cabang, d.nama AS nama_vendor, e.nama AS nama_status, e.warna AS warna_status
-FROM po_terima a
-LEFT JOIN po b ON a.po_id=b.id AND b.deleted_at IS NULL
-LEFT JOIN master_cabang c ON b.request_master_cabang_id=c.id AND c.deleted_at IS NULL
-LEFT JOIN master_vendor d ON b.master_vendor_id=d.id AND d.deleted_at IS NULL
-LEFT JOIN master_status e ON a.status_id=e.id
+$query = "SELECT a.*,  b.nama AS nama_cabang, c.nama AS nama_gudang, d.nama AS nama_status, d.warna AS warna_status, COALESCE(total_item_query.total_item, 0) AS total_item, COALESCE(total_sn_query.total_sn, 0) AS total_sn
+FROM guna a 
+LEFT JOIN master_cabang b ON a.created_master_cabang_id = b.id AND b.deleted_at IS NULL
+LEFT JOIN master_gudang c ON a.master_gudang_tujuan_id = c.id AND c.deleted_at IS NULL
+LEFT JOIN master_status d ON a.status_id = d.id
+LEFT JOIN (SELECT guna_id, SUM(jumlah) AS total_item FROM guna_detail WHERE deleted_at IS NULL AND guna_id IS NOT NULL GROUP BY guna_id) AS total_item_query 
+ON a.id = total_item_query.guna_id
+LEFT JOIN (SELECT g.guna_id, COUNT(f.id) AS total_sn FROM guna_sn f INNER JOIN guna_detail g ON f.guna_detail_id = g.id AND g.deleted_at IS NULL GROUP BY g.guna_id) AS total_sn_query ON a.id = total_sn_query.guna_id
 WHERE a.deleted_at IS NULL AND a.tanggal BETWEEN '$_POST[tanggal_awal]' AND '$_POST[tanggal_akhir]'";
 
-if($pegawai['master_cabang_id']!='1'){
-    $query.=" AND b.request_master_cabang_id='$pegawai[master_cabang_id]'";
+if($_POST['status_id']!='0'){
+    $query.=" AND a.status_id='$_POST[status_id]'";
 }
-
-if($_POST['vendor_id']!='0'){
-    $query.=" AND b.master_vendor_id='$_POST[vendor_id]'";
-}
-
-// echo $query;
 
 $totalData = mysqli_num_rows(mysqli_query($conn, $query));
 
@@ -82,14 +79,13 @@ while( $row=mysqli_fetch_array($sql_data)) {  // preparing an array
     $status = "<span class='badge bg-$row[warna_status]'>$row[nama_status]</span>";
     $nestedData=array(); 
     $nestedData[] = $no;
-    $nestedData[] = "<a href='terimapo-view-$row[id]' class='text-primary'>$row[nomor]</a>";
-    $nestedData[] = "<a href='po-view-$row[po_id]' target='_blank' class='text-primary'>$row[nomor_po]</a>";
+    $nestedData[] = "<a href='guna-view-$row[id]' target='_blank' class='text-primary'>$row[nomor]</a>";
     $nestedData[] = DateIndo($row["tanggal"]);
     $nestedData[] = $row['nama_cabang'];
-    $nestedData[] = $row['nama_vendor'];
+    $nestedData[] = $row['nama_gudang'];
+    $nestedData[] = formatAngka($row['total_item']);
+    $nestedData[] = formatAngka($row['total_sn']);
     $nestedData[] = $status;
-    // $nestedData[] = formatAngka($row['total_item']);
-    // $nestedData[] = formatAngka($row['total_harga']);
                     
     //$nestedData[] = $sql;
     $data[] = $nestedData;

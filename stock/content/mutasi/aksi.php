@@ -137,24 +137,87 @@ else{
 			mysqli_query($conn,"UPDATE mutasi SET status_id='$_POST[next_status_id]' WHERE id='$_POST[mutasi_id]'");
 
 			if($_POST['next_status_id']=='270'){
+				//HEADER MUTASI
 				$d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM mutasi WHERE id='$_POST[mutasi_id]' AND deleted_at IS NULL"));
+				$number = $d['nomor'];
 
 				//UPDATE BAHWA TELAH JADI DIMUTASKAN
 				mysqli_query($conn,"UPDATE mutasi_sn a INNER JOIN mutasi_detail b ON a.mutasi_detail_id = b.id SET a.status='2' WHERE b.mutasi_id='$_POST[mutasi_id]'");
 
 				//UPDATE KE BAGIAN MATERIAL SN DAN CATAT DI LOG MATERIAL SN
 				$data=mysqli_query($conn,"SELECT a.* FROM mutasi_sn a INNER JOIN mutasi_detail b ON a.mutasi_detail_id = b.id WHERE b.mutasi_id='$_POST[mutasi_id]' AND a.status='2'");
+				echo"SELECT a.* FROM mutasi_sn a INNER JOIN mutasi_detail b ON a.mutasi_detail_id = b.id WHERE b.mutasi_id='$_POST[mutasi_id]' AND a.status='2'<br>";
+
 				while($r=mysqli_fetch_array($data)){
 					mysqli_query($conn,"UPDATE material_sn SET master_gudang_id='$d[master_gudang_tujuan_id]' WHERE id='$r[material_sn_id]'");
+					echo"UPDATE material_sn SET master_gudang_id='$d[master_gudang_tujuan_id]' WHERE id='$r[material_sn_id]'<br>";
 					
 					mysqli_query($conn,"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark) VALUES ('$r[material_sn_id]', '520', '$waktu_sekarang', 'Mutasi pada Transaksi $d[nomor]')");
+					echo"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark) VALUES ('$r[material_sn_id]', '520', '$waktu_sekarang', 'Mutasi pada Transaksi $d[nomor]')<br>";
+				}
+
+
+				//PINDAHKAN STOK KONDISI
+				$data = mysqli_query($conn,"SELECT * FROM mutasi_detail WHERE mutasi_id='$_POST[mutasi_id]' AND deleted_at IS NULL");
+				while($r=mysqli_fetch_array($data)){ 
+
+					//CATAT DI LOG PENGURANGAN STOK
+					$st=mysqli_fetch_array(mysqli_query($conn,"SELECT a.id, a.jumlah FROM stok a INNER JOIN stok_kondisi b ON a.id=b.stok_id WHERE b.id='$r[stok_kondisi_id]' AND a.deleted_at IS NULL"));
+					$balance_current = $st['jumlah']-$r['jumlah'];
+
+					mysqli_query($conn,"INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name) VALUES ('$st[id]', '0', '$r[jumlah]', '$balance_current', '$waktu_sekarang', 'Mutasi material $number', '$r[id]', '115', 'mutasi_detail')");
+
+					// mysqli_query($conn,"UPDATE stok_kondisi SET jumlah=(jumlah-$r[jumlah]) WHERE id='$r[stok_kondisi_id]'");
+
+					//UPDATE STOK KONDISI DI GUDANG ASAL
+					mysqli_query($conn,"UPDATE stok a INNER JOIN stok_kondisi b ON a.id=b.stok_id SET a.jumlah=(a.jumlah-$r[jumlah]), b.jumlah=(b.jumlah-$r[jumlah]) WHERE b.id='$r[stok_kondisi_id]' AND a.deleted_at IS NULL");
+
+					//CEK DI GUDANG TUJUAN
+					$cek=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM stok WHERE master_cabang_id='$d[created_master_cabang_id]' AND master_gudang_id='$d[master_gudang_tujuan_id]' AND master_material_id='$r[master_material_id]' AND deleted_at IS NULL"));
+
+					$jumlah_masuk = $r['jumlah'];
+					
+					//UPDATE STOK
+					if(isset($cek['id'])!=''){
+						$stok_id = $cek['id'];
+
+						$balance_current = $cek['jumlah']+$jumlah_masuk;
+
+						mysqli_query($conn,"UPDATE stok SET jumlah='$balance_current', updated_at='$waktu_sekarang' WHERE id='$cek[id]'");
+					}
+					else{
+						$balance_current = $jumlah_masuk;
+
+						mysqli_query($conn,"INSERT INTO stok (master_cabang_id, master_gudang_id, master_material_id, jumlah, created_at, updated_at) VALUES ('$d[created_master_cabang_id]', '$d[master_gudang_tujuan_id]', '$r[master_material_id]', '$balance_current', '$waktu_sekarang', '$waktu_sekarang')");
+
+						$stok_id = mysqli_insert_id($conn);
+					}
+
+
+					//CEK APAKAH INI BARANG BARU ATAU BEKAS UNTUK DIRELAKSI KE KONDISI PADA BAGIAN STOK GUDANG
+					$cek_saldo_kondisi = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM stok_kondisi WHERE stok_id='$stok_id' AND deleted_at IS NULL AND master_kondisi_id='$r[master_kondisi_id]'"));
+					if(isset($cek_saldo_kondisi['id'])!=''){
+						$balance_current = $cek_saldo_kondisi['jumlah']+$jumlah_masuk;
+						mysqli_query($conn,"UPDATE stok_kondisi SET jumlah='$balance_current', updated_at='$waktu_sekarang' WHERE id='$cek_saldo_kondisi[id]'");
+					}
+					else{
+						$balance_current = $jumlah_masuk;
+
+						mysqli_query($conn,"INSERT INTO stok_kondisi (stok_id, master_kondisi_id, jumlah, created_at, updated_at) VALUES ('$stok_id', '$r[master_kondisi_id]', '$balance_current', '$waktu_sekarang', '$waktu_sekarang')");
+					}
+
+					//CATAT KE DALAM LOG
+					mysqli_query($conn,"INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name) VALUES ('$stok_id', '$jumlah_masuk', '0', '$balance_current', '$waktu_sekarang', 'Mutasi material $number', '$r[id]', '115', 'mutasi_detail')");
+					
 				}
 			}
+
 			mysqli_commit($conn);
 		}
 		catch (Exception $e) {
 			// Tangkap kesalahan dan lakukan rollback
 			mysqli_rollback($conn);
+			echo $e;
 		}
 
 		// header("location: mutasi-view-$_POST[mutasi_id]");

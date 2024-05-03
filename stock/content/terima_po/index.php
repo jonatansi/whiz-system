@@ -22,7 +22,13 @@ else{
 
         <div class="d-flex my-xl-auto right-content align-items-center">
             <div class="pe-1 mb-xl-0">
+                <?php
+                if($pegawai['master_cabang_id']!='1'){
+                ?>
                 <button type="button" class="btn btn-dark me-2 btn-b btnAdd"><i class="mdi mdi-plus-circle"></i> Penerimaan Material</button>
+                <?php
+                }
+                ?>
             </div>
         </div>
     </div>
