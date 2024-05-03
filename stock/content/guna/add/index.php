@@ -52,21 +52,6 @@
                                 </div>
                             </div>
                             
-                            <!-- <div class="row form-group">
-                                <label class="col-md-5 pt-2 text-end">
-                                    Gudang <small class="text-danger">*</small>
-                                </label>
-                                <div class="col-md-7">
-                                    <select name="master_gudang_tujuan_id" class="form-control" required>
-                                    <?php
-                                        $tampil=mysqli_query($conn, "SELECT * FROM master_gudang WHERE master_cabang_id='$pegawai[master_cabang_id]' AND deleted_at IS NULL ORDER BY nama");
-                                        while($r=mysqli_fetch_array($tampil)){
-                                            echo "<option value='$r[id]'>$r[kode] - $r[nama]</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div> -->
                         </div>
                         <div class="col-md-6"> 
                             <div class="row form-group">
@@ -94,7 +79,7 @@
                             </div>
                             <div class="row form-group">
                                 <label class="col-md-5 pt-2 text-end">
-                                    Keterangan / Remark <small class="text-danger">*</small>
+                                    Keterangan / Remark 
                                 </label>
                                 <div class="col-md-7">
                                     <textarea name="deskripsi" class="form-control"></textarea>
@@ -175,10 +160,6 @@
 
                 <button type="button" class="btn btn-primary mb-3 btnAdd"><i class="fa fa-plus"></i> Tambah Material</button>
                 <div class="table-responsive" id="table_add_material"></div>
-                <div class="form-group mt-3">
-                    <label>Deskripsi</label>
-                    <textarea name="deskripsi" class="form-control"></textarea>
-                </div>
             </div>
             <div class="card-footer">
                 <button type="button" class="btn btn-success has-ripple"  onclick="showSweetAlert()"><i class="bi bi-check"></i> Simpan</button>
@@ -207,22 +188,40 @@ $(document).ready( function () {
     });
 });  
 
-function showSweetAlert() {
-    // Tampilkan SweetAlert
-    Swal.fire({
-    title: 'Konfirmasi Pembuatan?',
-    text: 'Apakah Anda yakin ingin menyimpan data ini?',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Ya, Submit!'
-    }).then((result) => {
-    if (result.isConfirmed) {
-        // Lanjutkan untuk mengirim formulir setelah SweetAlert dikonfirmasi
-        document.querySelector('form').submit();
-    }
+function validateForm() {
+    var requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
+    var isValid = true;
+
+    requiredFields.forEach(function(field) {
+        if (!field.value.trim()) {
+            isValid = false;
+            // Jika ada bidang yang kosong, tampilkan pesan kesalahan
+            Swal.fire('Error', 'Harap lengkapi semua bidang yang diperlukan!', 'error');
+            return;
+        }
     });
+
+    return isValid;
+}
+
+function showSweetAlert() {
+    if(validateForm()){
+        // Tampilkan SweetAlert
+        Swal.fire({
+        title: 'Konfirmasi Pembuatan?',
+        text: 'Apakah Anda yakin ingin menyimpan data ini?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Submit!'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            // Lanjutkan untuk mengirim formulir setelah SweetAlert dikonfirmasi
+            document.querySelector('form').submit();
+        }
+        });
+    }
 }
 <?php
 echo generate_javascript_action("btnAdd", "guna-tambah-material");

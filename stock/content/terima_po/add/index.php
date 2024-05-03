@@ -182,22 +182,40 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[po_id]'"));
         input.prop('required', checked)
     })
 
-    function showSweetAlert() {
-        // Tampilkan SweetAlert
-        Swal.fire({
-        title: 'Konfirmasi Penerimaan ?',
-        text: 'Apakah Anda yakin ingin menyimpan data ini?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Ya, Submit!'
-        }).then((result) => {
-        if (result.isConfirmed) {
-            // Lanjutkan untuk mengirim formulir setelah SweetAlert dikonfirmasi
-            document.querySelector('form').submit();
-        }
+    function validateForm() {
+        var requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
+        var isValid = true;
+
+        requiredFields.forEach(function(field) {
+            if (!field.value.trim()) {
+                isValid = false;
+                // Jika ada bidang yang kosong, tampilkan pesan kesalahan
+                Swal.fire('Error', 'Harap lengkapi semua bidang yang diperlukan!', 'error');
+                return;
+            }
         });
+
+        return isValid;
+    }
+
+    function showSweetAlert() {
+        if (validateForm()) {
+            // Tampilkan SweetAlert
+            Swal.fire({
+            title: 'Konfirmasi Penerimaan ?',
+            text: 'Apakah Anda yakin ingin menyimpan data ini?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Submit!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                // Lanjutkan untuk mengirim formulir setelah SweetAlert dikonfirmasi
+                document.querySelector('form').submit();
+            }
+            });
+        }
     }
 
     function checkValue(input) {

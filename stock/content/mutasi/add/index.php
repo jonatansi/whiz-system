@@ -109,14 +109,19 @@ $(document).ready( function () {
 });  
 
 function validateForm() {
-    var requestPegawaiJabatan = $("#request_pegawai_jabatan").val();
+    var requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
+    var isValid = true;
 
-    if (requestPegawaiJabatan === "") {
-        // Jika ada bidang yang kosong, tampilkan pesan kesalahan
-        Swal.fire('Error', 'Harap lengkapi semua form yang wajib!', 'error');
-        return false; // Mencegah formulir dari pengiriman
-    }
-    return true; // Mengizinkan formulir untuk diserahkan jika semua bidang telah diisi
+    requiredFields.forEach(function(field) {
+        if (!field.value.trim()) {
+            isValid = false;
+            // Jika ada bidang yang kosong, tampilkan pesan kesalahan
+            Swal.fire('Error', 'Harap lengkapi semua bidang yang diperlukan!', 'error');
+            return;
+        }
+    });
+
+    return isValid;
 }
 
 function showSweetAlert() {

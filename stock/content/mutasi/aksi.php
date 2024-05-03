@@ -146,14 +146,14 @@ else{
 
 				//UPDATE KE BAGIAN MATERIAL SN DAN CATAT DI LOG MATERIAL SN
 				$data=mysqli_query($conn,"SELECT a.* FROM mutasi_sn a INNER JOIN mutasi_detail b ON a.mutasi_detail_id = b.id WHERE b.mutasi_id='$_POST[mutasi_id]' AND a.status='2'");
-				echo"SELECT a.* FROM mutasi_sn a INNER JOIN mutasi_detail b ON a.mutasi_detail_id = b.id WHERE b.mutasi_id='$_POST[mutasi_id]' AND a.status='2'<br>";
+				//echo"SELECT a.* FROM mutasi_sn a INNER JOIN mutasi_detail b ON a.mutasi_detail_id = b.id WHERE b.mutasi_id='$_POST[mutasi_id]' AND a.status='2'<br>";
 
 				while($r=mysqli_fetch_array($data)){
 					mysqli_query($conn,"UPDATE material_sn SET master_gudang_id='$d[master_gudang_tujuan_id]' WHERE id='$r[material_sn_id]'");
-					echo"UPDATE material_sn SET master_gudang_id='$d[master_gudang_tujuan_id]' WHERE id='$r[material_sn_id]'<br>";
+					// echo"UPDATE material_sn SET master_gudang_id='$d[master_gudang_tujuan_id]' WHERE id='$r[material_sn_id]'<br>";
 					
 					mysqli_query($conn,"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark) VALUES ('$r[material_sn_id]', '520', '$waktu_sekarang', 'Mutasi pada Transaksi $d[nomor]')");
-					echo"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark) VALUES ('$r[material_sn_id]', '520', '$waktu_sekarang', 'Mutasi pada Transaksi $d[nomor]')<br>";
+					// echo"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark) VALUES ('$r[material_sn_id]', '520', '$waktu_sekarang', 'Mutasi pada Transaksi $d[nomor]')<br>";
 				}
 
 
@@ -220,7 +220,7 @@ else{
 			echo $e;
 		}
 
-		// header("location: mutasi-view-$_POST[mutasi_id]");
+		header("location: mutasi-view-$_POST[mutasi_id]");
 	}
 
 	else if($act=='cancel'){

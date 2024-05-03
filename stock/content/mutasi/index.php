@@ -90,7 +90,8 @@ else{
     <?php 
 
     $order_column_add = datatable_column("4", "text-center", "true");
-    $order_column_add.= datatable_column("5", "text-center", "true");
+    $order_column_add.= datatable_column("-3", "text-end", "true");
+    $order_column_add.= datatable_column("-2", "text-end", "true");
     $order_column_add.= datatable_column("-1", "text-center", "false");
     $disabled_column_serch_add = datatable_column_search_disabled(0);
     $disabled_column_serch_add.= datatable_column_search_disabled(7);

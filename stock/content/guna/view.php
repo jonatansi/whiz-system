@@ -1,8 +1,8 @@
 <?php
-$sql="SELECT a.*,  b.nama AS nama_cabang, c.nama AS nama_gudang, d.nama AS nama_status, d.warna AS warna_status, COALESCE(total_item_query.total_item, 0) AS total_item, COALESCE(total_sn_query.total_sn, 0) AS total_sn
+$sql="SELECT a.*,  b.nama AS nama_cabang, c.nama AS nama_kegunaan, d.nama AS nama_status, d.warna AS warna_status, COALESCE(total_item_query.total_item, 0) AS total_item, COALESCE(total_sn_query.total_sn, 0) AS total_sn
 FROM guna a 
 LEFT JOIN master_cabang b ON a.created_master_cabang_id = b.id AND b.deleted_at IS NULL
-LEFT JOIN master_gudang c ON a.master_gudang_tujuan_id = c.id AND c.deleted_at IS NULL
+LEFT JOIN master_guna c ON a.master_guna_id = c.id
 LEFT JOIN master_status d ON a.status_id = d.id
 LEFT JOIN (SELECT guna_id, SUM(jumlah) AS total_item FROM guna_detail WHERE deleted_at IS NULL AND guna_id IS NOT NULL GROUP BY guna_id) AS total_item_query 
 ON a.id = total_item_query.guna_id
@@ -14,11 +14,11 @@ if(isset($d['id'])!=''){
 ?>
 <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
     <div class="my-auto">
-        <h5 class="page-title fs-21 mb-1">Detail guna Material</h5>
+        <h5 class="page-title fs-21 mb-1">Detail Penggunaan Material</h5>
         <nav>
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="guna">guna Material</a></li>
+                <li class="breadcrumb-item"><a href="guna">Penggunaan Material</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Detail</li>
             </ol>
         </nav>
@@ -37,13 +37,13 @@ if(isset($d['id'])!=''){
                     </div>
                     <div class="col text-end">
                         <?php
-                        if($d['status_id']=='250' AND $d['created_master_cabang_id']==$_SESSION['master_cabang_id']){
+                        if($d['status_id']=='300' AND $d['created_master_cabang_id']==$_SESSION['master_cabang_id']){
                             ?>
                             <button class='btn btn-success btn-sm ml-2 btnNext' id='<?php echo $d['id'];?>'><i class='fas fa-check'></i> On Progress</button>
                             <button class='btn btn-danger btn-sm ml-2 btnCancel' id='<?php echo $d['id'];?>'><i class='fas fa-times'></i> Cancel</button>
                             <?php
                         }
-                        if($d['status_id']=='260' AND $d['created_master_cabang_id']==$_SESSION['master_cabang_id'] AND $d['total_item']==$d['total_sn']){
+                        if($d['status_id']=='310' AND $d['created_master_cabang_id']==$_SESSION['master_cabang_id'] AND $d['total_item']==$d['total_sn']){
                             ?>
                             <button class='btn btn-success btn-sm ml-2 btnNext' id='<?php echo $d['id'];?>'><i class='fas fa-check'></i> Completed</button>
                             <button class='btn btn-danger btn-sm ml-2 btnCancel' id='<?php echo $d['id'];?>'><i class='fas fa-times'></i> Cancel</button>

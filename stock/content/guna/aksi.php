@@ -20,7 +20,7 @@ else{
 	
 	$act=$_GET['act'];
     
-	$module = "guna Stok";
+	$module = "Penggunaan Material";
 	
     //TAMBAH PO
 	if($act=='data_json'){
@@ -83,16 +83,18 @@ else{
 		$tanggal_awal = "$thn_sekarang-01-01";
 		$tanggal_akhir = "$thn_sekarang-12:31";
 
+		$d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM master_guna WHERE id='$_POST[master_guna_id]'"));
+
 		$a=mysqli_fetch_array(mysqli_query($conn,"SELECT MAX(urutan) AS urutan FROM guna WHERE deleted_at IS NULL AND created_at BETWEEN '$tanggal_awal 00:00:00' AND '$tanggal_akhir 23:59:59'"));
 
 		$urutan = $a['urutan']+1;
 		$urutan_nomor= sprintf("%05s",$urutan);
 
-		$number = "MM-UVT-$urutan_nomor-$thn".$bulan;
+		$number = "$d[kode]-UVT-$urutan_nomor-$thn".$bulan;
 
-		$status_id = 250;
+		$status_id = 300;
 
-		$sql="INSERT INTO guna (nomor, created_master_cabang_id, created_pegawai_id, tanggal, request_pegawai_id, master_gudang_tujuan_id, status_id, created_at, updated_at, urutan, deskripsi, request_pegawai_jabatan) VALUES ('$number', '$_SESSION[master_cabang_id]', '$_SESSION[login_user]',  '$_POST[tanggal]', '$_POST[request_pegawai_id]', '$_POST[master_gudang_tujuan_id]', '$status_id', '$waktu_sekarang', '$waktu_sekarang', '$urutan', '$_POST[deskripsi]', '$_POST[request_pegawai_jabatan]')";
+		$sql="INSERT INTO guna (nomor, tanggal, created_master_cabang_id, created_pegawai_id, master_guna_id, used_master_cabang_id, request_pegawai_id, request_pegawai_jabatan, no_ref, alamat_tujuan, lok_provinsi_id, lok_kabupaten_id, lok_kecamatan_id, lok_kelurahan_id, tujuan_kode_pos, urutan, status_id, created_at, updated_at, deskripsi) VALUES ('$number', '$_POST[tanggal]', '$_SESSION[master_cabang_id]', '$_SESSION[login_user]',  '$_POST[master_guna_id]', '$_SESSION[master_cabang_id]', '$_POST[request_pegawai_id]', '$_POST[request_pegawai_jabatan]', '$_POST[no_ref]', '$_POST[alamat_tujuan]', '$_POST[lok_provinsi_id]', '$_POST[lok_kabupaten_id]', '$_POST[lok_kecamatan_id]', '$_POST[lok_kelurahan_id]', '$_POST[tujuan_kode_pos]', '$urutan', '$status_id', '$waktu_sekarang', '$waktu_sekarang', '$_POST[deskripsi]')";
 
 		mysqli_query($conn, $sql);
 
@@ -136,28 +138,50 @@ else{
 
 			mysqli_query($conn,"UPDATE guna SET status_id='$_POST[next_status_id]' WHERE id='$_POST[guna_id]'");
 
-			if($_POST['next_status_id']=='270'){
+			if($_POST['next_status_id']=='320'){
+				//HEADER guna
 				$d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM guna WHERE id='$_POST[guna_id]' AND deleted_at IS NULL"));
+				$number = $d['nomor'];
 
-				//UPDATE BAHWA TELAH JADI DIMUTASKAN
+				//UPDATE BAHWA TELAH JADI DIGUNAKAN
 				mysqli_query($conn,"UPDATE guna_sn a INNER JOIN guna_detail b ON a.guna_detail_id = b.id SET a.status='2' WHERE b.guna_id='$_POST[guna_id]'");
 
-				//UPDATE KE BAGIAN MATERIAL SN DAN CATAT DI LOG MATERIAL SN
-				$data=mysqli_query($conn,"SELECT a.* FROM guna_sn a INNER JOIN guna_detail b ON a.guna_detail_id = b.id WHERE b.guna_id='$_POST[guna_id]' AND a.status='2'");
-				while($r=mysqli_fetch_array($data)){
-					mysqli_query($conn,"UPDATE material_sn SET master_gudang_id='$d[master_gudang_tujuan_id]' WHERE id='$r[material_sn_id]'");
+				//PINDAHKAN STOK KONDISI
+				$data = mysqli_query($conn,"SELECT a.* FROM guna_detail a WHERE a.guna_id='$_POST[guna_id]' AND a.deleted_at IS NULL");
+				while($r=mysqli_fetch_array($data)){ 
+
+					//CATAT DI LOG PENGURANGAN STOK
+					$st=mysqli_fetch_array(mysqli_query($conn,"SELECT a.id, a.jumlah FROM stok a INNER JOIN stok_kondisi b ON a.id=b.stok_id WHERE b.id='$r[stok_kondisi_id]' AND a.deleted_at IS NULL"));
+					$balance_current = $st['jumlah']-$r['jumlah'];
+
+					mysqli_query($conn,"INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name) VALUES ('$st[id]', '0', '$r[jumlah]', '$balance_current', '$waktu_sekarang', 'Penggunaan material $number', '$r[id]', '105', 'guna_detail')");
+
+					//UPDATE STOK KONDISI DI GUDANG ASAL
+					mysqli_query($conn,"UPDATE stok a INNER JOIN stok_kondisi b ON a.id=b.stok_id SET a.jumlah=(a.jumlah-$r[jumlah]), b.jumlah=(b.jumlah-$r[jumlah]) WHERE b.id='$r[stok_kondisi_id]' AND a.deleted_at IS NULL");
 					
-					mysqli_query($conn,"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark) VALUES ('$r[material_sn_id]', '520', '$waktu_sekarang', 'guna pada Transaksi $d[nomor]')");
+				}
+
+				//UPDATE POSISI MATERIAL SN
+				$data = mysqli_query($conn,"SELECT b.* FROM guna_detail a INNER JOIN guna_sn b ON a.id=b.guna_detail_id WHERE a.guna_id='$_POST[guna_id]' AND a.deleted_at IS NULL");
+				while($r=mysqli_fetch_array($data)){ 
+					
+					//UPDATE INFO MATERIAL SN TELAH DIGUNAKAN
+					mysqli_query($conn,"UPDATE material_sn SET status_id='505', master_gudang_id='0' WHERE id='$r[material_sn_id]'");
+
+					//CATAT DI LOG MATERIAL SN
+					mysqli_query($conn,"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark) VALUES ('$r[material_sn_id]', '525', '$waktu_sekarang', 'Penggunaan Material pada Transaksi $number')");
 				}
 			}
+
 			mysqli_commit($conn);
 		}
 		catch (Exception $e) {
 			// Tangkap kesalahan dan lakukan rollback
 			mysqli_rollback($conn);
+			echo $e;
 		}
 
-		// header("location: guna-view-$_POST[guna_id]");
+		header("location: guna-view-$_POST[guna_id]");
 	}
 
 	else if($act=='cancel'){

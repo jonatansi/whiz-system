@@ -13,10 +13,10 @@ $pencarian = array('a.id', 'a.nomor', 'a.tanggal', 'b.nama', 'c.nama', 'total_it
 
 $pegawai = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai WHERE id='$_SESSION[login_user]'"));
 
-$query = "SELECT a.*,  b.nama AS nama_cabang, c.nama AS nama_gudang, d.nama AS nama_status, d.warna AS warna_status, COALESCE(total_item_query.total_item, 0) AS total_item, COALESCE(total_sn_query.total_sn, 0) AS total_sn
+$query = "SELECT a.*,  b.nama AS nama_cabang, c.nama AS nama_kegunaan, d.nama AS nama_status, d.warna AS warna_status, COALESCE(total_item_query.total_item, 0) AS total_item, COALESCE(total_sn_query.total_sn, 0) AS total_sn
 FROM guna a 
 LEFT JOIN master_cabang b ON a.created_master_cabang_id = b.id AND b.deleted_at IS NULL
-LEFT JOIN master_gudang c ON a.master_gudang_tujuan_id = c.id AND c.deleted_at IS NULL
+LEFT JOIN master_guna c ON a.master_guna_id = c.id
 LEFT JOIN master_status d ON a.status_id = d.id
 LEFT JOIN (SELECT guna_id, SUM(jumlah) AS total_item FROM guna_detail WHERE deleted_at IS NULL AND guna_id IS NOT NULL GROUP BY guna_id) AS total_item_query 
 ON a.id = total_item_query.guna_id
@@ -82,7 +82,7 @@ while( $row=mysqli_fetch_array($sql_data)) {  // preparing an array
     $nestedData[] = "<a href='guna-view-$row[id]' target='_blank' class='text-primary'>$row[nomor]</a>";
     $nestedData[] = DateIndo($row["tanggal"]);
     $nestedData[] = $row['nama_cabang'];
-    $nestedData[] = $row['nama_gudang'];
+    $nestedData[] = $row['nama_kegunaan'];
     $nestedData[] = formatAngka($row['total_item']);
     $nestedData[] = formatAngka($row['total_sn']);
     $nestedData[] = $status;

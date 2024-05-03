@@ -21,11 +21,11 @@ $m=mysqli_fetch_array(mysqli_query($conn,"SELECT status_id FROM guna WHERE id='$
 ?>
 <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
     <div class="my-auto">
-        <h5 class="page-title fs-21 mb-1">Detail guna Material</h5>
+        <h5 class="page-title fs-21 mb-1">Detail Penggunaan Material</h5>
         <nav>
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="guna">guna Material</a></li>
+                <li class="breadcrumb-item"><a href="guna">Penggunaan Material</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Input Serial Number</li>
             </ol>
         </nav>
@@ -62,7 +62,7 @@ $m=mysqli_fetch_array(mysqli_query($conn,"SELECT status_id FROM guna WHERE id='$
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <?php
-                        if($m['status_id']=='260'){
+                        if($m['status_id']=='310'){
                         ?>
                         <fieldset class="mb-3">
                             <legend>Input Serial Number</legend>

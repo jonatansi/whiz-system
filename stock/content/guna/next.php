@@ -1,11 +1,11 @@
 <?php
 $d=mysqli_fetch_array(mysqli_query($conn,"SELECT status_id FROM guna WHERE id='$_POST[id]'"));
-if($d['status_id']=='250'){
-    $next_status_id = 260;
+if($d['status_id']=='300'){
+    $next_status_id = 310;
     $title = "On Progress";
 }
-else if($d['status_id']=='260'){
-    $next_status_id = 270;
+else if($d['status_id']=='310'){
+    $next_status_id = 320;
     $title = "Completed";
 }
 ?>
