@@ -2,7 +2,12 @@
     <div class="container-fluid">
         <?php
         if($module=='home'){
-            include "content/home/index.php";
+            if($_SESSION['master_cabang_id']!='1'){
+                include "content/home/index.php";
+            }
+            else{
+                include "content/home/index2.php";
+            }
         }
         else if($module=='po'){
             include "content/po/index.php";
@@ -23,7 +28,13 @@
             include "content/opname/index.php";
         }
         else if($module=='profile'){
-            include "content/profiles/index.php";
+            include "content/profile/index.php";
+        }
+        else if($module=='material'){
+            include "content/material/index.php";
+        }
+        else if($module=='cari'){
+            include "content/cari/index.php";
         }
         ?>
     </div>

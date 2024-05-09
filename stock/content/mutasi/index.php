@@ -5,7 +5,7 @@ if(isset($_GET['tanggal_awal'])){
     $tanggal_akhir=$_GET['tanggal_akhir'];
 }
 else{
-    $tanggal_awal = date('Y-m-01');
+    $tanggal_awal = date('Y-01-01');
 	$tanggal_akhir = date('Y-m-d');
 }
 ?>
@@ -23,11 +23,11 @@ else{
         <div class="d-flex my-xl-auto right-content align-items-center">
             <div class="pe-1 mb-xl-0">
                 <?php
-                // if($pegawai['master_cabang_id']=='1'){
+                if($pegawai['master_cabang_id']!='1'){
                 ?>
-                    <a href="po-tambah"><button type="button" class="btn btn-dark me-2 btn-b btnAdd"><i class="mdi mdi-plus-circle"></i> Buat Mutasi Baru</button></a>
+                    <a href="mutasi-tambah"><button type="button" class="btn btn-dark me-2 btn-b btnAdd"><i class="mdi mdi-plus-circle"></i> Buat Mutasi Baru</button></a>
                 <?php
-                // }
+                }
                 ?>
             </div>
         </div>
@@ -70,13 +70,13 @@ else{
                             <thead class="table-info text-center">
                                 <tr>
                                     <th width="50px">No</th>
-                                    <th class="text-center">Nomor PO</th>
+                                    <th class="text-center">Nomor Mutasi</th>
                                     <th>Tanggal</th>
-                                    <th>Requester</th>
-                                    <th>Vendor</th>
-                                    <th>Status</th>
+                                    <th>Branch</th>
+                                    <th>Gudang Tujuan</th>
                                     <th>Total Item</th>
-                                    <th>Total Harga</th>
+                                    <th>Total SN</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             
@@ -88,18 +88,19 @@ else{
     </div>
 
     <?php 
-    $order_column_add = datatable_column("6", "text-center", "false");
-    $order_column_add = datatable_column("-1", "text-end", "false");
+
+    $order_column_add = datatable_column("4", "text-center", "true");
+    $order_column_add.= datatable_column("-3", "text-end", "true");
+    $order_column_add.= datatable_column("-2", "text-end", "true");
+    $order_column_add.= datatable_column("-1", "text-center", "false");
     $disabled_column_serch_add = datatable_column_search_disabled(0);
-    $disabled_column_serch_add.= datatable_column_search_disabled(6);
     $disabled_column_serch_add.= datatable_column_search_disabled(7);
-    $disabled_column_serch_add.= datatable_column_search_disabled(8);
 
     $filter = datatable_filter("tanggal_awal");
     $filter.= datatable_filter("tanggal_akhir");
     $filter.= datatable_filter("status_id");
     
-    echo generate_datatable("po-data", "1", "desc", $order_column_add, $disabled_column_serch_add, $filter);
+    echo generate_datatable("mutasi-data", "1", "desc", $order_column_add, $disabled_column_serch_add, $filter, "datatable_ajax");
     ?>
 
     <?php
@@ -128,5 +129,8 @@ else if($_GET['act']=='tambah'){
 }
 else if($_GET['act']=='view'){
     include "view.php";
+}
+else if($_GET['act']=='sn'){
+    include "serial_number.php";
 }
 ?>

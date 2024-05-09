@@ -4,7 +4,7 @@
         <nav>
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="javascript:void(0);">Purcase Order</a></li>
+                <li class="breadcrumb-item"><a href="po">Purcase Order</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Tambah</li>
             </ol>
         </nav>
@@ -205,22 +205,40 @@ $(document).ready( function () {
     });
 });  
 
-function showSweetAlert() {
-    // Tampilkan SweetAlert
-    Swal.fire({
-    title: 'Konfirmasi Pembuatan?',
-    text: 'Apakah Anda yakin ingin menyimpan data ini?',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Ya, Submit!'
-    }).then((result) => {
-    if (result.isConfirmed) {
-        // Lanjutkan untuk mengirim formulir setelah SweetAlert dikonfirmasi
-        document.querySelector('form').submit();
-    }
+function validateForm() {
+    var requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
+    var isValid = true;
+
+    requiredFields.forEach(function(field) {
+        if (!field.value.trim()) {
+            isValid = false;
+            // Jika ada bidang yang kosong, tampilkan pesan kesalahan
+            Swal.fire('Error', 'Harap lengkapi semua bidang yang diperlukan!', 'error');
+            return;
+        }
     });
+
+    return isValid;
+}
+
+function showSweetAlert() {
+    if (validateForm()) {
+        // Tampilkan SweetAlert
+        Swal.fire({
+        title: 'Konfirmasi Pembuatan?',
+        text: 'Apakah Anda yakin ingin menyimpan data ini?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Submit!'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            // Lanjutkan untuk mengirim formulir setelah SweetAlert dikonfirmasi
+            document.querySelector('form').submit();
+        }
+        });
+    }
 }
 <?php
 echo generate_javascript_action("btnAdd", "po-tambah-material");

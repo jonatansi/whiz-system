@@ -21,6 +21,11 @@ WHERE a.master_cabang_id='$_POST[master_cabang_id]'";
 if($_POST['master_gudang_id']!='0'){
     $query.=" AND a.master_gudang_id='$_POST[master_gudang_id]'";
 }
+
+if($_POST['master_kategori_material_id']!='0'){
+    $query.=" AND b.master_kategori_material_id='$_POST[master_kategori_material_id]'";
+}
+
 $totalData = mysqli_num_rows(mysqli_query($conn, $query));
 
 $totalFiltered = $totalData; 

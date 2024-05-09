@@ -26,6 +26,9 @@ else{
     include "../konfig/fungsi_tanggal.php";
     include "../konfig/fungsi_generate_js.php";
 
+    include "../services/send_discord.php";
+    include "../services/get_error.php";
+    
     $module = $_GET['module'];
     $kategori='';
     if(isset($_GET['kategori'])){

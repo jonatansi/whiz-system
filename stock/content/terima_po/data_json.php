@@ -82,7 +82,7 @@ while( $row=mysqli_fetch_array($sql_data)) {  // preparing an array
     $status = "<span class='badge bg-$row[warna_status]'>$row[nama_status]</span>";
     $nestedData=array(); 
     $nestedData[] = $no;
-    $nestedData[] = "<a href='terimapo-view-$row[id]' target='_blank' class='text-primary'>$row[nomor]</a>";
+    $nestedData[] = "<a href='terimapo-view-$row[id]' class='text-primary'>$row[nomor]</a>";
     $nestedData[] = "<a href='po-view-$row[po_id]' target='_blank' class='text-primary'>$row[nomor_po]</a>";
     $nestedData[] = DateIndo($row["tanggal"]);
     $nestedData[] = $row['nama_cabang'];

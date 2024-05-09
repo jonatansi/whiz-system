@@ -9,6 +9,9 @@ include "konfig/library.php";
 include "konfig/myencrypt.php";
 include "konfig/fungsi_get_ip.php";
 
+include "services/send_discord.php";
+include "services/get_error.php";
+include "services/send_wa.php";
 session_start();
 if (isset($_POST['username']) && isset($_POST['password'])) {
 	// username and password sent from Form
@@ -42,6 +45,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             $_SESSION['id_session'] = $sid;
             $_SESSION['username']   = $_POST['username'];
             $_SESSION['login_system'] = 1;
+			$_SESSION['master_cabang_id'] = $row['master_cabang_id'];
 
             mysqli_query($conn,"UPDATE pegawai SET is_login='Y', last_login_at='$waktu_sekarang' WHERE id='$row[id]'");
 

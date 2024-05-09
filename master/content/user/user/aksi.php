@@ -13,6 +13,9 @@ else{
 	include "../../../../konfig/myencrypt.php";
 	include "../../../../konfig/fungsi_form_modal.php";
 
+	include "../../../services/send_discord.php";
+    include "../../../services/get_error.php";
+	
 	$act=$_GET['act'];
     
 	$module = "User";

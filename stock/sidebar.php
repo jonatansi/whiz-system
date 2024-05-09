@@ -30,6 +30,29 @@
                     </a>
                 </li>
 
+                <li class="slide__category"><span class="category-name">Material</span></li>
+
+                <li class="slide <?php if($module=='persediaan'){echo "active";}?>">
+                    <a href="<?php echo $BASE_URL_STOCK;?>/persediaan" class="side-menu__item <?php if($module=='persediaan'){echo "active";}?>">
+                        <i class="fe fe-database side-menu__icon"></i>
+                        <span class="side-menu__label">Persediaan Material</span>
+                    </a>
+                </li>
+
+                <li class="slide <?php if($module=='material'){echo "active";}?>">
+                    <a href="<?php echo $BASE_URL_STOCK;?>/material" class="side-menu__item <?php if($module=='material'){echo "active";}?>">
+                        <i class="fe fe-list side-menu__icon"></i>
+                        <span class="side-menu__label">Data Material</span>
+                    </a>
+                </li>
+
+                <li class="slide <?php if($module=='cari'){echo "active";}?>">
+                    <a href="<?php echo $BASE_URL_STOCK;?>/cari" class="side-menu__item <?php if($module=='cari'){echo "active";}?>">
+                        <i class="fe fe-search side-menu__icon"></i>
+                        <span class="side-menu__label">Pencarian Material</span>
+                    </a>
+                </li>
+
                 <li class="slide__category"><span class="category-name">Purchase Order</span></li>
 
                 <li class="slide <?php if($module=='po'){echo "active";}?>">
@@ -46,15 +69,7 @@
                     </a>
                 </li>
 
-                <li class="slide__category"><span class="category-name">Material</span></li>
-
-                <li class="slide <?php if($module=='persediaan'){echo "active";}?>">
-                    <a href="<?php echo $BASE_URL_STOCK;?>/persediaan" class="side-menu__item <?php if($module=='persediaan'){echo "active";}?>">
-                        <i class="fe fe-database side-menu__icon"></i>
-                        <span class="side-menu__label">Persediaan Material</span>
-                    </a>
-                </li>
-
+                <li class="slide__category"><span class="category-name">Transaksi Lainnya</span></li>
 
                 <li class="slide <?php if($module=='guna'){echo "active";}?>">
                     <a href="<?php echo $BASE_URL_STOCK;?>/guna" class="side-menu__item <?php if($module=='guna'){echo "active";}?>">
@@ -76,6 +91,9 @@
                         <span class="side-menu__label">Stok Opname</span>
                     </a>
                 </li>
+
+
+                
                 
             </ul>
             <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"> <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path> </svg></div>

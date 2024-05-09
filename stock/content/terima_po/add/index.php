@@ -17,7 +17,7 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[po_id]'"));
         <nav>
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="javascript:void(0);">Penerimaan Material</a></li>
+                <li class="breadcrumb-item"><a href="terimapo">Penerimaan Material</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Tambah</li>
             </ol>
         </nav>
@@ -114,13 +114,13 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[po_id]'"));
                     </thead>
                     <tbody>
                         <?php
-                        $tampil=mysqli_query($conn,"SELECT a.*, b.merk_type, c.nama AS nama_kondisi, d.nama AS nama_kategori_material, e.nama AS nama_satuan_besar, f.nama AS nama_satuan_kecil FROM po_detail a
+                        $tampil=mysqli_query($conn,"SELECT a.*, b.merk_type, c.nama AS nama_kondisi, d.nama AS nama_kategori_material, e.nama AS nama_satuan_besar, f.nama AS nama_satuan_kecil, (a.jumlah-a.jumlah_diterima) AS sisa FROM po_detail a
                         LEFT JOIN master_material b ON a.master_material_id=b.id AND b.deleted_at IS NULL
                         LEFT JOIN master_kondisi c ON a.master_kondisi_id=c.id AND c.deleted_at IS NULL
                         LEFT JOIN master_kategori_material d ON a.master_kategori_material_id=d.id AND d.deleted_at IS NULL
                         LEFT JOIN master_satuan e ON a.master_satuan_besar_id=e.id AND e.deleted_at IS NULL
                         LEFT JOIN master_satuan f ON a.master_satuan_kecil_id=f.id AND f.deleted_at IS NULL
-                        WHERE a.deleted_at IS NULL AND a.po_id='$_GET[po_id]' ORDER BY a.id ASC");
+                        WHERE a.deleted_at IS NULL AND a.po_id='$_GET[po_id]' HAVING sisa > 0 ORDER BY a.id ASC");
                         $grand_total=0;
                         $no=1;
                         while($r=mysqli_fetch_array($tampil)){
@@ -136,14 +136,14 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[po_id]'"));
                                 </td>
                                 <td><?php echo formatAngka($r['jumlah_diterima']).' '.$r['nama_satuan_besar'];?></td>
                                 <td>
-                                    <input type="number" class="form-control" name="jumlah_<?php echo $r['id'];?>" min="1" max="<?php echo ($r['jumlah']-$r['jumlah_diterima']);?>"  oninput="checkValue(this)" value="1">
+                                    <input type="number" class="form-control" name="jumlah_<?php echo $r['id'];?>" min="1" max="<?php echo $r['sisa'];?>"  oninput="checkValue(this)" value="1">
                                 </td>
                                 <td>
                                     <select name="gudang_<?php echo $r['id'];?>" class="form-control">
                                         <?php
-                                        $gudang=mysqli_query($conn,"SELECT id, kode FROM master_gudang WHERE master_cabang_id='$pegawai[master_cabang_id]'");
+                                        $gudang=mysqli_query($conn,"SELECT id, kode, nama FROM master_gudang WHERE master_cabang_id='$pegawai[master_cabang_id]'");
                                         while($g=mysqli_fetch_array($gudang)){
-                                            echo"<option value='$g[id]'>$g[kode]</option>";
+                                            echo"<option value='$g[id]'>$g[kode] - $g[nama]</option>";
                                         }
                                         ?>
                                     </select>
@@ -182,22 +182,40 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[po_id]'"));
         input.prop('required', checked)
     })
 
-    function showSweetAlert() {
-        // Tampilkan SweetAlert
-        Swal.fire({
-        title: 'Konfirmasi Penerimaan ?',
-        text: 'Apakah Anda yakin ingin menyimpan data ini?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Ya, Submit!'
-        }).then((result) => {
-        if (result.isConfirmed) {
-            // Lanjutkan untuk mengirim formulir setelah SweetAlert dikonfirmasi
-            document.querySelector('form').submit();
-        }
+    function validateForm() {
+        var requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
+        var isValid = true;
+
+        requiredFields.forEach(function(field) {
+            if (!field.value.trim()) {
+                isValid = false;
+                // Jika ada bidang yang kosong, tampilkan pesan kesalahan
+                Swal.fire('Error', 'Harap lengkapi semua bidang yang diperlukan!', 'error');
+                return;
+            }
         });
+
+        return isValid;
+    }
+
+    function showSweetAlert() {
+        if (validateForm()) {
+            // Tampilkan SweetAlert
+            Swal.fire({
+            title: 'Konfirmasi Penerimaan ?',
+            text: 'Apakah Anda yakin ingin menyimpan data ini?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Submit!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                // Lanjutkan untuk mengirim formulir setelah SweetAlert dikonfirmasi
+                document.querySelector('form').submit();
+            }
+            });
+        }
     }
 
     function checkValue(input) {

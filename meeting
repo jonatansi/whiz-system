@@ -54,7 +54,28 @@ Stock Management
    - RN diganti menjadi IN [DONE]
 
 >> Dashboard
-   - PO dengan semua status (dalam bentuk pie chart)
-   - Alert apabila sudah ada barang yang sudah mencapai stok minimum
-   - Penerimaan PO dengan semua status (dalam bentuk pie chart)
+   - PO dengan semua status (dalam bentuk pie chart) [DONE]
+   - Alert apabila sudah ada barang yang sudah mencapai stok minimum [DONE]
+   - Penerimaan PO dengan semua status (dalam bentuk pie chart) [DONE]
    
+
+TRUNCATE TABLE material_sn;
+TRUNCATE TABLE material_sn_log;
+TRUNCATE TABLE mutasi;
+TRUNCATE TABLE mutasi_detail;
+TRUNCATE TABLE mutasi_log;
+TRUNCATE TABLE mutasi_sn;
+TRUNCATE TABLE po;
+TRUNCATE TABLE po_detail;
+TRUNCATE TABLE po_log;
+TRUNCATE TABLE po_terima;
+TRUNCATE TABLE po_terima_detail;
+TRUNCATE TABLE stok;
+TRUNCATE TABLE stok_kondisi;
+TRUNCATE TABLE stok_log;
+
+Stok Opanem
+Barang yang tercatat misalnya ada 10 dengan serial number : a-j
+Ternyata pada kenyataanya hanya terdapat 9 dan 7 diantaranya serial number yang memang ada, namun 2 adalah barang baru
+
+Untuk barang yang serial numbernya 0, maka harus dipilih barang mana yang akan dikurangi

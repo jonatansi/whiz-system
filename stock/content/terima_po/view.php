@@ -20,7 +20,7 @@ if(isset($d['id'])!=''){
         <nav>
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="javascript:void(0);">Penerimaan Material</a></li>
+                <li class="breadcrumb-item"><a href="terimapo">Penerimaan Material</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Detail</li>
             </ol>
         </nav>
@@ -100,7 +100,7 @@ if(isset($d['id'])!=''){
                         </thead>
                         <tbody>
                             <?php
-                            $tampil=mysqli_query($conn,"SELECT a.*, b.jumlah_konversi, c.merk_type, d.nama AS nama_kondisi, e.nama AS nama_kategori_material, f.nama AS nama_satuan_besar, g.nama AS nama_gudang, h.nama AS nama_satuan_kecil, (SELECT COUNT(j.id) AS tot FROM material_sn j WHERE j.status_id='1' AND j.table_id=a.id AND j.table_name='po_terima_detail') AS total_sn
+                            $tampil=mysqli_query($conn,"SELECT a.*, b.jumlah_konversi, c.merk_type, d.nama AS nama_kondisi, e.nama AS nama_kategori_material, f.nama AS nama_satuan_besar, g.nama AS nama_gudang, h.nama AS nama_satuan_kecil, (SELECT COUNT(j.id) AS tot FROM material_sn j WHERE j.table_id=a.id AND j.table_name='po_terima_detail') AS total_sn
                             FROM po_terima_detail a
                             LEFT JOIN po_detail b ON a.po_detail_id=b.id
                             LEFT JOIN master_material c ON b.master_material_id=c.id AND c.deleted_at IS NULL
@@ -116,7 +116,7 @@ if(isset($d['id'])!=''){
                                 <tr>
                                     <td><?php echo $no;?></td>
                                     <td><?php echo $r['nama_kategori_material'];?></td>
-                                    <td><a href="terimapo-sn-<?php echo $r['id'];?>" class="text-primary" target="_blank"><?php echo $r['merk_type'];?></a></td>
+                                    <td><a href="terimapo-sn-<?php echo $r['id'];?>" class="text-primary"><?php echo $r['merk_type'];?></a></td>
                                     <td><?php echo $r['nama_kondisi'];?></td>
                                     <td><?php echo formatAngka($r['jumlah_diterima']).' '.$r['nama_satuan_besar'];?></td>
                                     <td><?php echo formatAngka($r['jumlah_diterima']*$r['jumlah_konversi']).' '.$r['nama_satuan_kecil'];?></td>

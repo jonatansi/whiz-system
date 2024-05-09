@@ -5,7 +5,7 @@ if(isset($_GET['tanggal_awal'])){
     $tanggal_akhir=$_GET['tanggal_akhir'];
 }
 else{
-    $tanggal_awal = date('Y-m-01');
+    $tanggal_awal = date('Y-01-01');
 	$tanggal_akhir = date('Y-m-d');
 }
 ?>
@@ -22,7 +22,13 @@ else{
 
         <div class="d-flex my-xl-auto right-content align-items-center">
             <div class="pe-1 mb-xl-0">
+                <?php
+                if($pegawai['master_cabang_id']!='1'){
+                ?>
                 <button type="button" class="btn btn-dark me-2 btn-b btnAdd"><i class="mdi mdi-plus-circle"></i> Penerimaan Material</button>
+                <?php
+                }
+                ?>
             </div>
         </div>
     </div>
@@ -107,7 +113,7 @@ else{
     $filter.= datatable_filter("tanggal_akhir");
     $filter.= datatable_filter("vendor_id");
     
-    echo generate_datatable("terimapo-data", "1", "desc", $order_column_add, $disabled_column_serch_add, $filter);
+    echo generate_datatable("terimapo-data", "1", "desc", $order_column_add, $disabled_column_serch_add, $filter, "datatable_ajax");
     ?>
 
     <?php

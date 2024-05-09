@@ -11,6 +11,9 @@ else{
 	include "../../../konfig/fungsi_tanggal.php";
     include "../../../konfig/base_url.php";
 
+	include "../../../services/send_discord.php";
+    include "../../../services/get_error.php";
+	
 	$act=$_GET['act'];
     
 	$module = "Purchase Order";
@@ -24,7 +27,13 @@ else{
 		include "add/tambah_material.php";
 	}
 
-	
+	else if($act=='data_json_view'){
+		include "data_json_view.php";
+	}
+
+	else if($act=='data_json_view_sn'){
+		include "data_json_view_sn.php";
+	}
 
 	mysqli_close($conn);
 	

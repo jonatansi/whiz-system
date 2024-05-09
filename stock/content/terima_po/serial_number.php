@@ -1,11 +1,12 @@
 <?php
-$sql="SELECT a.*, b.jumlah_konversi, c.nama AS nama_gudang, d.nama AS nama_satuan_besar, e.nama AS nama_satuan_kecil, f.merk_type, (SELECT COUNT(j.id) AS tot FROM material_sn j WHERE j.status_id='1' AND j.table_id=a.id AND j.table_name='po_terima_detail') AS total_sn
+$sql="SELECT a.*, b.jumlah_konversi, c.nama AS nama_gudang, d.nama AS nama_satuan_besar, e.nama AS nama_satuan_kecil, f.merk_type, g.tanggal AS tanggal_terima, (SELECT COUNT(j.id) AS tot FROM material_sn j WHERE j.table_id=a.id AND j.table_name='po_terima_detail') AS total_sn
 FROM po_terima_detail a
 LEFT JOIN po_detail b ON a.po_detail_id=b.id AND b.deleted_at IS NULL
 LEFT JOIN master_material f ON b.master_material_id=f.id AND f.deleted_at IS NULL
 LEFT JOIN master_gudang c ON a.master_gudang_id=c.id AND c.deleted_at IS NULL
 LEFT JOIN master_satuan d ON b.master_satuan_besar_id=d.id AND d.deleted_at IS NULL
 LEFT JOIN master_satuan e ON b.master_satuan_kecil_id=e.id AND e.deleted_at IS NULL
+LEFT JOIN po_terima g ON a.po_terima_id=g.id AND g.deleted_at IS NULL
 WHERE a.deleted_at IS NULL AND a.id='$_GET[id]'";
 // if($pegawai['master_cabang_id']!='1'){
 //     $sql.=" AND c.master_cabang_id='$pegawai[master_cabang_id]'";
@@ -34,7 +35,7 @@ $jumlah_item = $d['jumlah_diterima']*$d['jumlah_konversi'];
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <div class="row mb-4">
+                <div class="row mb-3">
                     <div class="col-md-6">
                         <table class="mytable">
                             <tr>
@@ -45,10 +46,6 @@ $jumlah_item = $d['jumlah_diterima']*$d['jumlah_konversi'];
                                 <td class="fw-bold">Jumlah Terima</td>
                                 <td class="text">: <?php echo $d['jumlah_diterima'].' '.$d['nama_satuan_besar'];?></td>
                             </tr>
-                            <tr>
-                                <td class="fw-bold">Jumlah Item</td>
-                                <td class="text">: <?php echo ($d['jumlah_diterima']*$d['jumlah_konversi']).' '.$d['nama_satuan_kecil'];?></td>
-                            </tr>
                         </table>
                     </div>
                     <div class="col-md-6">
@@ -56,6 +53,10 @@ $jumlah_item = $d['jumlah_diterima']*$d['jumlah_konversi'];
                             <tr>
                                 <td class="fw-bold">Gudang Penyimpanan</td>
                                 <td class="text">: <?php echo $d['nama_gudang'];?></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Jumlah Item Satuan Dasar</td>
+                                <td class="text">: <?php echo ($d['jumlah_diterima']*$d['jumlah_konversi']).' '.$d['nama_satuan_kecil'];?></td>
                             </tr>
                         </table>
                     </div>
@@ -75,7 +76,7 @@ $jumlah_item = $d['jumlah_diterima']*$d['jumlah_konversi'];
                                         <input type="text" class="form-control" name="serial_number" required autofocus <?php if($jumlah_item<=$d['total_sn']){echo "disabled";}?>>
                                     </div>
                                     <div class="col-md-3">
-                                        <button type="submit" class="btn btn-success">Simpan</button>
+                                        <button type="submit" class="btn btn-success"  <?php if($jumlah_item<=$d['total_sn']){echo "disabled";}?>>Simpan</button>
                                     </div>
                                 </div>
                                 <br>
@@ -99,15 +100,23 @@ $jumlah_item = $d['jumlah_diterima']*$d['jumlah_konversi'];
                                     <tbody>
                                         <?php
                                         $no=1;
-                                        $tampil=mysqli_query($conn,"SELECT * FROM material_sn WHERE table_id='$_GET[id]' AND table_name='po_terima_detail' AND status_id='1'");
+                                        $tampil=mysqli_query($conn,"SELECT * FROM material_sn WHERE table_id='$_GET[id]' AND table_name='po_terima_detail'");
                                         while($r=mysqli_fetch_array($tampil)){
+                                            $datetimeObj = new DateTime($r['created_at']);
+                                            $tanggal_sn = $datetimeObj->format('Y-m-d');
                                             ?>
                                             <tr>
                                                 <td><?php echo $no;?></td>
                                                 <td><?php echo $r['serial_number'];?></td>
                                                 <td><?php echo formatAngka($r['harga']);?></td>
                                                 <td>
+                                                    <?php
+                                                    if($tanggal_sn==$tgl_sekarang){
+                                                    ?>
                                                     <button type="button" class="btn btn-sm btn-danger btnDelete" data-toggle="tooltip" data-placement="top" title="Hapus" id="<?php echo $r['id'];?>"><i class="bi bi-trash"></i> Delete</button>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                 </td>
                                             </tr>
                                             <?php

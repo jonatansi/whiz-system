@@ -12,6 +12,9 @@ else{
 	include "../../../konfig/koneksi.php";
 	include "../../../konfig/library.php";
 
+    include "../../../services/send_discord.php";
+    include "../../../services/get_error.php";
+    
 	$act=$_GET['act'];
     
     if($act=='propinsi'){
@@ -30,7 +33,7 @@ else{
         include "kelurahan.php";
     }
 
-    mysqli_close($conn_api);
+    mysqli_close($conn);
 	
 }
 ?>
