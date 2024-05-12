@@ -116,7 +116,7 @@ if(isset($d['id'])!=''){
                                 <tr>
                                     <td><?php echo $no;?></td>
                                     <td><?php echo $r['nama_kategori_material'];?></td>
-                                    <td><a href="terimapo-sn-<?php echo $r['id'];?>" class="text-primary"><?php echo $r['merk_type'];?></a></td>
+                                    <td><a href="terimapo-sn-<?php echo $r['id'];?>" class="text-primary" target="_blank"><?php echo $r['merk_type'];?></a></td>
                                     <td><?php echo $r['nama_kondisi'];?></td>
                                     <td><?php echo formatAngka($r['jumlah_diterima']).' '.$r['nama_satuan_besar'];?></td>
                                     <td><?php echo formatAngka($r['jumlah_diterima']*$r['jumlah_konversi']).' '.$r['nama_satuan_kecil'];?></td>

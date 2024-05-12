@@ -45,53 +45,71 @@
 </table>
 
 <script type="text/javascript"> 
-    $('#my_datatable tbody').on('click', '.btnDelete',function() {
-        var id = this.id;
-        
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-success ms-2',
-                cancelButton: 'btn btn-danger'
-            },
-            buttonsStyling: false
-        })
+    $('#my_datatable tbody').on('click', '.btnDelete', async function() {
+    const id = this.id;
 
-        swalWithBootstrapButtons.fire({
-            title: 'Are you sure?',
-            text: 'You will not be able to revert this!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'No, cancel!',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: 'POST',
-                    url: 'po-delete-material',
-                    data:{
-                        'id' : id
-                    },
-                    success: function() {
-                        $.ajax({
-                            type: 'POST',
-                            url: 'po-table-material-add',
-                            beforeSend: function() {
-                                $('.preloader').show();
-                                $('#table_add_material').html("Loading...");
-                            },
-                            complete: function() {
-                                $('.preloader').hide();
-                            },
-                            success: function(msg) {
-                                $('#table_add_material').html(msg);
-                            }
-                        });
-                    }
-                });
-            }
-        })
+    const result = await showConfirmationDialog();
+
+    if (result.isConfirmed) {
+        try {
+            await deleteMaterial(id);
+            await reloadMaterialTable();
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+});
+
+async function showConfirmationDialog() {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success ms-2',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
     });
+
+    return await swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: 'You will not be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    });
+}
+
+async function deleteMaterial(id) {
+    try {
+        await $.ajax({
+            type: 'POST',
+            url: 'po-delete-material',
+            data: { 'id': id }
+        });
+    } catch (error) {
+        throw new Error('Failed to delete material');
+    }
+}
+
+async function reloadMaterialTable() {
+    try {
+        $('.preloader').show();
+        $('#table_add_material').html("Loading...");
+
+        const msg = await $.ajax({
+            type: 'POST',
+            url: 'po-table-material-add'
+        });
+
+        $('#table_add_material').html(msg);
+    } catch (error) {
+        console.error('Error:', error);
+    } finally {
+        $('.preloader').hide();
+    }
+}
+
 
 <?php
 

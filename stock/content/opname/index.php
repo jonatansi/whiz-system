@@ -129,9 +129,9 @@ else if($_GET['act']=='tambah'){
     include "add/index.php";
 }
 else if($_GET['act']=='view'){
-    include "view.php";
+    include "view/index.php";
 }
 else if($_GET['act']=='sn'){
-    include "serial_number.php";
+    include "sn/index.php";
 }
 ?>

@@ -79,3 +79,6 @@ Barang yang tercatat misalnya ada 10 dengan serial number : a-j
 Ternyata pada kenyataanya hanya terdapat 9 dan 7 diantaranya serial number yang memang ada, namun 2 adalah barang baru
 
 Untuk barang yang serial numbernya 0, maka harus dipilih barang mana yang akan dikurangi
+
+Stok Opname
+Tambah Stok Opname --> munculkan semua barang serial number yang di stok opname

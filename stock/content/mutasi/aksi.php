@@ -236,6 +236,8 @@ else{
 			mysqli_query($conn,"UPDATE mutasi SET status_id='255' WHERE id='$_POST[mutasi_id]'");
 			mysqli_query($conn,"UPDATE mutasi_sn a INNER JOIN mutasi_detail b ON a.mutasi_detail_id = b.id SET a.status='3' WHERE b.mutasi_id='$_POST[mutasi_id]'");
 
+			mysqli_query($conn,"UPDATE mutasi_detail SET deleted_at='$waktu_sekarang' WHERE mutasi_id='$_POST[mutasi_id]'");
+
 			mysqli_commit($conn);
 		}
 		catch (Exception $e) {

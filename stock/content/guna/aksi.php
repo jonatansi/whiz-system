@@ -197,6 +197,8 @@ else{
 			mysqli_query($conn,"UPDATE guna SET status_id='255' WHERE id='$_POST[guna_id]'");
 			mysqli_query($conn,"UPDATE guna_sn a INNER JOIN guna_detail b ON a.guna_detail_id = b.id SET a.status='3' WHERE b.guna_id='$_POST[guna_id]'");
 
+			mysqli_query($conn,"UPDATE guna_detail SET deleted_at='$waktu_sekarang' WHERE guna_id='$_POST[guna_id]'");
+
 			mysqli_commit($conn);
 		}
 		catch (Exception $e) {

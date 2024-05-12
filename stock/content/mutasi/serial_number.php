@@ -110,7 +110,7 @@ $m=mysqli_fetch_array(mysqli_query($conn,"SELECT status_id FROM mutasi WHERE id=
                                                 <td><?php echo formatAngka($r['harga']);?></td>
                                                 <td>
                                                     <?php
-                                                    if($tanggal_sn==$tgl_sekarang){
+                                                    if($r['status']=='1'){
                                                     ?>
                                                     <button type="button" class="btn btn-sm btn-danger btnDelete" data-toggle="tooltip" data-placement="top" title="Hapus" id="<?php echo $r['id'];?>"><i class="bi bi-trash"></i> Delete</button>
                                                     <?php

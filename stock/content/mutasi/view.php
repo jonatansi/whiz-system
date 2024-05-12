@@ -43,9 +43,9 @@ if(isset($d['id'])!=''){
                             <button class='btn btn-danger btn-sm ml-2 btnCancel' id='<?php echo $d['id'];?>'><i class='fas fa-times'></i> Cancel</button>
                             <?php
                         }
-                        if($d['status_id']=='260' AND $d['created_master_cabang_id']==$_SESSION['master_cabang_id'] AND $d['total_item']==$d['total_sn']){
+                        if($d['status_id']=='260' AND $d['created_master_cabang_id']==$_SESSION['master_cabang_id']){
                             ?>
-                            <button class='btn btn-success btn-sm ml-2 btnNext' id='<?php echo $d['id'];?>'><i class='fas fa-check'></i> Completed</button>
+                            <button class='btn btn-success btn-sm ml-2 btnNext' id='<?php echo $d['id'];?>' <?php if($d['total_item']!=$d['total_sn']){echo "disabled";}?>><i class='fas fa-check'></i> Completed</button>
                             <button class='btn btn-danger btn-sm ml-2 btnCancel' id='<?php echo $d['id'];?>'><i class='fas fa-times'></i> Cancel</button>
                             <?php
                         }
@@ -85,7 +85,7 @@ if(isset($d['id'])!=''){
                             <tr>
                                 <td><?php echo $no;?></td>
                                 <td><?php echo $r['nama_kategori_material'];?></td>
-                                <td><a href="mutasi-sn-<?php echo $r['id'];?>" class="text-primary"><?php echo $r['merk_type'];?></a></td>
+                                <td><a href="mutasi-sn-<?php echo $r['id'];?>" class="text-primary" target="_blank"><?php echo $r['merk_type'];?></a></td>
                                 <td class="text-center"><?php echo formatAngka($r['jumlah']).' '.$r['nama_satuan_kecil'];?></td>
                                 <td><?php echo $r['nama_kondisi'];?></td>
                                 <td><?php echo $r['nama_gudang'];?></td>
