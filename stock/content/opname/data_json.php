@@ -39,7 +39,7 @@ LEFT JOIN (
 ) AS total_item_query ON a.id = total_item_query.opname_id
 LEFT JOIN (
     SELECT g.opname_id, COUNT(f.id) AS total_sn 
-    FROM opname_sn f INNER JOIN opname_detail g ON f.opname_detail_id = g.id AND g.deleted_at IS NULL 
+    FROM opname_sn f INNER JOIN opname_detail g ON f.opname_detail_id = g.id AND g.deleted_at IS NULL AND f.material_sn_status_id='500'
     GROUP BY g.opname_id
 ) AS total_sn_query ON a.id = total_sn_query.opname_id
 WHERE  a.deleted_at IS NULL AND a.tanggal BETWEEN '$_POST[tanggal_awal]' AND '$_POST[tanggal_akhir]'";
@@ -100,12 +100,12 @@ while( $row=mysqli_fetch_array($sql_data)) {  // preparing an array
     $status = "<span class='badge bg-$row[warna_status]'>$row[nama_status]</span>";
     $nestedData=array(); 
     $nestedData[] = $no;
-    $nestedData[] = "<a href='opname-view-$row[id]' target='_blank' class='text-primary'>$row[nomor]</a>";
+    $nestedData[] = "<a href='opname-view-$row[id]' class='text-primary'>$row[nomor]</a>";
     $nestedData[] = DateIndo($row["tanggal"]);
     $nestedData[] = $row['nama_cabang'];
     $nestedData[] = $row['nama_gudang'];
     $nestedData[] = $row['nama_pic'];
-    $nestedData[] = formatAngka($row['total_tercatat']);
+    $nestedData[] = formatAngka($row['total_item']);
     $nestedData[] = formatAngka($row['total_aktual']);
     $nestedData[] = formatAngka($row['total_sn']);
     $nestedData[] = $status;

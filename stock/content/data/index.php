@@ -15,7 +15,13 @@ else{
 	$act=$_GET['act'];
     
 	if($act=='material'){
-        $tampil=mysqli_query($conn,"SELECT a.id, a.merk_type, b.nama AS nama_satuan FROM master_material a INNER JOIN master_satuan b ON a.master_satuan_id=b.id AND b.deleted_at IS NULL WHERE a.deleted_at IS NULL AND a.master_kategori_material_id='$_POST[kategori_material_id]' ORDER BY a.merk_type");
+		$sql="SELECT a.id, a.merk_type, b.nama AS nama_satuan FROM master_material a INNER JOIN master_satuan b ON a.master_satuan_id=b.id AND b.deleted_at IS NULL WHERE a.deleted_at IS NULL";
+		if($_POST['kategori_material_id']!='0'){
+			$sql.=" AND a.master_kategori_material_id='$_POST[kategori_material_id]'";
+		}
+		$sql.=" ORDER BY a.merk_type";
+
+        $tampil=mysqli_query($conn,$sql);
         while($r=mysqli_fetch_array($tampil)){
             echo "<option value='$r[id]'>$r[merk_type] ($r[nama_satuan])</option>";
         }

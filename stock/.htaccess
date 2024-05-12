@@ -139,11 +139,15 @@ RewriteRule ^opname-tambah$ media.php?module=opname&act=tambah [QSA,L]
 RewriteRule ^opname-table-material-add$ content/opname/aksi.php?act=table_add_material [QSA,L]
 RewriteRule ^opname-input$ content/opname/aksi.php?act=input [QSA,L]
 
-####RewriteRule ^opname-tambah-material$ content/opname/aksi.php?act=tambah_material [QSA,L]
-####RewriteRule ^opname-input-material$ content/opname/aksi.php?act=input_material [QSA,L]
-####RewriteRule ^opname-delete-material$ content/opname/aksi.php?act=delete_material [QSA,L]
 
 RewriteRule ^opname-view-([0-9]+)$ media.php?module=opname&act=view&id=$1 [QSA,L]
+
+RewriteRule ^opname-table-material-view$ content/opname/aksi.php?act=table_view_material [QSA,L]
+RewriteRule ^opname-tambah-material$ content/opname/aksi.php?act=tambah_material [QSA,L]
+RewriteRule ^opname-input-material$ content/opname/aksi.php?act=input_material [QSA,L]
+RewriteRule ^opname-edit-material$ content/opname/aksi.php?act=edit_material [QSA,L]
+RewriteRule ^opname-update-material$ content/opname/aksi.php?act=update_material [QSA,L]
+RewriteRule ^opname-delete-material$ content/opname/aksi.php?act=delete_material [QSA,L]
 
 RewriteRule ^opname-cetak-([0-9]+)$ content/opname/aksi.php?act=cetak&id=$1 [QSA,L]
 RewriteRule ^opname-next$ content/opname/aksi.php?act=next [QSA,L]
@@ -153,8 +157,12 @@ RewriteRule ^opname-cancel$ content/opname/aksi.php?act=cancel [QSA,L]
 RewriteRule ^opname-cancel-action$ content/opname/aksi.php?act=cancel_action [QSA,L]
 
 RewriteRule ^opname-sn-([0-9]+)$ media.php?module=opname&act=sn&id=$1 [QSA,L]
+RewriteRule ^opname-table-material-sn$ content/opname/aksi.php?act=table_sn_material [QSA,L]
+RewriteRule ^opname-sn-tambah$ content/opname/aksi.php?act=sn_tambah [QSA,L]
 RewriteRule ^opname-sn-input$ content/opname/aksi.php?act=sn_input [QSA,L]
-RewriteRule ^opname-sn-delete-([0-9]+)$ content/opname/aksi.php?act=sn_delete&id=$1 [QSA,L]
+RewriteRule ^opname-sn-edit$ content/opname/aksi.php?act=sn_edit [QSA,L]
+RewriteRule ^opname-sn-update$ content/opname/aksi.php?act=sn_update [QSA,L]
+RewriteRule ^opname-sn-delete$ content/opname/aksi.php?act=sn_delete [QSA,L]
 
 
 ### DATA MATERIAL

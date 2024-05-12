@@ -137,6 +137,8 @@ else{
 
 		mysqli_query($conn,"UPDATE po SET status_id='5' WHERE id='$_POST[po_id]'");
 
+		mysqli_query($conn,"UPDATE po_detail SET deleted_at='$waktu_sekarang' WHERE po_id='$_POST[po_id]'");
+
 		header("location: po-view-$_POST[po_id]");
 	}
 
