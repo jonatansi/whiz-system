@@ -14,7 +14,7 @@ $so =  mysqli_fetch_array(mysqli_query($conn,"SELECT status_id FROM opname WHERE
             <th>Kondisi</th>
             <th>Remark</th>
             <?php
-            if($so['status_id']!='365' AND $s['status_id']!='355'){
+            if($so['status_id']!='365' AND $so['status_id']!='355'){
                 echo "<th>Aksi</th>";
             }
             ?>
@@ -43,7 +43,7 @@ $so =  mysqli_fetch_array(mysqli_query($conn,"SELECT status_id FROM opname WHERE
                 <td><?php echo $r['nama_kondisi'];?></td>
                 <td><?php echo $r['remark'];?></td>
                 <?php
-                if($so['status_id']!='365' AND $s['status_id']!='355'){
+                if($so['status_id']!='365' AND $so['status_id']!='355'){
                 ?>
                 <td class="text-center">
                     <button type="button" class="btn btn-sm btn-warning btnEdit" data-toggle="tooltip" data-placement="top" title="Edit" id="<?php echo $r['id'];?>"><i class="bi bi-pen"></i></button>

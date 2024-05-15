@@ -85,7 +85,7 @@ if(isset($d['id'])!=''){
                             <tr>
                                 <td><?php echo $no;?></td>
                                 <td><?php echo $r['nama_kategori_material'];?></td>
-                                <td><a href="guna-sn-<?php echo $r['id'];?>" class="text-primary" target="_blank"><?php echo $r['merk_type'];?></a></td>
+                                <td><a href="guna-sn-<?php echo $r['id'];?>" class="text-primary"><?php echo $r['merk_type'];?></a></td>
                                 <td class="text-center"><?php echo formatAngka($r['jumlah']).' '.$r['nama_satuan_kecil'];?></td>
                                 <td><?php echo $r['nama_kondisi'];?></td>
                                 <td><?php echo $r['nama_gudang'];?></td>

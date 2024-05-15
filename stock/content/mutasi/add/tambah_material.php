@@ -12,7 +12,7 @@
                             <legend>Form Mutasi</legend>
                             <div class="row mb-3">
                                 <div class="col-md-12">
-                                    <label>Gudang <span class="text-danger">*</span></label>
+                                    <label>Gudang Asal <span class="text-danger">*</span></label>
                                     <select name="master_gudang_asal_id" class="form-control select2" id="master_gudang_asal_id" required>
                                         <option value="">Pilih</option>
                                         <?php

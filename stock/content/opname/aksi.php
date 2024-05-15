@@ -264,7 +264,7 @@ else{
 			echo $e;
 		}
 
-		// header("location: opname-view-$_POST[opname_id]");
+		header("location: opname-view-$_POST[opname_id]");
 	}
 
 	else if($act=='cancel'){
@@ -324,8 +324,11 @@ else{
 			}
 		}
 		else{
-			mysqli_query($conn,"INSERT INTO opname_sn (opname_detail_id, serial_number, created_at, harga, status, material_sn_id, material_sn_status_id, remark) VALUES ('$_POST[opname_detail_id]', '$_POST[serial_number]', '$waktu_sekarang', '$harga', '1', '0', '500', '$_POST[remark]')");
 
+			$cek = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM material_sn WHERE serial_number='$_POST[serial_number]'"));
+			if(isset($cek['id'])==''){
+				mysqli_query($conn,"INSERT INTO opname_sn (opname_detail_id, serial_number, created_at, harga, status, material_sn_id, material_sn_status_id, remark) VALUES ('$_POST[opname_detail_id]', '$_POST[serial_number]', '$waktu_sekarang', '$harga', '1', '0', '500', '$_POST[remark]')");
+			}
 			// header("location: opname-sn-$_POST[opname_detail_id]");
 		}
 

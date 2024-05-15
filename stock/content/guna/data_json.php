@@ -11,7 +11,6 @@ $columns = array(
 
 $pencarian = array('a.id', 'a.nomor', 'a.tanggal', 'b.nama', 'c.nama', 'total_item', 'total_sn');
 
-$pegawai = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai WHERE id='$_SESSION[login_user]'"));
 
 $query = "SELECT a.*,  b.nama AS nama_cabang, c.nama AS nama_kegunaan, d.nama AS nama_status, d.warna AS warna_status, COALESCE(total_item_query.total_item, 0) AS total_item, COALESCE(total_sn_query.total_sn, 0) AS total_sn
 FROM guna a 
@@ -25,6 +24,10 @@ WHERE a.deleted_at IS NULL AND a.tanggal BETWEEN '$_POST[tanggal_awal]' AND '$_P
 
 if($_POST['status_id']!='0'){
     $query.=" AND a.status_id='$_POST[status_id]'";
+}
+
+if($_SESSION['master_cabang_id']!='1'){
+    $query.=" AND a.created_master_cabang_id='$_SESSION[master_cabang_id]'";
 }
 
 $totalData = mysqli_num_rows(mysqli_query($conn, $query));
@@ -79,7 +82,7 @@ while( $row=mysqli_fetch_array($sql_data)) {  // preparing an array
     $status = "<span class='badge bg-$row[warna_status]'>$row[nama_status]</span>";
     $nestedData=array(); 
     $nestedData[] = $no;
-    $nestedData[] = "<a href='guna-view-$row[id]' target='_blank' class='text-primary'>$row[nomor]</a>";
+    $nestedData[] = "<a href='guna-view-$row[id]' class='text-primary'>$row[nomor]</a>";
     $nestedData[] = DateIndo($row["tanggal"]);
     $nestedData[] = $row['nama_cabang'];
     $nestedData[] = $row['nama_kegunaan'];

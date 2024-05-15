@@ -56,7 +56,7 @@
                             </div>
                             <div class="row form-group">
                                 <label class="col-md-5 pt-2 text-end">
-                                    Gudang Penyimpanan <small class="text-danger">*</small>
+                                    Gudang Tujuan <small class="text-danger">*</small>
                                 </label>
                                 <div class="col-md-7">
                                     <select name="master_gudang_tujuan_id" class="form-control" required>

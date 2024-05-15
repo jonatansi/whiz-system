@@ -118,7 +118,7 @@ else{
 
 	else if($act=='sn_input'){
 
-		$d=mysqli_fetch_array(mysqli_query($conn,"SELECT a.*, b.po_id, b.harga, b.master_material_id, b.master_kondisi_id, b.jumlah_konversi, c.nama AS nama_gudang, d.nama AS nama_satuan_besar, e.nama AS nama_satuan_kecil, f.merk_type, g.nomor AS nomor_po_terima
+		$d=mysqli_fetch_array(mysqli_query($conn,"SELECT a.*, b.po_id, b.harga, b.master_material_id, b.master_kategori_material_id,  b.master_kondisi_id, b.jumlah_konversi, c.nama AS nama_gudang, d.nama AS nama_satuan_besar, e.nama AS nama_satuan_kecil, f.merk_type, g.nomor AS nomor_po_terima
 		FROM po_terima_detail a
 		LEFT JOIN po_detail b ON a.po_detail_id=b.id AND b.deleted_at IS NULL
 		LEFT JOIN master_material f ON b.master_material_id=f.id AND f.deleted_at IS NULL
@@ -132,7 +132,7 @@ else{
 		$harga = $d['harga']/$jumlah_item;
 		
 		//MASUKKAN DATA SERIAL NUMBER
-		$sql="INSERT INTO material_sn (master_material_id, status_id, serial_number, master_gudang_id, created_at, table_id, table_name, harga, master_kategori_material_id, master_kondisi_id) VALUES ('$d[master_material_id]', '500', '$_POST[serial_number]', '$d[master_gudang_id]', '$waktu_sekarang', '$d[id]', 'po_terima_detail', '$harga', '$d[master_material_id]', '$d[master_kondisi_id]')";
+		$sql="INSERT INTO material_sn (master_material_id, status_id, serial_number, master_gudang_id, created_at, table_id, table_name, harga, master_kategori_material_id, master_kondisi_id) VALUES ('$d[master_material_id]', '500', '$_POST[serial_number]', '$d[master_gudang_id]', '$waktu_sekarang', '$d[id]', 'po_terima_detail', '$harga', '$d[master_kategori_material_id]', '$d[master_kondisi_id]')";
 
 		$exists_data = 0;
 		if($_POST['serial_number']=='0'){

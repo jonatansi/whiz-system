@@ -27,6 +27,10 @@ if($_POST['status_id']!='0'){
     $query.=" AND a.status_id='$_POST[status_id]'";
 }
 
+if($_SESSION['master_cabang_id']!='1'){
+    $query.=" AND a.created_master_cabang_id='$_SESSION[master_cabang_id]'";
+}
+
 $totalData = mysqli_num_rows(mysqli_query($conn, $query));
 
 $totalFiltered = $totalData; 
