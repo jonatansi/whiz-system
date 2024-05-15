@@ -64,6 +64,10 @@ if(isset($d['id'])!=''){
                                 <td class="fw-bold">Status</td>
                                 <td class="text-end"><?php echo "<span class='badge bg-$d[warna_status]'>$d[nama_status]</span>";?></td>
                             </tr>
+                            <tr>
+                                <td class="fw-bold">Remark</td>
+                                <td class="text-end"><?php echo $d['remark'];?></td>
+                            </tr>
                         </table>
                     </div>
                     <div class="col-md-4 offset-md-4">
@@ -95,7 +99,7 @@ if(isset($d['id'])!=''){
                                 <th>JLH DITERIMA</th>
                                 <th>JLH ITEM</th>
                                 <th>GUDANG</th>
-                                <th>SN</th>
+                                <th>SN DIINPUT</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -116,7 +120,7 @@ if(isset($d['id'])!=''){
                                 <tr>
                                     <td><?php echo $no;?></td>
                                     <td><?php echo $r['nama_kategori_material'];?></td>
-                                    <td><a href="terimapo-sn-<?php echo $r['id'];?>" class="text-primary" target="_blank"><?php echo $r['merk_type'];?></a></td>
+                                    <td><a href="terimapo-sn-<?php echo $r['id'];?>" class="text-primary"><?php echo $r['merk_type'];?></a></td>
                                     <td><?php echo $r['nama_kondisi'];?></td>
                                     <td><?php echo formatAngka($r['jumlah_diterima']).' '.$r['nama_satuan_besar'];?></td>
                                     <td><?php echo formatAngka($r['jumlah_diterima']*$r['jumlah_konversi']).' '.$r['nama_satuan_kecil'];?></td>

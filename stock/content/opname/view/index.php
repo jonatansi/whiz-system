@@ -62,7 +62,7 @@ if(isset($d['id'])!=''){
                             <button class='btn btn-danger btn-sm ml-2 btnCancel' id='<?php echo $d['id'];?>'><i class='fas fa-times'></i> Cancel</button>
                             <?php
                         }
-                        if($d['status_id']=='360' AND $d['created_master_cabang_id']==$_SESSION['master_cabang_id']){
+                        if($d['status_id']=='360' AND $_SESSION['master_cabang_id']=='1'){
                             ?>
                             <button class='btn btn-success btn-sm ml-2 btnNext' id='<?php echo $d['id'];?>' <?php if($d['total_aktual']!=$d['total_sn']){echo "disabled";}?>><i class='fas fa-check'></i> Completed</button>
                             <button class='btn btn-danger btn-sm ml-2 btnCancel' id='<?php echo $d['id'];?>'><i class='fas fa-times'></i> Cancel</button>

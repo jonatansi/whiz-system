@@ -56,7 +56,7 @@
                         <div class="col-md-6"> 
                             <div class="row form-group">
                                 <label class="col-md-5 pt-2 text-end">
-                                    Tujuan Penggunaan <small class="text-danger">*</small>
+                                    Kategori Penggunaan <small class="text-danger">*</small>
                                 </label>
                                 <div class="col-md-7">
                                     <select name="master_guna_id" class="form-control" required>
@@ -79,7 +79,7 @@
                             </div>
                             <div class="row form-group">
                                 <label class="col-md-5 pt-2 text-end">
-                                    Keterangan / Remark 
+                                    Remark / Note
                                 </label>
                                 <div class="col-md-7">
                                     <textarea name="deskripsi" class="form-control"></textarea>
@@ -91,7 +91,7 @@
                 </fieldset>
 
                 <fieldset class="mb-3">
-                    <legend>Alamat Pengiriman</legend>
+                    <legend>Alamat Penggunaan</legend>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row form-group">
@@ -122,10 +122,18 @@
                             
                             <div class="row form-group">
                                 <label class="col-md-5 pt-2 text-end">
-                                    Alamat Pengiriman <small class="text-danger">*</small>
+                                    Alamat <small class="text-danger">*</small>
                                 </label>
                                 <div class="col-md-7">
                                     <textarea name="alamat_tujuan" class="form-control" required></textarea>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <label class="col-md-5 pt-2 text-end">
+                                    Tujuan Penggunaan <small class="text-danger">*</small>
+                                </label>
+                                <div class="col-md-7">
+                                    <input type="text"  name="tujuan_penggunaan" class="form-control" required>
                                 </div>
                             </div>
                         </div>

@@ -46,12 +46,12 @@
                     </a>
                 </li>
 
-                <li class="slide <?php if($module=='cari'){echo "active";}?>">
+                <!-- <li class="slide <?php if($module=='cari'){echo "active";}?>">
                     <a href="<?php echo $BASE_URL_STOCK;?>/cari" class="side-menu__item <?php if($module=='cari'){echo "active";}?>">
                         <i class="fe fe-search side-menu__icon"></i>
                         <span class="side-menu__label">Pencarian Material</span>
                     </a>
-                </li>
+                </li> -->
 
                 <li class="slide__category"><span class="category-name">Purchase Order</span></li>
 

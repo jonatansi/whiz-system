@@ -25,7 +25,7 @@ else{
                 <?php
                 if($pegawai['master_cabang_id']!='1'){
                 ?>
-                    <a href="opname-tambah"><button type="button" class="btn btn-dark me-2 btn-b btnAdd"><i class="mdi mdi-plus-circle"></i> Buat SO Baru</button></a>
+                    <a href="opname-tambah"><button type="button" class="btn btn-dark me-2 btn-b btnAdd"><i class="mdi mdi-plus-circle"></i> Buat Stok Opname Baru</button></a>
                 <?php
                 }
                 ?>
@@ -70,14 +70,14 @@ else{
                             <thead class="table-info text-center">
                                 <tr>
                                     <th width="50px">No</th>
-                                    <th class="text-center">Nomor opname</th>
+                                    <th class="text-center">Nomor</th>
                                     <th>Tanggal</th>
                                     <th>Branch</th>
                                     <th>Gudang</th>
                                     <th>PIC</th>
                                     <th>Jlh Item Tercatat</th>
                                     <th>Jlh Item Aktual</th>
-                                    <th>Total SN</th>
+                                    <th>Total SN Diinput</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>

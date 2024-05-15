@@ -9,7 +9,7 @@ $so =  mysqli_fetch_array(mysqli_query($conn,"SELECT status_id FROM opname WHERE
             <th>Merk/Type</th>
             <th>Jlh Tercatat</th>
             <th>Jlh Aktual</th>
-            <th>Total SN</th>
+            <th>Total SN Diinput</th>
             <th>Satuan</th>
             <th>Kondisi</th>
             <th>Remark</th>

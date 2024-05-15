@@ -90,12 +90,18 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[po_id]'"));
                     </div>
                 </fieldset>
                 <div class="row mb-3">
-                    <label class="col-md-2 text-end pt-2">Tanggal Penerimaan</label>
+                    <label class="col-md-2 text-end pt-2">Tanggal Penerimaan <span class="text-danger">*</span></label>
                     <div class="col-md-4">
                         <input type="date" class="form-control" name="tanggal" value="<?php echo $_GET['tanggal'];?>" max="<?php echo $tgl_sekarang;?>">
                     </div>
-                    <label class="col-md-2 text-end pt-2">Remark</label>
+                    <label class="col-md-2 text-end pt-2">Dokumen Pendukung <span class="text-danger">*</span></label>
                     <div class="col-md-4">
+                        <input type="file" class="form-control" name="dokumen" required accept="application/pdf, image/*">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 text-end pt-2">Note / Remark</label>
+                    <div class="col-md-10">
                         <input type="text" class="form-control" name="remark">
                     </div>
                 </div>

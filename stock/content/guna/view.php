@@ -1,9 +1,14 @@
 <?php
-$sql="SELECT a.*,  b.nama AS nama_cabang, c.nama AS nama_kegunaan, d.nama AS nama_status, d.warna AS warna_status, COALESCE(total_item_query.total_item, 0) AS total_item, COALESCE(total_sn_query.total_sn, 0) AS total_sn
+$sql="SELECT a.*,  b.nama AS nama_cabang, c.nama AS nama_kegunaan, d.nama AS nama_status, d.warna AS warna_status, e.nama AS nama_requester, w.nama AS nama_provinsi, x.nama AS nama_kabupaten, y.nama AS nama_kecamatan, z.nama AS nama_kelurahan, COALESCE(total_item_query.total_item, 0) AS total_item, COALESCE(total_sn_query.total_sn, 0) AS total_sn
 FROM guna a 
 LEFT JOIN master_cabang b ON a.created_master_cabang_id = b.id AND b.deleted_at IS NULL
 LEFT JOIN master_guna c ON a.master_guna_id = c.id
 LEFT JOIN master_status d ON a.status_id = d.id
+LEFT JOIN pegawai e ON a.request_pegawai_id=e.id
+LEFT JOIN lok_provinsi w ON a.lok_provinsi_id=w.id
+LEFT JOIN lok_kabupaten x ON a.lok_kabupaten_id=x.id
+LEFT JOIN lok_kecamatan y oN a.lok_kecamatan_id=y.id
+LEFT JOIN lok_kelurahan z ON a.lok_kelurahan_id=z.id
 LEFT JOIN (SELECT guna_id, SUM(jumlah) AS total_item FROM guna_detail WHERE deleted_at IS NULL AND guna_id IS NOT NULL GROUP BY guna_id) AS total_item_query 
 ON a.id = total_item_query.guna_id
 LEFT JOIN (SELECT g.guna_id, COUNT(f.id) AS total_sn FROM guna_sn f INNER JOIN guna_detail g ON f.guna_detail_id = g.id AND g.deleted_at IS NULL GROUP BY g.guna_id) AS total_sn_query ON a.id = total_sn_query.guna_id
@@ -55,7 +60,65 @@ if(isset($d['id'])!=''){
                 </div>
             </div>
             <div class="card-body">
-                <!-- <iframe src="<?php echo $BASE_URL;?>/stock/guna-cetak-<?php echo $d['id'];?>" style="width:100%; height:100%; border:none" id="Iframe"></iframe> -->
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <table class="mytable">
+                            <tr>
+                                <td class="fw-bold">No. Penggunaan</td>
+                                <td class="text-end"><?php echo $d['nomor'];?></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Tanggal</td>
+                                <td class="text-end"><?php echo dateFormat($d['tanggal']);?></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Branch</td>
+                                <td class="text-end"><?php echo $d['nama_cabang'];?></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Status</td>
+                                <td class="text-end"><?php echo "<span class='badge bg-$d[warna_status]'>$d[nama_status]</span>";?></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Nama Requester</td>
+                                <td class="text-end"><?php echo $d['nama_requester'];?></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Jabatan Requester</td>
+                                <td class="text-end"><?php echo $d['request_pegawai_jabatan'];?></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-4 offset-md-4">
+                        <table class="mytable">
+                            <tr>
+                                <td class="fw-bold">Kategori Penggunaan</td>
+                                <td class="text-end"><?php echo $d['nama_kegunaan'];?></td>
+                            </tr>
+
+                            <tr>
+                                <td class="fw-bold">Tujuan Penggunaan</td>
+                                <td class="text-end"><?php echo $d['tujuan_penggunaan'];?></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Nomor Referensi</td>
+                                <td class="text-end"><?php echo $d['no_ref'];?></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold align-text-top">Alamat Penggunaan</td>
+                                <td class="text-end align-text-top">
+                                    <?php 
+                                    echo $d['alamat_tujuan'].'<br>Kel. '.$d['nama_kelurahan'].', Kec. '.$d['nama_kecamatan'].'<br>'.$d['nama_kabupaten'].', '.$d['nama_provinsi'].'<br>Kode POS : '.$d['tujuan_kode_pos'];
+                                    ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Remark / Note</td>
+                                <td class="text-end"><?php echo $d['deskripsi'];?></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
 
                 <table class="table" id="my_datatable">
                     <thead class="table-info">
@@ -66,7 +129,7 @@ if(isset($d['id'])!=''){
                             <th>JLH ITEM</th>
                             <th>KONDISI</th>
                             <th>GUDANG ASAL</th>
-                            <th>SN</th>
+                            <th>SN DIINPUT</th>
                         </tr>
                     </thead>
                     <tbody>

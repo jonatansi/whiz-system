@@ -43,7 +43,7 @@ if(isset($d['id'])!=''){
                             <button class='btn btn-danger btn-sm ml-2 btnCancel' id='<?php echo $d['id'];?>'><i class='fas fa-times'></i> Cancel</button>
                             <?php
                         }
-                        else if($d['status_id']=='10' AND $pegawai['master_cabang_id']=='1'){
+                        else if($d['status_id']=='10' AND $pegawai['master_cabang_id']==$d['created_master_cabang_id']){
                             ?>
                             <button class='btn btn-warning btn-sm ml-2 btnNext' id='<?php echo $d['id'];?>'><i class='fas fa-check'></i> On Delivery</button>
                             <button class='btn btn-danger btn-sm ml-2 btnCancel' id='<?php echo $d['id'];?>'><i class='fas fa-times'></i> Cancel</button>

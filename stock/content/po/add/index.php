@@ -174,7 +174,7 @@
                 <button type="button" class="btn btn-primary mb-3 btnAdd"><i class="fa fa-plus"></i> Tambah Material</button>
                 <div class="table-responsive" id="table_add_material"></div>
                 <div class="form-group mt-3">
-                    <label>Deskripsi</label>
+                    <label>Note / Remark :</label>
                     <textarea name="deskripsi" class="form-control"></textarea>
                 </div>
             </div>

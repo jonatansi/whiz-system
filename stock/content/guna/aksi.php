@@ -94,7 +94,7 @@ else{
 
 		$status_id = 300;
 
-		$sql="INSERT INTO guna (nomor, tanggal, created_master_cabang_id, created_pegawai_id, master_guna_id, used_master_cabang_id, request_pegawai_id, request_pegawai_jabatan, no_ref, alamat_tujuan, lok_provinsi_id, lok_kabupaten_id, lok_kecamatan_id, lok_kelurahan_id, tujuan_kode_pos, urutan, status_id, created_at, updated_at, deskripsi) VALUES ('$number', '$_POST[tanggal]', '$_SESSION[master_cabang_id]', '$_SESSION[login_user]',  '$_POST[master_guna_id]', '$_SESSION[master_cabang_id]', '$_POST[request_pegawai_id]', '$_POST[request_pegawai_jabatan]', '$_POST[no_ref]', '$_POST[alamat_tujuan]', '$_POST[lok_provinsi_id]', '$_POST[lok_kabupaten_id]', '$_POST[lok_kecamatan_id]', '$_POST[lok_kelurahan_id]', '$_POST[tujuan_kode_pos]', '$urutan', '$status_id', '$waktu_sekarang', '$waktu_sekarang', '$_POST[deskripsi]')";
+		$sql="INSERT INTO guna (nomor, tanggal, created_master_cabang_id, created_pegawai_id, master_guna_id, used_master_cabang_id, request_pegawai_id, request_pegawai_jabatan, no_ref, alamat_tujuan, lok_provinsi_id, lok_kabupaten_id, lok_kecamatan_id, lok_kelurahan_id, tujuan_kode_pos, urutan, status_id, created_at, updated_at, deskripsi, tujuan_penggunaan) VALUES ('$number', '$_POST[tanggal]', '$_SESSION[master_cabang_id]', '$_SESSION[login_user]',  '$_POST[master_guna_id]', '$_SESSION[master_cabang_id]', '$_POST[request_pegawai_id]', '$_POST[request_pegawai_jabatan]', '$_POST[no_ref]', '$_POST[alamat_tujuan]', '$_POST[lok_provinsi_id]', '$_POST[lok_kabupaten_id]', '$_POST[lok_kecamatan_id]', '$_POST[lok_kelurahan_id]', '$_POST[tujuan_kode_pos]', '$urutan', '$status_id', '$waktu_sekarang', '$waktu_sekarang', '$_POST[deskripsi]', '$_POST[tujuan_penggunaan]')";
 
 		mysqli_query($conn, $sql);
 
@@ -166,7 +166,7 @@ else{
 				while($r=mysqli_fetch_array($data)){ 
 					
 					//UPDATE INFO MATERIAL SN TELAH DIGUNAKAN
-					mysqli_query($conn,"UPDATE material_sn SET status_id='505', master_gudang_id='0' WHERE id='$r[material_sn_id]'");
+					mysqli_query($conn,"UPDATE material_sn SET status_id='505' WHERE id='$r[material_sn_id]'");
 
 					//CATAT DI LOG MATERIAL SN
 					mysqli_query($conn,"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark) VALUES ('$r[material_sn_id]', '525', '$waktu_sekarang', 'Penggunaan Material pada Transaksi $number')");

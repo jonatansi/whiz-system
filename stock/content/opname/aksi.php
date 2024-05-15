@@ -43,7 +43,7 @@ else{
 			$urutan = $a['urutan']+1;
 			$urutan_nomor= sprintf("%05s",$urutan);
 
-			$number = "SO-UVT-$urutan_nomor-$thn".$bulan;
+			$number = "OP-UVT-$urutan_nomor-$thn".$bulan;
 
 			$status_id = 350;
 
@@ -60,7 +60,7 @@ else{
 			WHERE b.master_gudang_id='$_POST[master_gudang_id]' AND a.deleted_at IS NULL");
 			while($r=mysqli_fetch_array($data)){
 				//DETAIL DARI OPNAME
-				mysqli_query($conn,"INSERT INTO opname_detail (opname_id, master_material_id, master_satuan_kecil_id, master_kategori_material_id, jumlah_tercatat, master_kondisi_id, stok_kondisi_id, created_pegawai_id, master_gudang_id, created_at, updated_at) VALUES ('$id', '$r[master_material_id]', '$r[master_satuan_id]', '$r[master_kategori_material_id]', '$r[jumlah]', '$r[master_kondisi_id]', '$r[id]', '$_SESSION[login_user]', '$r[master_gudang_id]', '$waktu_sekarang', '$waktu_sekarang')");
+				mysqli_query($conn,"INSERT INTO opname_detail (opname_id, master_material_id, master_satuan_kecil_id, master_kategori_material_id, jumlah_tercatat, jumlah_aktual, master_kondisi_id, stok_kondisi_id, created_pegawai_id, master_gudang_id, created_at, updated_at) VALUES ('$id', '$r[master_material_id]', '$r[master_satuan_id]', '$r[master_kategori_material_id]', '$r[jumlah]',  '$r[jumlah]', '$r[master_kondisi_id]', '$r[id]', '$_SESSION[login_user]', '$r[master_gudang_id]', '$waktu_sekarang', '$waktu_sekarang')");
 
 				$opname_detail_id = mysqli_insert_id($conn);
 

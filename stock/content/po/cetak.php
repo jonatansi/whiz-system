@@ -291,11 +291,20 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[id]'"));
         </table>
         <div style="margin: 2rem 0"></div>
         <div class="width-33">
-            <table>
+            <table style="margin-bottom:1rem;">
                 <tbody class="special">
                     <tr>
                         <td width="150px">STATUS :</td>
                         <td class="fw-bold"><?php echo $d['nama_status'];?></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table>
+                <tbody class="special">
+                    <tr>
+                        <td width="150px">NOTE/REMARK :</td>
+                        <td class="fw-bold"><?php echo $d['deskripsi'];?></td>
                     </tr>
                 </tbody>
             </table>

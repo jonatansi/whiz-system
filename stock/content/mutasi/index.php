@@ -75,7 +75,7 @@ else{
                                     <th>Branch</th>
                                     <th>Gudang Tujuan</th>
                                     <th>Total Item</th>
-                                    <th>Total SN</th>
+                                    <th>Total SN Diinput</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>

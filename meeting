@@ -59,20 +59,7 @@ Stock Management
    - Penerimaan PO dengan semua status (dalam bentuk pie chart) [DONE]
    
 
-TRUNCATE TABLE material_sn;
-TRUNCATE TABLE material_sn_log;
-TRUNCATE TABLE mutasi;
-TRUNCATE TABLE mutasi_detail;
-TRUNCATE TABLE mutasi_log;
-TRUNCATE TABLE mutasi_sn;
-TRUNCATE TABLE po;
-TRUNCATE TABLE po_detail;
-TRUNCATE TABLE po_log;
-TRUNCATE TABLE po_terima;
-TRUNCATE TABLE po_terima_detail;
-TRUNCATE TABLE stok;
-TRUNCATE TABLE stok_kondisi;
-TRUNCATE TABLE stok_log;
+
 
 Stok Opanem
 Barang yang tercatat misalnya ada 10 dengan serial number : a-j
@@ -82,3 +69,69 @@ Untuk barang yang serial numbernya 0, maka harus dipilih barang mana yang akan d
 
 Stok Opname
 Tambah Stok Opname --> munculkan semua barang serial number yang di stok opname
+
+TRUNCATE TABLE guna;
+TRUNCATE TABLE guna_detail;
+TRUNCATE TABLE guna_log;
+TRUNCATE TABLE guna_sn;
+
+TRUNCATE TABLE material_sn;
+TRUNCATE TABLE material_sn_log;
+
+TRUNCATE TABLE mutasi;
+TRUNCATE TABLE mutasi_detail;
+TRUNCATE TABLE mutasi_log;
+TRUNCATE TABLE mutasi_sn;
+
+TRUNCATE TABLE opname;
+TRUNCATE TABLE opname_detail;
+TRUNCATE TABLE opname_log;
+TRUNCATE TABLE opname_sn;
+
+TRUNCATE TABLE po;
+TRUNCATE TABLE po_detail;
+TRUNCATE TABLE po_log;
+
+TRUNCATE TABLE po_terima;
+TRUNCATE TABLE po_terima_detail;
+
+TRUNCATE TABLE stok;
+TRUNCATE TABLE stok_kondisi;
+TRUNCATE TABLE stok_log;
+
+
+Meeting 15 Mei 2024
+Menu PO
+   Deskripsi menjadi => Note / Remark :  [DONE]
+   Ketika di view PO maka munculkan remark [DONE]
+   On delivery yang update maka yang buat draft PO [DONE]
+
+Menu Penerimaan
+   Untuk penerimaan sebagian masih ada error (statusnya completed harusnya partial)
+   Ketika di view penerimaan PO, maka munculkan remark [DONE]
+   tambahkan upload dokumen pendukung ketika tambah penerimaan material [DONE]
+   Pada saat input serial number penerimaan material, maka data yang dimasukkan dalam draft atau terima_sn dan jangan langsung masuk ke material serial number
+   Setelah semua diinput maka akan kita munculkan tombol submit untuk completed status penerimaan PO dan masukkan barang ke persediaan [REFACTOR CUKUP BESAR]
+
+Penggunaan Material
+   Pada bagian tambah
+      Tulisan Tujuan Penggunaan diganti menjadi Kategori Penggunaan [DONE]
+      Dan perlu ditambahkan text utk input tujuan Penggunaan (wajib) ini masuk di dalam alamat Penggunaan [DONE]
+      Alamat pengiriman diganti text menjadi alamat penggunaan [DONE]
+   Detail View perlu dibuat header [DONE]
+
+Data Material
+   Dimunculkan semua status data material  [DONE]
+   perlu dibuat detail ketika di klik serial number seperti yang ada di pencarian material [DONE]
+
+pencarian material ditutup [DONE]
+
+sn di tabel diganti menjadi SN Diinput [DONE]
+
+Menu Mutasi
+   Pada bagian tambah mutasi, klo ada yang sama gudangnya, maka tombol Simpan disabled
+
+Stok Opname
+   yang boleh completed hanyalah Admin HO [DONE]
+   Tulian SO diganti menjadi Stok Opname [DONE]
+   Kode nomor SO diganti menjadi OP [DONE]

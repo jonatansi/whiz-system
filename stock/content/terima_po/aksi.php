@@ -111,7 +111,25 @@ else{
 		}
 
 		mysqli_query($conn,"UPDATE po SET status_id='$status_po', updated_at='$waktu_sekarang' WHERE id='$_POST[po_id]' AND deleted_at IS NULL");
-		mysqli_query($conn,"INSERT INTO po_log (po_id, status_id, created_at, pegawai_id, remark) VALUES ('$_POST[po_id]', '$status_po', '$waktu_sekarang', '$_SESSION[login_user]', '$_POST[remark]')");
+		
+		
+		$vdir_upload = "../../../files/po/";
+
+		$acak			 = rand(1111,9999);
+		$lokasi_file     = $_FILES['dokumen']['tmp_name'];
+		$tipe_file       = $_FILES['dokumen']['type'];
+		$nama_file       = $_FILES['dokumen']['name'];
+		$nama_file_unik  = $acak.$nama_file;
+		
+		if ($_FILES["dokumen"]["error"] > 0 OR empty($lokasi_file)){
+			$nama_file_unik = "";
+		}
+	  
+		else{
+			UploadDokumen($nama_file_unik, $vdir_upload);
+		}
+
+		mysqli_query($conn,"INSERT INTO po_log (po_id, status_id, created_at, pegawai_id, dokumen, remark) VALUES ('$_POST[po_id]', '$status_po', '$waktu_sekarang', '$_SESSION[login_user]', '$nama_file_unik', '$_POST[remark]')");
 
 		header("location: terimapo");
 	}

@@ -66,7 +66,7 @@ if(isset($d['id'])!=''){
                             <th>JLH ITEM</th>
                             <th>KONDISI</th>
                             <th>GUDANG ASAL</th>
-                            <th>SN</th>
+                            <th>SN DIINPUT</th>
                         </tr>
                     </thead>
                     <tbody>

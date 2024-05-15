@@ -63,7 +63,7 @@ $m=mysqli_fetch_array(mysqli_query($conn,"SELECT status_id FROM opname WHERE id=
                                 <td class="text">: <?php echo formatAngka($d['jumlah_aktual']).' '.$d['nama_satuan_kecil'];?></td>
                             </tr>
                             <tr>
-                                <td class="fw-bold">Total SN</td>
+                                <td class="fw-bold">Total SN Diinput</td>
                                 <td class="text">: <?php echo formatAngka($d['total_sn']);?></td>
                             </tr>
                         </table>
