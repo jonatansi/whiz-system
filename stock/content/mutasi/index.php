@@ -70,6 +70,7 @@ else{
                             <thead class="table-info text-center">
                                 <tr>
                                     <th width="50px">No</th>
+                                    <th>Waktu Input</th>
                                     <th class="text-center">Nomor Mutasi</th>
                                     <th>Tanggal</th>
                                     <th>Branch</th>
@@ -92,15 +93,14 @@ else{
     $order_column_add = datatable_column("4", "text-center", "true");
     $order_column_add.= datatable_column("-3", "text-end", "true");
     $order_column_add.= datatable_column("-2", "text-end", "true");
-    $order_column_add.= datatable_column("-1", "text-center", "false");
+    $order_column_add.= datatable_column("-1", "text-center", "true");
     $disabled_column_serch_add = datatable_column_search_disabled(0);
-    $disabled_column_serch_add.= datatable_column_search_disabled(7);
 
     $filter = datatable_filter("tanggal_awal");
     $filter.= datatable_filter("tanggal_akhir");
     $filter.= datatable_filter("status_id");
     
-    echo generate_datatable("mutasi-data", "1", "desc", $order_column_add, $disabled_column_serch_add, $filter, "datatable_ajax");
+    echo generate_datatable("mutasi-data", "2", "desc", $order_column_add, $disabled_column_serch_add, $filter, "datatable_ajax");
     ?>
 
     <?php

@@ -1,15 +1,17 @@
 <?php
 $columns = array( 
     0 =>'a.id', 
-    1=> 'a.nomor',
-    2=> 'a.tanggal',
-    3=> 'b.nama',
-    4=> 'c.nama',
-    5=> 'total_item',
-    6=> 'total_sn'
+    1=> 'a.created_at',
+    2=> 'a.nomor',
+    3=> 'a.tanggal',
+    4=> 'b.nama',
+    5=> 'c.nama',
+    6=> 'total_item',
+    7=> 'total_sn',
+    8=> 'd.nama'
 );
 
-$pencarian = array('a.id', 'a.nomor', 'a.tanggal', 'b.nama', 'c.nama', 'total_item', 'total_sn');
+$pencarian = array('a.id', 'a.created_at', 'a.nomor', 'a.tanggal', 'b.nama', 'c.nama', 'total_item', 'total_sn', 'd.nama');
 
 $pegawai = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai WHERE id='$_SESSION[login_user]'"));
 
@@ -83,6 +85,7 @@ while( $row=mysqli_fetch_array($sql_data)) {  // preparing an array
     $status = "<span class='badge bg-$row[warna_status]'>$row[nama_status]</span>";
     $nestedData=array(); 
     $nestedData[] = $no;
+    $nestedData[] = WaktuIndo($row['created_at']);
     $nestedData[] = "<a href='mutasi-view-$row[id]' class='text-primary'>$row[nomor]</a>";
     $nestedData[] = DateIndo($row["tanggal"]);
     $nestedData[] = $row['nama_cabang'];

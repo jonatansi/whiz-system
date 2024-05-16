@@ -1,55 +1,72 @@
 <?php
 $columns = array( 
-    0 =>'a.id', 
-    1=> 'a.nomor',
-    2=> 'a.tanggal',
-    3=> 'b.nama',
-    4=> 'c.nama',
-    5=> 'e.nama',
-    6=> 'total_item',
-    7=> 'total_aktual',
-    8=> 'total_sn',
-    9=> 'd.nama'
+    0 =>'main.id', 
+    1=> 'main.created_at',
+    2=> 'main.nomor',
+    3=> 'main.tanggal',
+    4=> 'b.nama',
+    5=> 'c.nama',
+    6=> 'e.nama',
+    7=> 'main.total_item',
+    8=> 'main.total_aktual',
+    9=> 'main.total_sn',
+    10=> 'd.nama'
 );
 
-$pencarian = array('a.id', 'a.nomor', 'a.tanggal', 'b.nama', 'c.nama', 'e.nama', 'total_item', 'total_aktual', 'total_sn', 'd.nama');
+$pencarian = array('main.id',  'main.created_at', 'main.nomor', 'main.tanggal', 'b.nama', 'c.nama', 'e.nama', 'main.total_item', 'main.total_aktual', 'main.total_sn', 'd.nama');
 
 $pegawai = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai WHERE id='$_SESSION[login_user]'"));
 
-$query = "SELECT a.*, b.nama AS nama_cabang, c.nama AS nama_gudang, d.nama AS nama_status, d.warna AS warna_status, e.nama AS nama_pic, 
-COALESCE(total_aktual_query.total_aktual, 0) AS total_aktual, 
-COALESCE(total_item_query.total_tercatat, 0) AS total_item, -- Perbaikan alias kolom
-COALESCE(total_sn_query.total_sn, 0) AS total_sn
+$query = "SELECT 
+main.*, 
+b.nama AS nama_cabang, 
+c.nama AS nama_gudang, 
+d.nama AS nama_status, 
+d.warna AS warna_status, 
+e.nama AS nama_pic, 
+COALESCE(total_aktual, 0) AS total_aktual, 
+COALESCE(total_item, 0) AS total_item, 
+COALESCE(total_sn, 0) AS total_sn
+FROM (
+SELECT 
+    a.*, 
+    total_aktual_query.total_aktual, 
+    total_item_query.total_tercatat AS total_item, 
+    total_sn_query.total_sn
 FROM opname a 
-LEFT JOIN master_cabang b ON a.created_master_cabang_id = b.id AND b.deleted_at IS NULL
-LEFT JOIN master_gudang c ON a.master_gudang_id = c.id AND c.deleted_at IS NULL
-LEFT JOIN master_status d ON a.status_id = d.id
-LEFT JOIN pegawai e ON a.pic_pegawai_id = e.id AND e.deleted_at IS NULL
 LEFT JOIN (
     SELECT opname_id, SUM(jumlah_aktual) AS total_aktual 
     FROM opname_detail 
-    WHERE deleted_at IS NULL AND opname_id IS NOT NULL 
+    WHERE deleted_at IS NULL 
     GROUP BY opname_id
 ) AS total_aktual_query ON a.id = total_aktual_query.opname_id
 LEFT JOIN (
-    SELECT opname_id, SUM(jumlah_tercatat) AS total_tercatat -- Perbaikan alias kolom
+    SELECT opname_id, SUM(jumlah_tercatat) AS total_tercatat 
     FROM opname_detail 
-    WHERE deleted_at IS NULL AND opname_id IS NOT NULL 
+    WHERE deleted_at IS NULL 
     GROUP BY opname_id
 ) AS total_item_query ON a.id = total_item_query.opname_id
 LEFT JOIN (
     SELECT g.opname_id, COUNT(f.id) AS total_sn 
-    FROM opname_sn f INNER JOIN opname_detail g ON f.opname_detail_id = g.id AND g.deleted_at IS NULL AND f.material_sn_status_id='500'
+    FROM opname_sn f 
+    INNER JOIN opname_detail g ON f.opname_detail_id = g.id AND g.deleted_at IS NULL 
+    WHERE f.material_sn_status_id = '500'
     GROUP BY g.opname_id
 ) AS total_sn_query ON a.id = total_sn_query.opname_id
-WHERE  a.deleted_at IS NULL AND a.tanggal BETWEEN '$_POST[tanggal_awal]' AND '$_POST[tanggal_akhir]'";
+WHERE a.deleted_at IS NULL
+) AS main
+LEFT JOIN master_cabang b ON main.created_master_cabang_id = b.id AND b.deleted_at IS NULL
+LEFT JOIN master_gudang c ON main.master_gudang_id = c.id AND c.deleted_at IS NULL
+LEFT JOIN master_status d ON main.status_id = d.id
+LEFT JOIN pegawai e ON main.pic_pegawai_id = e.id AND e.deleted_at IS NULL
+WHERE main.tanggal BETWEEN '$_POST[tanggal_awal]' AND '$_POST[tanggal_akhir]'";
 
 if($_POST['status_id']!='0'){
-    $query.=" AND a.status_id='$_POST[status_id]'";
+    $query.=" AND main.status_id='$_POST[status_id]'";
 }
 
 if($_SESSION['master_cabang_id']!='1'){
-    $query.=" AND a.created_master_cabang_id='$_SESSION[master_cabang_id]'";
+    $query.=" AND  main.created_master_cabang_id='$_SESSION[master_cabang_id]'";
 }
 
 
@@ -105,6 +122,7 @@ while( $row=mysqli_fetch_array($sql_data)) {  // preparing an array
     $status = "<span class='badge bg-$row[warna_status]'>$row[nama_status]</span>";
     $nestedData=array(); 
     $nestedData[] = $no;
+    $nestedData[] = WaktuIndo($row['created_at']);
     $nestedData[] = "<a href='opname-view-$row[id]' class='text-primary'>$row[nomor]</a>";
     $nestedData[] = DateIndo($row["tanggal"]);
     $nestedData[] = $row['nama_cabang'];

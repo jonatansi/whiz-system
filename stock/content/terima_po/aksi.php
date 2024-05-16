@@ -34,112 +34,68 @@ else{
 	}
 
 	else if($act=='input'){
-		$tanggal_awal = "$thn_sekarang-01-01";
-		$tanggal_akhir = "$thn_sekarang-12:31";
+		mysqli_begin_transaction($conn);
+		try {
+			$tanggal_awal = "$thn_sekarang-01-01";
+			$tanggal_akhir = "$thn_sekarang-12:31";
 
-		$a=mysqli_fetch_array(mysqli_query($conn,"SELECT MAX(urutan) AS urutan FROM po_terima WHERE deleted_at IS NULL AND created_at BETWEEN '$tanggal_awal 00:00:00' AND '$tanggal_akhir 23:59:59'"));
+			$a=mysqli_fetch_array(mysqli_query($conn,"SELECT MAX(urutan) AS urutan FROM po_terima WHERE deleted_at IS NULL AND created_at BETWEEN '$tanggal_awal 00:00:00' AND '$tanggal_akhir 23:59:59'"));
 
-		$urutan = $a['urutan']+1;
-		$urutan_nomor= sprintf("%05s",$urutan);
+			$urutan = $a['urutan']+1;
+			$urutan_nomor= sprintf("%05s",$urutan);
 
-		$number = "IN-UVT-$urutan_nomor-$thn".$bulan;
+			$number = "IN-UVT-$urutan_nomor-$thn".$bulan;
 
-
-		$sql="INSERT INTO po_terima (nomor, po_id, remark, status_id, urutan, created_at, updated_at, tanggal) VALUES ('$number', '$_POST[po_id]', '$_POST[remark]', '200', '$urutan_nomor', '$waktu_sekarang', '$waktu_sekarang', '$_POST[tanggal]')";
-		mysqli_query($conn, $sql);
-
-		$id = mysqli_insert_id($conn);
-
-		//$status_po=25;
-
-		foreach($_POST['po_detail_id'] AS $po_detail_id){
-			$d=mysqli_fetch_array(mysqli_query($conn,"SELECT master_material_id, jumlah_konversi, jumlah, jumlah_diterima  AS jumlah_diterima_sebelumnya, master_kondisi_id FROM po_detail WHERE id='$po_detail_id' AND deleted_at IS NULL"));
-
-			$jumlah_satuan_besar = $_POST["jumlah_$po_detail_id"];
-			$gudang_id = $_POST["gudang_$po_detail_id"];
-
-			$sql="INSERT INTO po_terima_detail (po_detail_id, jumlah_diterima, master_gudang_id, po_terima_id, created_at, updated_at) VALUES ('$po_detail_id', '$jumlah_satuan_besar', '$gudang_id', '$id', '$waktu_sekarang', '$waktu_sekarang')";
+			$sql="INSERT INTO po_terima (nomor, po_id, remark, status_id, urutan, created_at, updated_at, tanggal) VALUES ('$number', '$_POST[po_id]', '$_POST[remark]', '200', '$urutan_nomor', '$waktu_sekarang', '$waktu_sekarang', '$_POST[tanggal]')";
 			mysqli_query($conn, $sql);
 
-			$po_terima_detail_id = mysqli_insert_id($conn);
+			$id = mysqli_insert_id($conn);
 
-			//CEK DI GUDANG
-			$cek=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM stok WHERE master_cabang_id='$pegawai[master_cabang_id]' AND master_gudang_id='$gudang_id' AND master_material_id='$d[master_material_id]' AND deleted_at IS NULL"));
+			foreach($_POST['po_detail_id'] AS $po_detail_id){
+				$d=mysqli_fetch_array(mysqli_query($conn,"SELECT master_material_id, jumlah_konversi, jumlah, jumlah_diterima  AS jumlah_diterima_sebelumnya, master_kondisi_id FROM po_detail WHERE id='$po_detail_id' AND deleted_at IS NULL"));
 
-			$jumlah_masuk = $jumlah_satuan_besar*$d['jumlah_konversi'];
+				$jumlah_satuan_besar = $_POST["jumlah_$po_detail_id"];
+				$gudang_id = $_POST["gudang_$po_detail_id"];
+
+				$sql="INSERT INTO po_terima_detail (po_detail_id, jumlah_diterima, master_gudang_id, po_terima_id, created_at, updated_at) VALUES ('$po_detail_id', '$jumlah_satuan_besar', '$gudang_id', '$id', '$waktu_sekarang', '$waktu_sekarang')";
+				mysqli_query($conn, $sql);
+
+				$po_terima_detail_id = mysqli_insert_id($conn);
+
+			}
+
+			$vdir_upload = "../../../files/po/";
+
+			$acak			 = rand(1111,9999);
+			$lokasi_file     = $_FILES['dokumen']['tmp_name'];
+			$tipe_file       = $_FILES['dokumen']['type'];
+			$nama_file       = $_FILES['dokumen']['name'];
+			$nama_file_unik  = $acak.$nama_file;
 			
-			//UPDATE STOK
-			if(isset($cek['id'])!=''){
-				$stok_id = $cek['id'];
+			if ($_FILES["dokumen"]["error"] > 0 OR empty($lokasi_file)){
+				$nama_file_unik = "";
+			}
+		
+			else{
+				UploadDokumen($nama_file_unik, $vdir_upload);
+			}
 
-				$balance_current = $cek['jumlah']+$jumlah_masuk;
-
-				mysqli_query($conn,"UPDATE stok SET jumlah='$balance_current', updated_at='$waktu_sekarang' WHERE id='$cek[id]'");
+			$cek = mysqli_fetch_array(mysqli_query($conn,"SELECT id FROM po_detail WHERE jumlah!=jumlah_diterima AND po_id='$_POST[po_id]' AND deleted_at IS NULL"));
+			if(isset($cek['id'])==''){
+				$status_po=25;
 			}
 			else{
-				$balance_current = $jumlah_masuk;
-
-				mysqli_query($conn,"INSERT INTO stok (master_cabang_id, master_gudang_id, master_material_id, jumlah, created_at, updated_at) VALUES ('$pegawai[master_cabang_id]', '$gudang_id', '$d[master_material_id]', '$balance_current', '$waktu_sekarang', '$waktu_sekarang')");
-
-				$stok_id = mysqli_insert_id($conn);
+				$status_po=20;
 			}
 
-			//CEK APAKAH INI BARANG BARU ATAU BEKAS UNTUK DIRELAKSI KE KONDISI PADA BAGIAN STOK GUDANG
-			$cek_saldo_kondisi = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM stok_kondisi WHERE stok_id='$stok_id' AND deleted_at IS NULL AND master_kondisi_id='$d[master_kondisi_id]'"));
-			if(isset($cek_saldo_kondisi['id'])!=''){
-				$balance_current = $cek_saldo_kondisi['jumlah']+$jumlah_masuk;
-				mysqli_query($conn,"UPDATE stok_kondisi SET jumlah='$balance_current', updated_at='$waktu_sekarang' WHERE id='$cek_saldo_kondisi[id]'");
-			}
-			else{
-				$balance_current = $jumlah_masuk;
-
-				mysqli_query($conn,"INSERT INTO stok_kondisi (stok_id, master_kondisi_id, jumlah, created_at, updated_at) VALUES ('$stok_id', '$d[master_kondisi_id]', '$balance_current', '$waktu_sekarang', '$waktu_sekarang')");
-			}
-
-			//CATAT KE DALAM LOG
-			mysqli_query($conn,"INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name) VALUES ('$stok_id', '$jumlah_masuk', '0', '$balance_current', '$waktu_sekarang', 'Receipt of materials $number', '$po_terima_detail_id', '101', 'po_terima_detail')");
-
-
-			//UPDATE PO
-			$jumlah_diterima = $d['jumlah_diterima_sebelumnya'] + $jumlah_satuan_besar;
-			mysqli_query($conn, "UPDATE po_detail SET jumlah_diterima='$jumlah_diterima', updated_at='$waktu_sekarang' WHERE id='$po_detail_id'");
-
-			//STATUS APAKAH SUDAH SEMUA ATAU SEBAGIAN
-			// if($d['jumlah']!=$jumlah_diterima){
-			// 	$status_po=20;
-			// }
+			mysqli_query($conn,"INSERT INTO po_terima_log (po_terima_id, status_id, created_at, pegawai_id, dokumen, remark) VALUES ('$id', '$status_po', '$waktu_sekarang', '$_SESSION[login_user]', '$nama_file_unik', '$_POST[remark]')");
+			mysqli_commit($conn);
 		}
-
-		$cek = mysqli_fetch_array(mysqli_query($conn,"SELECT id FROM po_detail WHERE jumlah!=jumlah_diterima AND po_id='$_POST[po_id]' AND deleted_at IS NULL"));
-		if(isset($cek['id'])==''){
-			$status_po=25;
+		catch (Exception $e) {
+			// Tangkap kesalahan dan lakukan rollback
+			mysqli_rollback($conn);
+			print_r($e);
 		}
-		else{
-			$status_po=20;
-		}
-
-		//UPDATE STATUS PO
-		mysqli_query($conn,"UPDATE po SET status_id='$status_po', updated_at='$waktu_sekarang' WHERE id='$_POST[po_id]' AND deleted_at IS NULL");
-		
-		
-		$vdir_upload = "../../../files/po/";
-
-		$acak			 = rand(1111,9999);
-		$lokasi_file     = $_FILES['dokumen']['tmp_name'];
-		$tipe_file       = $_FILES['dokumen']['type'];
-		$nama_file       = $_FILES['dokumen']['name'];
-		$nama_file_unik  = $acak.$nama_file;
-		
-		if ($_FILES["dokumen"]["error"] > 0 OR empty($lokasi_file)){
-			$nama_file_unik = "";
-		}
-	  
-		else{
-			UploadDokumen($nama_file_unik, $vdir_upload);
-		}
-
-		mysqli_query($conn,"INSERT INTO po_log (po_id, status_id, created_at, pegawai_id, dokumen, remark) VALUES ('$_POST[po_id]', '$status_po', '$waktu_sekarang', '$_SESSION[login_user]', '$nama_file_unik', '$_POST[remark]')");
-
 		header("location: terimapo");
 	}
 

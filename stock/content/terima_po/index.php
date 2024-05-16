@@ -76,6 +76,7 @@ else{
                             <thead class="table-info text-center">
                                 <tr>
                                     <th width="50px">No</th>
+                                    <th>Waktu Input</th>
                                     <th class="text-center">No. Penerimaan</th>
                                     <th>No. PO</th>
                                     <th>Tgl Penerimaan</th>
@@ -102,18 +103,14 @@ else{
     </script>
 
     <?php 
-    $order_column_add = datatable_column("6", "text-center", "false");
-    $order_column_add = datatable_column("-1", "text-center", "false");
+    $order_column_add = datatable_column("-1", "text-center", "true");
     $disabled_column_serch_add = datatable_column_search_disabled(0);
-    $disabled_column_serch_add.= datatable_column_search_disabled(6);
-    $disabled_column_serch_add.= datatable_column_search_disabled(7);
-    $disabled_column_serch_add.= datatable_column_search_disabled(8);
 
     $filter = datatable_filter("tanggal_awal");
     $filter.= datatable_filter("tanggal_akhir");
     $filter.= datatable_filter("vendor_id");
     
-    echo generate_datatable("terimapo-data", "1", "desc", $order_column_add, $disabled_column_serch_add, $filter, "datatable_ajax");
+    echo generate_datatable("terimapo-data", "2", "desc", $order_column_add, $disabled_column_serch_add, $filter, "datatable_ajax");
     ?>
 
     <?php

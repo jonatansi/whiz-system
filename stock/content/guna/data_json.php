@@ -1,15 +1,17 @@
 <?php
 $columns = array( 
     0 =>'a.id', 
-    1=> 'a.nomor',
-    2=> 'a.tanggal',
-    3=> 'b.nama',
-    4=> 'c.nama',
-    5=> 'total_item',
-    6=> 'total_sn'
+    1=> 'a.created_at',
+    2=> 'a.nomor',
+    3=> 'a.tanggal',
+    4=> 'b.nama',
+    5=> 'c.nama',
+    6=> 'total_item',
+    7=> 'total_sn',
+    8=> 'd.nama'
 );
 
-$pencarian = array('a.id', 'a.nomor', 'a.tanggal', 'b.nama', 'c.nama', 'total_item', 'total_sn');
+$pencarian = array('a.id', 'a.created_at', 'a.nomor', 'a.tanggal', 'b.nama', 'c.nama', 'total_item', 'total_sn', 'd.nama');
 
 
 $query = "SELECT a.*,  b.nama AS nama_cabang, c.nama AS nama_kegunaan, d.nama AS nama_status, d.warna AS warna_status, COALESCE(total_item_query.total_item, 0) AS total_item, COALESCE(total_sn_query.total_sn, 0) AS total_sn
@@ -82,6 +84,7 @@ while( $row=mysqli_fetch_array($sql_data)) {  // preparing an array
     $status = "<span class='badge bg-$row[warna_status]'>$row[nama_status]</span>";
     $nestedData=array(); 
     $nestedData[] = $no;
+    $nestedData[] = WaktuIndo($row['created_at']);
     $nestedData[] = "<a href='guna-view-$row[id]' class='text-primary'>$row[nomor]</a>";
     $nestedData[] = DateIndo($row["tanggal"]);
     $nestedData[] = $row['nama_cabang'];

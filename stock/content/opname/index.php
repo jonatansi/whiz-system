@@ -70,6 +70,7 @@ else{
                             <thead class="table-info text-center">
                                 <tr>
                                     <th width="50px">No</th>
+                                    <th>Waktu Input</th>
                                     <th class="text-center">Nomor</th>
                                     <th>Tanggal</th>
                                     <th>Branch</th>
@@ -101,7 +102,7 @@ else{
     $filter.= datatable_filter("tanggal_akhir");
     $filter.= datatable_filter("status_id");
     
-    echo generate_datatable("opname-data", "1", "desc", $order_column_add, $disabled_column_serch_add, $filter, "datatable_ajax");
+    echo generate_datatable("opname-data", "2", "desc", $order_column_add, $disabled_column_serch_add, $filter, "datatable_ajax");
     ?>
 
     <?php

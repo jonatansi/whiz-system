@@ -70,12 +70,13 @@ else{
                             <thead class="table-info text-center">
                                 <tr>
                                     <th width="50px">No</th>
+                                    <th>Waktu Input</th>
                                     <th class="text-center">Nomor PO</th>
                                     <th>Tanggal</th>
                                     <th>Requester</th>
                                     <th>Vendor</th>
                                     <th>Status</th>
-                                    <th>Total Item</th>
+                                    <th>Total<br>Item</th>
                                     <th>Total Harga</th>
                                 </tr>
                             </thead>
@@ -88,18 +89,16 @@ else{
     </div>
 
     <?php 
-    $order_column_add = datatable_column("6", "text-center", "false");
-    $order_column_add = datatable_column("-1", "text-end", "false");
+    $order_column_add = datatable_column("-2", "text-center", "true");
+    $order_column_add.= datatable_column("-3", "text-center", "true");
+    $order_column_add.= datatable_column("-1", "text-end", "true");
     $disabled_column_serch_add = datatable_column_search_disabled(0);
-    $disabled_column_serch_add.= datatable_column_search_disabled(6);
-    $disabled_column_serch_add.= datatable_column_search_disabled(7);
-    $disabled_column_serch_add.= datatable_column_search_disabled(8);
 
     $filter = datatable_filter("tanggal_awal");
     $filter.= datatable_filter("tanggal_akhir");
     $filter.= datatable_filter("status_id");
     
-    echo generate_datatable("po-data", "1", "desc", $order_column_add, $disabled_column_serch_add, $filter, "datatable_ajax");
+    echo generate_datatable("po-data", "2", "desc", $order_column_add, $disabled_column_serch_add, $filter, "datatable_ajax");
     ?>
 
     <?php
