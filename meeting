@@ -107,7 +107,7 @@ Menu PO
    On delivery yang update maka yang buat draft PO [DONE]
 
 Menu Penerimaan
-   Untuk penerimaan sebagian masih ada error (statusnya completed harusnya partial)
+   Untuk penerimaan sebagian masih ada error (statusnya completed harusnya partial) [DONE]
    Ketika di view penerimaan PO, maka munculkan remark [DONE]
    tambahkan upload dokumen pendukung ketika tambah penerimaan material [DONE]
    Pada saat input serial number penerimaan material, maka data yang dimasukkan dalam draft atau terima_sn dan jangan langsung masuk ke material serial number
