@@ -50,7 +50,7 @@ else{
 
 		$id = mysqli_insert_id($conn);
 
-		$status_po=25;
+		//$status_po=25;
 
 		foreach($_POST['po_detail_id'] AS $po_detail_id){
 			$d=mysqli_fetch_array(mysqli_query($conn,"SELECT master_material_id, jumlah_konversi, jumlah, jumlah_diterima  AS jumlah_diterima_sebelumnya, master_kondisi_id FROM po_detail WHERE id='$po_detail_id' AND deleted_at IS NULL"));
@@ -105,11 +105,20 @@ else{
 			mysqli_query($conn, "UPDATE po_detail SET jumlah_diterima='$jumlah_diterima', updated_at='$waktu_sekarang' WHERE id='$po_detail_id'");
 
 			//STATUS APAKAH SUDAH SEMUA ATAU SEBAGIAN
-			if($d['jumlah']!=$jumlah_diterima){
-				$status_po=20;
-			}
+			// if($d['jumlah']!=$jumlah_diterima){
+			// 	$status_po=20;
+			// }
 		}
 
+		$cek = mysqli_fetch_array(mysqli_query($conn,"SELECT id FROM po_detail WHERE jumlah!=jumlah_diterima AND po_id='$_POST[po_id]' AND deleted_at IS NULL"));
+		if(isset($cek['id'])==''){
+			$status_po=25;
+		}
+		else{
+			$status_po=20;
+		}
+
+		//UPDATE STATUS PO
 		mysqli_query($conn,"UPDATE po SET status_id='$status_po', updated_at='$waktu_sekarang' WHERE id='$_POST[po_id]' AND deleted_at IS NULL");
 		
 		
