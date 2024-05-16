@@ -86,6 +86,7 @@ RewriteRule ^mutasi-data$ content/mutasi/aksi.php?act=data_json [QSA,L]
 RewriteRule ^mutasi-tambah$ media.php?module=mutasi&act=tambah [QSA,L]
 RewriteRule ^mutasi-table-material-add$ content/mutasi/aksi.php?act=table_add_material [QSA,L]
 RewriteRule ^mutasi-input$ content/mutasi/aksi.php?act=input [QSA,L]
+RewriteRule ^mutasi-validasi-gudang$ content/mutasi/aksi.php?act=validasi_gudang [QSA,L]
 
 RewriteRule ^mutasi-tambah-material$ content/mutasi/aksi.php?act=tambah_material [QSA,L]
 RewriteRule ^mutasi-input-material$ content/mutasi/aksi.php?act=input_material [QSA,L]

@@ -42,7 +42,7 @@
 </table>
 
 <script type="text/javascript"> 
-    $('#my_datatable tbody').on('click', '.btnDelete', async function() {
+$('#my_datatable tbody').on('click', '.btnDelete', async function() {
     const id = this.id;
 
     const result = await Swal.fire({
@@ -59,6 +59,7 @@
         try {
             await deleteMaterial(id);
             await reloadMaterialTable();
+            validateGudang();
         } catch (error) {
             console.error('Error:', error);
         }

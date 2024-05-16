@@ -31,6 +31,16 @@ else{
 		include "add/tambah_material.php";
 	}
 
+	else if($act=='validasi_gudang'){
+		$cek = mysqli_fetch_array(mysqli_query($conn,"SELECT COUNT(id) AS tot FROM mutasi_detail WHERE mutasi_id IS NULL AND  created_pegawai_id='$_SESSION[login_user]' AND deleted_at IS NULL AND master_gudang_asal_id='$_POST[master_gudang_tujuan_id]'"));
+		if($cek['tot']==0){
+			echo "false";
+		}
+		else{
+			echo "true";
+		}
+	}
+
 	else if($act=='input_material'){
 		$jumlah = str_replace(".","",$_POST['jumlah']);
 

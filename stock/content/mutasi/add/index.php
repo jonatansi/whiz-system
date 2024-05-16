@@ -59,7 +59,7 @@
                                     Gudang Tujuan <small class="text-danger">*</small>
                                 </label>
                                 <div class="col-md-7">
-                                    <select name="master_gudang_tujuan_id" class="form-control" required>
+                                    <select name="master_gudang_tujuan_id" class="form-control" required id="master_gudang_tujuan_id">
                                     <?php
                                         $tampil=mysqli_query($conn, "SELECT * FROM master_gudang WHERE master_cabang_id='$pegawai[master_cabang_id]' AND deleted_at IS NULL ORDER BY nama");
                                         while($r=mysqli_fetch_array($tampil)){
@@ -76,6 +76,7 @@
 
                 <button type="button" class="btn btn-primary mb-3 btnAdd"><i class="fa fa-plus"></i> Tambah Material</button>
                 <div class="table-responsive" id="table_add_material"></div>
+
                 <div class="form-group mt-3">
                     <label>Deskripsi</label>
                     <textarea name="deskripsi" class="form-control"></textarea>
@@ -90,23 +91,40 @@
 </div>
 </form>
 <script type="text/javascript">
-$(document).ready( function () {
+$(document).ready(function () {
+    function validateGudang() {
+        var master_gudang_tujuan_id = $("#master_gudang_tujuan_id").val();
+        $.ajax({
+            type: 'POST',
+            url: "mutasi-validasi-gudang",
+            cache: false,
+            data: {
+                'master_gudang_tujuan_id': master_gudang_tujuan_id
+            },
+            success: function (data) {
+                $("#btnSubmit").prop("disabled", data == 'true');
+            }
+        });
+    }
+
     $.ajax({
         type: 'POST',
         url: 'mutasi-table-material-add',
-        beforeSend: function() {
+        beforeSend: function () {
             $('.preloader').show();
             $('#table_add_material').html("Loading...");
         },
-        complete: function() {
+        complete: function () {
             $('.preloader').hide();
         },
-
-        success: function(msg) {
+        success: function (msg) {
             $('#table_add_material').html(msg);
+            validateGudang();
         }
     });
-});  
+
+    $("#master_gudang_tujuan_id").change(validateGudang);
+});
 
 function validateForm() {
     var requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');

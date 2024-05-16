@@ -105,6 +105,7 @@
                 $("#form_modul").modal('hide');
                 performAjaxRequest('mutasi-table-material-add', {}, function(msg) {
                     $('#table_add_material').html(msg);
+                    validateGudang();
                 });
             }
             else{
@@ -113,6 +114,21 @@
             }
         });
     });
+
+    function validateGudang() {
+        var master_gudang_tujuan_id = $("#master_gudang_tujuan_id").val();
+        $.ajax({
+            type: 'POST',
+            url: "mutasi-validasi-gudang",
+            cache: false,
+            data: {
+                'master_gudang_tujuan_id': master_gudang_tujuan_id
+            },
+            success: function (data) {
+                $("#btnSubmit").prop("disabled", data == 'true');
+            }
+        });
+    }
 
     function loadMaterialOptions(master_gudang_asal_id) {
         $.ajax({
