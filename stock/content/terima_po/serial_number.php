@@ -1,5 +1,5 @@
 <?php
-$sql="SELECT a.*, b.jumlah_konversi, c.nama AS nama_gudang, d.nama AS nama_satuan_besar, e.nama AS nama_satuan_kecil, f.merk_type, g.tanggal AS tanggal_terima, (SELECT COUNT(j.id) AS tot FROM material_sn j WHERE j.table_id=a.id AND j.table_name='po_terima_detail') AS total_sn
+$sql="SELECT a.*, b.jumlah_konversi, c.nama AS nama_gudang, d.nama AS nama_satuan_besar, e.nama AS nama_satuan_kecil, f.merk_type, g.tanggal AS tanggal_terima, (SELECT COUNT(j.id) AS tot FROM po_terima_sn j WHERE j.po_terima_detail_id=a.id AND j.status IN (1,2)) AS total_sn
 FROM po_terima_detail a
 LEFT JOIN po_detail b ON a.po_detail_id=b.id AND b.deleted_at IS NULL
 LEFT JOIN master_material f ON b.master_material_id=f.id AND f.deleted_at IS NULL
@@ -100,7 +100,7 @@ $jumlah_item = $d['jumlah_diterima']*$d['jumlah_konversi'];
                                     <tbody>
                                         <?php
                                         $no=1;
-                                        $tampil=mysqli_query($conn,"SELECT * FROM material_sn WHERE table_id='$_GET[id]' AND table_name='po_terima_detail'");
+                                        $tampil=mysqli_query($conn,"SELECT * FROM po_terima_sn WHERE po_terima_detail_id='$_GET[id]'");
                                         while($r=mysqli_fetch_array($tampil)){
                                             $datetimeObj = new DateTime($r['created_at']);
                                             $tanggal_sn = $datetimeObj->format('Y-m-d');
@@ -111,7 +111,7 @@ $jumlah_item = $d['jumlah_diterima']*$d['jumlah_konversi'];
                                                 <td><?php echo formatAngka($r['harga']);?></td>
                                                 <td>
                                                     <?php
-                                                    if($tanggal_sn==$tgl_sekarang){
+                                                    if($r['status']=='1'){
                                                     ?>
                                                     <button type="button" class="btn btn-sm btn-danger btnDelete" data-toggle="tooltip" data-placement="top" title="Hapus" id="<?php echo $r['id'];?>"><i class="bi bi-trash"></i> Delete</button>
                                                     <?php

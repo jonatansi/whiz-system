@@ -64,6 +64,137 @@ else{
 
 			}
 
+			mysqli_query($conn,"INSERT INTO po_terima_log (po_terima_id, status_id, created_at, pegawai_id, remark) VALUES ('$id', '200', '$waktu_sekarang', '$_SESSION[login_user]', '$_POST[remark]')");
+			mysqli_commit($conn);
+		}
+		catch (Exception $e) {
+			// Tangkap kesalahan dan lakukan rollback
+			mysqli_rollback($conn);
+			print_r($e);
+		}
+		header("location: terimapo");
+	}
+
+	else if($act=='sn_input'){
+
+		mysqli_begin_transaction($conn);
+		try {
+			$d=mysqli_fetch_array(mysqli_query($conn,"SELECT a.*, b.po_id, b.harga, b.master_material_id, b.master_kategori_material_id,  b.master_kondisi_id, b.jumlah_konversi, c.nama AS nama_gudang, d.nama AS nama_satuan_besar, e.nama AS nama_satuan_kecil, f.merk_type, g.nomor AS nomor_po_terima
+			FROM po_terima_detail a
+			LEFT JOIN po_detail b ON a.po_detail_id=b.id AND b.deleted_at IS NULL
+			LEFT JOIN master_material f ON b.master_material_id=f.id AND f.deleted_at IS NULL
+			LEFT JOIN master_gudang c ON a.master_gudang_id=c.id AND c.deleted_at IS NULL
+			LEFT JOIN master_satuan d ON b.master_satuan_besar_id=d.id AND d.deleted_at IS NULL
+			LEFT JOIN master_satuan e ON b.master_satuan_kecil_id=e.id AND e.deleted_at IS NULL
+			LEFT JOIN po_terima g ON a.po_terima_id=g.id AND g.deleted_at IS NULL
+			WHERE a.deleted_at IS NULL AND a.id='$_POST[po_terima_detail_id]'"));
+
+			$jumlah_item = $d['jumlah_diterima']*$d['jumlah_konversi'];
+			$harga = $d['harga']/$jumlah_item;
+			
+			$sql="INSERT INTO po_terima_sn (po_terima_detail_id, serial_number, created_at, material_sn_id, status, harga, material_sn_status_id) VALUES ('$d[id]', '$_POST[serial_number]', '$waktu_sekarang', '0', '1', '$harga', '500')";
+
+			//CEK APAKAH SERIAL NUMBER SDH ADA ATAU BELUM DI MATERIAL SN
+			if($_POST['serial_number']=='0'){
+				$a=mysqli_fetch_array(mysqli_query($conn,"SELECT COUNT(id) AS tot FROM po_terima_sn WHERE po_terima_detail_id='$d[id]' AND status='1'"));
+				for($i=$a['tot'];$i<$jumlah_item;$i++){
+					mysqli_query($conn, $sql);
+				}
+			}
+			else{
+				$cek = mysqli_fetch_array(mysqli_query($conn,"SELECT id FROM po_terima_sn WHERE serial_number='$_POST[serial_number]' AND status IN (1,2)"));
+				if(isset($cek['id'])==''){
+					//MASUKKAN DATA SERIAL NUMBER KE DALAM TERIMA PO DETAIL SN
+					
+					mysqli_query($conn, $sql);
+				}
+
+				else{
+					?>
+					<script type="text/javascript">
+						alert("Serial Number sudah ada sebelumnya. Mohon periksa dengan baik");
+						window.history.back();
+					</script>
+					<?php
+				}
+			}
+			mysqli_commit($conn);
+		}
+		catch (Exception $e) {
+			// Tangkap kesalahan dan lakukan rollback
+			mysqli_rollback($conn);
+			print_r($e);
+		}
+		?>
+			<script type="text/javascript">
+				//window.history.back();
+				window.location.href="terimapo-sn-<?php echo $_POST['po_terima_detail_id'];?>";
+			</script>
+		<?php
+	}
+
+	else if($act=='sn_delete'){
+		$d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM po_terima_sn WHERE id='$_GET[id]'"));
+
+		mysqli_query($conn,"DELETE FROM po_terima_sn WHERE id='$_GET[id]'");
+
+		header("location: terimapo-sn-$d[po_terima_detail_id]");
+	}
+
+
+	else if($act=='cancel'){
+		include "cancel.php";
+	}
+
+	else if($act=='cancel_action'){
+
+		mysqli_begin_transaction($conn);
+		try {
+			mysqli_query($conn,"INSERT INTO po_terima_log (po_terima_id, status_id, created_at, pegawai_id, remark) VALUES ('$_POST[po_terima_id]', '215', '$waktu_sekarang', '$_SESSION[login_user]', '$_POST[remark]')");
+
+			mysqli_query($conn,"UPDATE po_terima SET status_id='215' WHERE id='$_POST[po_terima_id]'");
+			
+			mysqli_query($conn,"UPDATE po_terima_sn a INNER JOIN po_terima_detail b ON a.po_terima_detail_id = b.id SET a.status='3' WHERE b.po_terima_id='$_POST[po_terima_id]'");
+
+			mysqli_query($conn,"UPDATE po_terima_detail SET deleted_at='$waktu_sekarang' WHERE po_terima_id='$_POST[po_terima_id]'");
+
+			mysqli_commit($conn);
+		}
+		catch (Exception $e) {
+			// Tangkap kesalahan dan lakukan rollback
+			mysqli_rollback($conn);
+		}
+		header("location: terimapo-view-$_POST[po_terima_id]");
+	}
+
+	else if($act=='next'){
+		include "next.php";
+	}
+
+	else if($act=='next_action'){
+		mysqli_begin_transaction($conn);
+		try {
+			$d=mysqli_fetch_array(mysqli_query($conn,"SELECT nomor FROM po_terima WHERE id='$_POST[po_terima_id]' AND deleted_at IS NULL"));
+			$number = $d['nomor'];
+
+
+			//UPDATE STATUS PO
+			$cek = mysqli_fetch_array(mysqli_query($conn,"SELECT SUM(jumlah) AS total FROM po_detail WHERE po_id='$_POST[po_id]' AND deleted_at IS NULL"));
+			$total_item_po = $cek['total'];
+
+			$cek = mysqli_fetch_array(mysqli_query($conn,"SELECT SUM(jumlah_diterima) AS total FROM po_terima_detail WHERE po_terima_id='$_POST[po_id]' AND deleted_at IS NULL"));
+			$total_item_terima = $cek['total'];
+
+			if($total_item_po==$total_item_terima){
+				$status_po=25;
+			}
+			else{
+				$status_po=20;
+			}
+		
+			mysqli_query($conn,"UPDATE po SET status_id='$status_po', updated_at='$waktu_sekarang' WHERE id='$_POST[po_id]' AND deleted_at IS NULL");
+			
+			
 			$vdir_upload = "../../../files/po/";
 
 			$acak			 = rand(1111,9999);
@@ -80,109 +211,78 @@ else{
 				UploadDokumen($nama_file_unik, $vdir_upload);
 			}
 
-			$cek = mysqli_fetch_array(mysqli_query($conn,"SELECT id FROM po_detail WHERE jumlah!=jumlah_diterima AND po_id='$_POST[po_id]' AND deleted_at IS NULL"));
-			if(isset($cek['id'])==''){
-				$status_po=25;
-			}
-			else{
-				$status_po=20;
+			mysqli_query($conn,"INSERT INTO po_log (po_id, status_id, created_at, pegawai_id, dokumen, remark) VALUES ('$_POST[po_id]', '$status_po', '$waktu_sekarang', '$_SESSION[login_user]', '$nama_file_unik', '$_POST[remark]')");
+			
+
+			//UPDATE STATUS DI PO TERIMA LOG
+			mysqli_query($conn,"INSERT INTO po_terima_log (po_terima_id, status_id, created_at, pegawai_id, dokumen, remark) VALUES ('$_POST[po_terima_id]', '210', '$waktu_sekarang', '$_SESSION[login_user]', '$nama_file_unik', '$_POST[remark]')");
+
+			mysqli_query($conn,"UPDATE po_terima SET status_id='210' WHERE id='$_POST[po_terima_id]'");
+
+			mysqli_query($conn,"UPDATE po_terima_sn a INNER JOIN po_terima_detail b ON a.po_terima_detail_id = b.id SET a.status='2' WHERE b.po_terima_id='$_POST[po_terima_id]'");
+
+			//UPDATE STOK DI GUDANG
+			$data=mysqli_query($conn,"SELECT a.*, b.master_material_id, b.master_kondisi_id, b.jumlah_konversi, b.jumlah_total, b.harga, b.master_kategori_material_id FROM po_terima_detail a INNER JOIN po_detail b ON a.po_detail_id=b.id AND b.deleted_at IS NULL WHERE a.deleted_at IS NULL AND a.po_terima_id='$_POST[po_terima_id]'");
+			while($r=mysqli_fetch_array($data)){
+
+				//CEK APAKAH SUDAH ADA GUDANG
+				$cek=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM stok WHERE master_cabang_id='$_SESSION[master_cabang_id]' AND master_gudang_id='$r[master_gudang_id]' AND master_material_id='$r[master_material_id]' AND deleted_at IS NULL"));
+				$jumlah_masuk = $r['jumlah_diterima'] * $r['jumlah_konversi'];
+
+				//UPDATE STOK
+				if(isset($cek['id'])!=''){
+					$stok_id = $cek['id'];
+
+					$balance_current = $cek['jumlah']+$jumlah_masuk;
+
+					mysqli_query($conn,"UPDATE stok SET jumlah='$balance_current', updated_at='$waktu_sekarang' WHERE id='$cek[id]'");
+				}
+				else{
+					$balance_current = $jumlah_masuk;
+
+					mysqli_query($conn,"INSERT INTO stok (master_cabang_id, master_gudang_id, master_material_id, jumlah, created_at, updated_at) VALUES ('$_SESSION[master_cabang_id]', '$r[master_gudang_id]', '$r[master_material_id]', '$balance_current', '$waktu_sekarang', '$waktu_sekarang')");
+
+					$stok_id = mysqli_insert_id($conn);
+				}
+
+				//CEK APAKAH INI BARANG BARU ATAU BEKAS UNTUK DIRELAKSI KE KONDISI PADA BAGIAN STOK GUDANG
+				$cek_saldo_kondisi = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM stok_kondisi WHERE stok_id='$stok_id' AND deleted_at IS NULL AND master_kondisi_id='$r[master_kondisi_id]'"));
+				if(isset($cek_saldo_kondisi['id'])!=''){
+					$balance_current = $cek_saldo_kondisi['jumlah']+$jumlah_masuk;
+					mysqli_query($conn,"UPDATE stok_kondisi SET jumlah='$balance_current', updated_at='$waktu_sekarang' WHERE id='$cek_saldo_kondisi[id]'");
+				}
+				else{
+					$balance_current = $jumlah_masuk;
+
+					mysqli_query($conn,"INSERT INTO stok_kondisi (stok_id, master_kondisi_id, jumlah, created_at, updated_at) VALUES ('$stok_id', '$r[master_kondisi_id]', '$balance_current', '$waktu_sekarang', '$waktu_sekarang')");
+				}
+
+				//CATAT KE DALAM LOG
+				mysqli_query($conn,"INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name) VALUES ('$stok_id', '$jumlah_masuk', '0', '$balance_current', '$waktu_sekarang', 'Receipt of materials $number', '$r[id]', '101', 'po_terima_detail')");
+
+
+				//MASUKKAN DATA KE DALAM MASTER MATERIAL SERIAL NUMBER
+				$terima_sn = mysqli_query($conn,"SELECT * FROM po_terima_sn WHERE po_terima_detail_id='$r[id]' AND status='2'");
+				while($tsn=mysqli_fetch_array($terima_sn)){
+					mysqli_query($conn,"INSERT INTO material_sn (master_material_id, status_id, keterangan, serial_number, master_gudang_id, created_at, harga, master_kategori_material_id, master_kondisi_id) VALUES ('$r[master_material_id]', '$tsn[material_sn_status_id]', '', '$tsn[serial_number]', '$r[master_gudang_id]', '$waktu_sekarang', '$tsn[harga]', '$r[master_kategori_material_id]', '$r[master_kondisi_id]')");
+
+					$material_sn_id = mysqli_insert_id($conn);
+
+					mysqli_query($conn,"UPDATE po_terima_sn SET material_sn_id='$material_sn_id' WHERE id='$tsn[id]'");
+
+					//MASUKKAN DATA LOG SERIAL NUMBER
+					mysqli_query($conn,"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark) VALUES ('$material_sn_id', '515', '$waktu_sekarang', 'Receipt of materials $number')");
+				}
 			}
 
-			mysqli_query($conn,"INSERT INTO po_terima_log (po_terima_id, status_id, created_at, pegawai_id, dokumen, remark) VALUES ('$id', '$status_po', '$waktu_sekarang', '$_SESSION[login_user]', '$nama_file_unik', '$_POST[remark]')");
 			mysqli_commit($conn);
 		}
 		catch (Exception $e) {
 			// Tangkap kesalahan dan lakukan rollback
 			mysqli_rollback($conn);
-			print_r($e);
-		}
-		header("location: terimapo");
-	}
-
-	else if($act=='sn_input'){
-
-		$d=mysqli_fetch_array(mysqli_query($conn,"SELECT a.*, b.po_id, b.harga, b.master_material_id, b.master_kategori_material_id,  b.master_kondisi_id, b.jumlah_konversi, c.nama AS nama_gudang, d.nama AS nama_satuan_besar, e.nama AS nama_satuan_kecil, f.merk_type, g.nomor AS nomor_po_terima
-		FROM po_terima_detail a
-		LEFT JOIN po_detail b ON a.po_detail_id=b.id AND b.deleted_at IS NULL
-		LEFT JOIN master_material f ON b.master_material_id=f.id AND f.deleted_at IS NULL
-		LEFT JOIN master_gudang c ON a.master_gudang_id=c.id AND c.deleted_at IS NULL
-		LEFT JOIN master_satuan d ON b.master_satuan_besar_id=d.id AND d.deleted_at IS NULL
-		LEFT JOIN master_satuan e ON b.master_satuan_kecil_id=e.id AND e.deleted_at IS NULL
-		LEFT JOIN po_terima g ON a.po_terima_id=g.id AND g.deleted_at IS NULL
-		WHERE a.deleted_at IS NULL AND a.id='$_POST[po_terima_detail_id]'"));
-
-		$jumlah_item = $d['jumlah_diterima']*$d['jumlah_konversi'];
-		$harga = $d['harga']/$jumlah_item;
-		
-		//MASUKKAN DATA SERIAL NUMBER
-		$sql="INSERT INTO material_sn (master_material_id, status_id, serial_number, master_gudang_id, created_at, table_id, table_name, harga, master_kategori_material_id, master_kondisi_id) VALUES ('$d[master_material_id]', '500', '$_POST[serial_number]', '$d[master_gudang_id]', '$waktu_sekarang', '$d[id]', 'po_terima_detail', '$harga', '$d[master_kategori_material_id]', '$d[master_kondisi_id]')";
-
-		$exists_data = 0;
-		if($_POST['serial_number']=='0'){
-			$a=mysqli_fetch_array(mysqli_query($conn,"SELECT COUNT(id) AS tot FROM material_sn WHERE serial_number='$_POST[serial_number]' AND table_id='$d[id]' AND table_name='po_terima_detail'"));
-
-			for($i=$a['tot'];$i<$jumlah_item;$i++){
-				mysqli_query($conn, $sql);
-				$material_sn_id = mysqli_insert_id($conn);
-
-				//MASUKKAN DATA LOG SERIAL NUMBER
-				mysqli_query($conn,"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark) VALUES ('$material_sn_id', '515', '$waktu_sekarang', 'Penerimaan PO $d[nomor_po_terima]')");
-			}
-		}
-		else{
-			$a=mysqli_fetch_array(mysqli_query($conn,"SELECT id FROM material_sn WHERE serial_number='$_POST[serial_number]'"));
-			
-			if(isset($a['id'])==''){
-				mysqli_query($conn, $sql);
-				$material_sn_id = mysqli_insert_id($conn);
-
-				//MASUKKAN DATA LOG SERIAL NUMBER
-				mysqli_query($conn,"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark) VALUES ('$material_sn_id', '515', '$waktu_sekarang', 'Penerimaan PO $d[nomor_po_terima]')");
-			}
-			else{
-				$exists_data = 1;
-			}
-		}
-		
-
-		if($exists_data=='0'){
-			//UPDATE STATUS
-			$status_terima = 210;
-			$tampil=mysqli_query($conn,"SELECT a.id, (a.jumlah_diterima*b.jumlah_konversi) AS jumlah_material, (SELECT COUNT(c.id) AS tot FROM material_sn c WHERE c.table_id=a.id AND c.table_name='po_terima_detail') AS total_sn
-			FROM po_terima_detail a
-			LEFT JOIN po_detail b ON a.po_detail_id=b.id AND b.deleted_at IS NULL
-			WHERE a.deleted_at IS NULL AND po_terima_id='$d[po_terima_id]'");
-			while($r=mysqli_fetch_array($tampil)){
-				if($r['jumlah_material']!=$r['total_sn']){
-					$status_terima=205;
-				}	
-			}
-
-			mysqli_query($conn,"UPDATE po_terima SET status_id='$status_terima' WHERE id='$d[po_terima_id]'");
-
-			header("location: terimapo-sn-$d[id]");
-		}
-		else{
-			?>
-			<script type="text/javascript">
-				alert("Serial Number sudah ada sebelumnya. Mohon periksa dengan baik");
-				window.history.back();
-			</script>
-			<?php
+			echo $e;
 		}
 	}
-
-	else if($act=='sn_delete'){
-		$d=mysqli_fetch_array(mysqli_query($conn,"SELECT a.*, b.po_terima_id FROM material_sn a INNER JOIN po_terima_detail b ON a.table_id=b.id AND b.deleted_at IS NULL WHERE a.id='$_GET[id]'"));
-
-		mysqli_query($conn,"DELETE FROM material_sn WHERE id='$_GET[id]'");
-
-		mysqli_query($conn,"UPDATE po_terima SET status_id='205' WHERE id='$d[po_terima_id]'");
-
-		header("location: terimapo-sn-$d[table_id]");
-	}
-
-
 	mysqli_close($conn);
 	
 }

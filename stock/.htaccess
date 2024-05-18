@@ -71,6 +71,13 @@ RewriteRule ^terimapo-sn-([0-9]+)$ media.php?module=terima_po&act=sn&id=$1 [QSA,
 RewriteRule ^terimapo-sn-input$ content/terima_po/aksi.php?act=sn_input [QSA,L]
 RewriteRule ^terimapo-sn-delete-([0-9]+)$ content/terima_po/aksi.php?act=sn_delete&id=$1 [QSA,L]
 
+RewriteRule ^terimapo-cetak-([0-9]+)$ content/terima_po/aksi.php?act=cetak&id=$1 [QSA,L]
+RewriteRule ^terimapo-next$ content/terima_po/aksi.php?act=next [QSA,L]
+RewriteRule ^terimapo-next-action$ content/terima_po/aksi.php?act=next_action [QSA,L]
+
+RewriteRule ^terimapo-cancel$ content/terima_po/aksi.php?act=cancel [QSA,L]
+RewriteRule ^terimapo-cancel-action$ content/terima_po/aksi.php?act=cancel_action [QSA,L]
+
 ### PERSEDIAAN
 RewriteRule ^persediaan$ media.php?module=persediaan [QSA,L]
 RewriteRule ^persediaan-data$ content/persediaan/aksi.php?act=data_json [QSA,L]
