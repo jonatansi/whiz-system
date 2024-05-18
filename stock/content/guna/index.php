@@ -90,7 +90,7 @@ else{
 
     <?php 
 
-    $order_column_add.= datatable_column("-3", "text-end", "true");
+    $order_column_add= datatable_column("-3", "text-end", "true");
     $order_column_add.= datatable_column("-2", "text-end", "true");
     $order_column_add.= datatable_column("-1", "text-center", "true");
     
