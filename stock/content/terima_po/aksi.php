@@ -282,6 +282,7 @@ else{
 			mysqli_rollback($conn);
 			echo $e;
 		}
+		header("location: terimapo-view-$_POST[po_terima_id]");
 	}
 	mysqli_close($conn);
 	
