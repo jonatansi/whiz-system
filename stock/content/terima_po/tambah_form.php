@@ -13,7 +13,7 @@ $pegawai = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai WHERE id
                     <label class="mb-2">Nomor PO <span class="text-danger">*</span></label>
                     <select name="po_id" class="form-control" required>
                         <?php
-                        $tampil=mysqli_query($conn,"SELECT * FROM po WHERE deleted_at IS NULL AND request_master_cabang_id='$pegawai[master_cabang_id]' AND (status_id='15' OR status_id='20')");
+                        $tampil=mysqli_query($conn,"SELECT a.id, a.nomor FROM po a WHERE a.deleted_at IS NULL AND a.request_master_cabang_id='$pegawai[master_cabang_id]' AND a.status_id IN (15,20) AND NOT EXISTS (SELECT NULL FROM po_terima b WHERE b.po_id=a.id AND b.status_id='200' AND b.deleted_at IS NULL)");
                         while($r=mysqli_fetch_array($tampil)){
                             echo "<option value='$r[id]'>$r[nomor]</option>";
                         }

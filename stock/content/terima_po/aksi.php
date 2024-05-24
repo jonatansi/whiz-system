@@ -103,7 +103,8 @@ else{
 			}
 			else{
 				$cek = mysqli_fetch_array(mysqli_query($conn,"SELECT id FROM po_terima_sn WHERE serial_number='$_POST[serial_number]' AND status IN (1,2)"));
-				if(isset($cek['id'])==''){
+				$cek2 = mysqli_fetch_array(mysqli_query($conn,"SELECT id FROM material_sn WHERE serial_number='$_POST[serial_number]'"));
+				if(isset($cek['id'])=='' AND  isset($cek2['id'])==''){
 					//MASUKKAN DATA SERIAL NUMBER KE DALAM TERIMA PO DETAIL SN
 					
 					mysqli_query($conn, $sql);
@@ -112,7 +113,7 @@ else{
 				else{
 					?>
 					<script type="text/javascript">
-						alert("Serial Number sudah ada sebelumnya. Mohon periksa dengan baik");
+						alert("Serial Number tidak dapat diinput. Hal ini bisa disebabkan oleh beberapa kemungkinan berikut:\n1. Serial Number sudah diinput sebelumnya.\n2. Serial Number sudah berada dalam gudang.\n3. Serial Number sudah pernah digunakan.\n4. Serial Number sudah diinput oleh cabang lainnya.\n\nMohon periksa kembali Serial Number yang Anda masukkan dengan teliti. Terima kasih atas perhatian Anda.");
 						window.history.back();
 					</script>
 					<?php
@@ -177,24 +178,6 @@ else{
 			$d=mysqli_fetch_array(mysqli_query($conn,"SELECT nomor FROM po_terima WHERE id='$_POST[po_terima_id]' AND deleted_at IS NULL"));
 			$number = $d['nomor'];
 
-
-			//UPDATE STATUS PO
-			$cek = mysqli_fetch_array(mysqli_query($conn,"SELECT SUM(jumlah) AS total FROM po_detail WHERE po_id='$_POST[po_id]' AND deleted_at IS NULL"));
-			$total_item_po = $cek['total'];
-
-			$cek = mysqli_fetch_array(mysqli_query($conn,"SELECT SUM(jumlah_diterima) AS total FROM po_terima_detail WHERE po_terima_id='$_POST[po_id]' AND deleted_at IS NULL"));
-			$total_item_terima = $cek['total'];
-
-			if($total_item_po==$total_item_terima){
-				$status_po=25;
-			}
-			else{
-				$status_po=20;
-			}
-		
-			mysqli_query($conn,"UPDATE po SET status_id='$status_po', updated_at='$waktu_sekarang' WHERE id='$_POST[po_id]' AND deleted_at IS NULL");
-			
-			
 			$vdir_upload = "../../../files/po/";
 
 			$acak			 = rand(1111,9999);
@@ -210,10 +193,8 @@ else{
 			else{
 				UploadDokumen($nama_file_unik, $vdir_upload);
 			}
-
-			mysqli_query($conn,"INSERT INTO po_log (po_id, status_id, created_at, pegawai_id, dokumen, remark) VALUES ('$_POST[po_id]', '$status_po', '$waktu_sekarang', '$_SESSION[login_user]', '$nama_file_unik', '$_POST[remark]')");
 			
-
+		
 			//UPDATE STATUS DI PO TERIMA LOG
 			mysqli_query($conn,"INSERT INTO po_terima_log (po_terima_id, status_id, created_at, pegawai_id, dokumen, remark) VALUES ('$_POST[po_terima_id]', '210', '$waktu_sekarang', '$_SESSION[login_user]', '$nama_file_unik', '$_POST[remark]')");
 
@@ -222,8 +203,12 @@ else{
 			mysqli_query($conn,"UPDATE po_terima_sn a INNER JOIN po_terima_detail b ON a.po_terima_detail_id = b.id SET a.status='2' WHERE b.po_terima_id='$_POST[po_terima_id]'");
 
 			//UPDATE STOK DI GUDANG
-			$data=mysqli_query($conn,"SELECT a.*, b.master_material_id, b.master_kondisi_id, b.jumlah_konversi, b.jumlah_total, b.harga, b.master_kategori_material_id FROM po_terima_detail a INNER JOIN po_detail b ON a.po_detail_id=b.id AND b.deleted_at IS NULL WHERE a.deleted_at IS NULL AND a.po_terima_id='$_POST[po_terima_id]'");
+			$data=mysqli_query($conn,"SELECT a.*, b.master_material_id, b.master_kondisi_id, b.jumlah_konversi, b.jumlah_total, b.harga, b.master_kategori_material_id, b.jumlah_diterima AS jumlah_diterima_po_detail FROM po_terima_detail a INNER JOIN po_detail b ON a.po_detail_id=b.id AND b.deleted_at IS NULL WHERE a.deleted_at IS NULL AND a.po_terima_id='$_POST[po_terima_id]'");
 			while($r=mysqli_fetch_array($data)){
+
+				//UPDATE PO DETAIL
+				$jumlah_terima_po_detail = $r['jumlah_diterima_po_detail'] + $r['jumlah_diterima'];
+				mysqli_query($conn,"UPDATE po_detail SET jumlah_diterima='$jumlah_terima_po_detail' WHERE id='$r[po_detail_id]'");
 
 				//CEK APAKAH SUDAH ADA GUDANG
 				$cek=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM stok WHERE master_cabang_id='$_SESSION[master_cabang_id]' AND master_gudang_id='$r[master_gudang_id]' AND master_material_id='$r[master_material_id]' AND deleted_at IS NULL"));
@@ -274,6 +259,26 @@ else{
 					mysqli_query($conn,"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark) VALUES ('$material_sn_id', '515', '$waktu_sekarang', 'Receipt of materials $number')");
 				}
 			}
+
+			//UPDATE STATUS PO
+			$cek = mysqli_fetch_array(mysqli_query($conn,"SELECT SUM(jumlah) AS total FROM po_detail WHERE po_id='$_POST[po_id]' AND deleted_at IS NULL"));
+			$total_item_po = $cek['total'];
+
+			$cek = mysqli_fetch_array(mysqli_query($conn,"SELECT SUM(a.jumlah_diterima) AS total FROM po_terima_detail a INNER JOIN po_terima b ON a.po_terima_id=b.id AND b.deleted_at IS NULL WHERE a.deleted_at IS NULL AND b.po_id='$_POST[po_id]' AND b.status_id='210';"));
+			$total_item_terima = $cek['total'];
+
+			if($total_item_po==$total_item_terima){
+				$status_po=25;
+			}
+			else{
+				$status_po=20;
+			}
+		
+			mysqli_query($conn,"UPDATE po SET status_id='$status_po', updated_at='$waktu_sekarang' WHERE id='$_POST[po_id]' AND deleted_at IS NULL");
+			
+			
+
+			mysqli_query($conn,"INSERT INTO po_log (po_id, status_id, created_at, pegawai_id, dokumen, remark) VALUES ('$_POST[po_id]', '$status_po', '$waktu_sekarang', '$_SESSION[login_user]', '$nama_file_unik', '$_POST[remark]')");
 
 			mysqli_commit($conn);
 		}

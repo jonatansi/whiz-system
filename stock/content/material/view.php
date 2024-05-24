@@ -52,7 +52,7 @@
                             <table class="table table-sm">
                                 <tbody>
 
-                                    <tr><td>Kondisi</td><td class="fw-bold text-end"><?php echo $d['nama_kondisi'];?></td></tr>
+                                    <tr><td>Kondisi Pembelian Awal</td><td class="fw-bold text-end"><?php echo $d['nama_kondisi'];?></td></tr>
                                     <tr><td>Gudang</td><td class="fw-bold text-end"><?php echo $d['nama_gudang'];?></td></tr>
                                     <tr><td>Cabang</td><td class="fw-bold text-end"><?php echo $d['nama_cabang'];?></td></tr>
                                     <tr><td>Harga</td><td class="fw-bold text-end"><?php echo formatAngka($d['harga']);?></td></tr>

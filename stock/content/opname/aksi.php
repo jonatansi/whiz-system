@@ -1,6 +1,9 @@
 <?php
 session_start();
 // error_reporting(0);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 if (empty($_SESSION['login_user'])){
 	header('location:keluar');
 }
@@ -302,33 +305,61 @@ else{
 		//CEK APAKAH SERIAL NUMBER ITU MEMANG ADA DI GUDANG ITU
 		$cek = mysqli_fetch_array(mysqli_query($conn,"SELECT a.* FROM material_sn a 
 		INNER JOIN opname_detail b ON a.master_gudang_id=b.master_gudang_id AND b.deleted_at IS NULL AND a.master_material_id=b.master_material_id
-		WHERE a.serial_number='$_POST[serial_number]' AND b.id='$_POST[opname_detail_id]'"));
+		WHERE a.serial_number='$_POST[serial_number]' AND b.id='$_POST[opname_detail_id]' AND a.status_id='500'"));
 
 		$harga = str_replace(".","",$_POST['harga']);
 
 		if(isset($cek['id'])!=''){
 			//CEK APAKAH SERIAL NUMBER INI SUDAH ADA DI DALAM LIST opname SN ATAU BELUM DIKECUALIKAN UNTUK '0'
-			$d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM opname_sn WHERE opname_detail_id='$_POST[opname_detail_id]' AND serial_number='$_POST[serial_number]' AND serial_number!='0' AND status='1'"));
-			if(isset($d['id'])==''){
+			// $d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM opname_sn WHERE opname_detail_id='$_POST[opname_detail_id]' AND serial_number='$_POST[serial_number]' AND serial_number!='0' AND status='1'"));
+			$d1=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM guna_sn WHERE serial_number='$_POST[serial_number]' AND serial_number!='0' AND status='1'"));
+			$d2=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM opname_sn WHERE serial_number='$_POST[serial_number]' AND serial_number!='0' AND status='1'"));
+			$d3=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM po_terima_sn WHERE serial_number='$_POST[serial_number]' AND serial_number!='0' AND status='1'"));
+			$d4=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM mutasi_sn WHERE serial_number='$_POST[serial_number]' AND serial_number!='0' AND status='1'"));
+			if(isset($d1['id'])=='' AND isset($d2['id'])=='' AND isset($d3['id'])=='' AND isset($d4['id'])==''){
 				mysqli_query($conn,"INSERT INTO opname_sn (opname_detail_id, serial_number, created_at, material_sn_id, harga, status, material_sn_status_id) VALUES ('$_POST[opname_detail_id]', '$_POST[serial_number]', '$waktu_sekarang', '$cek[id]', '$harga', '1', '$cek[status_id]')");
 
 				// header("location: opname-sn-$_POST[opname_detail_id]");
 			}
 			else{
 				?>
-				<script type="text/javascript">
-					alert("Serial Number sudah ada dalam daftar yang akan diopname");
-					window.history.back();
-				</script>
+				<div class="alert alert-danger">
+					Serial Number tidak dapat diinput. Hal ini bisa disebabkan oleh beberapa kemungkinan berikut:
+					<ol>
+						<li>Serial Number sedang dalam proses stok opname</li>
+						<li>Serial Number sedang dalam proses penerimaan</li>
+						<li>Serial Number sudah pernah digunakan</li>
+						<li>Serial Number sudah diinput oleh cabang lainnya.</li>
+						<li>Serial Number sedang dalam proses mutasi</li>
+					</ol>
+				</div>
 				<?php
 			}
 		}
 		else{
-
-			$cek = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM material_sn WHERE serial_number='$_POST[serial_number]'"));
-			if(isset($cek['id'])==''){
+			$d1=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM guna_sn WHERE serial_number='$_POST[serial_number]' AND serial_number!='0' AND status='1'"));
+			$d2=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM opname_sn WHERE serial_number='$_POST[serial_number]' AND serial_number!='0' AND status='1'"));
+			$d3=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM po_terima_sn WHERE serial_number='$_POST[serial_number]' AND serial_number!='0' AND status='1'"));
+			$d4=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM mutasi_sn WHERE serial_number='$_POST[serial_number]' AND serial_number!='0' AND status='1'"));
+			$d5=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM material_sn WHERE serial_number='$_POST[serial_number]'"));
+			if(isset($d1['id'])=='' AND isset($d2['id'])=='' AND isset($d3['id'])=='' AND isset($d4['id'])=='' AND isset($d5['id'])==''){
 				mysqli_query($conn,"INSERT INTO opname_sn (opname_detail_id, serial_number, created_at, harga, status, material_sn_id, material_sn_status_id, remark) VALUES ('$_POST[opname_detail_id]', '$_POST[serial_number]', '$waktu_sekarang', '$harga', '1', '0', '500', '$_POST[remark]')");
 			}
+			else{
+				?>
+				<div class="alert alert-danger">
+					Serial Number tidak dapat diinput. Hal ini bisa disebabkan oleh beberapa kemungkinan berikut:
+					<ol>
+						<li>Serial Number sedang dalam proses stok opname</li>
+						<li>Serial Number sedang dalam proses penerimaan</li>
+						<li>Serial Number sudah pernah digunakan</li>
+						<li>Serial Number sudah diinput oleh cabang lainnya.</li>
+						<li>Serial Number sedang dalam proses mutasi</li>
+					</ol>
+				</div>
+				<?php
+			}
+			
 			// header("location: opname-sn-$_POST[opname_detail_id]");
 		}
 

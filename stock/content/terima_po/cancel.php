@@ -13,7 +13,7 @@
                 </div>
 			</div>
 			<div class="modal-footer p-2">
-                <button type="submit" class="btn btn-success has-ripple"><i class="bi bi-check"></i> Proses Pembatalan PO</button>
+                <button type="submit" class="btn btn-success has-ripple"><i class="bi bi-check"></i> Proses Pembatalan</button>
                 <button type="button" class="btn btn-danger has-ripple"  data-bs-dismiss="modal"><i class="bi bi-x"></i> Tutup</button>
 			</div>
 		</div>

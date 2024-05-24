@@ -261,12 +261,16 @@ else{
 		//CEK APAKAH SERIAL NUMBER ITU MEMANG ADA DI GUDANG ITU
 		$cek = mysqli_fetch_array(mysqli_query($conn,"SELECT a.* FROM material_sn a 
 		INNER JOIN mutasi_detail b ON a.master_gudang_id=b.master_gudang_asal_id AND b.deleted_at IS NULL AND a.master_material_id=b.master_material_id
-		WHERE a.serial_number='$_POST[serial_number]' AND b.id='$_POST[mutasi_detail_id]'"));
+		WHERE a.serial_number='$_POST[serial_number]' AND b.id='$_POST[mutasi_detail_id]' AND a.status_id='500'"));
 
 		if(isset($cek['id'])!=''){
 			//CEK APAKAH SERIAL NUMBER INI SUDAH ADA DI DALAM LIST MUTASI SN ATAU BELUM DIKECUALIKAN UNTUK '0'
-			$d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM mutasi_sn WHERE mutasi_detail_id='$_POST[mutasi_detail_id]' AND serial_number='$_POST[serial_number]' AND serial_number!='0' AND status='1'"));
-			if(isset($d['id'])==''){
+			// $d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM mutasi_sn WHERE mutasi_detail_id='$_POST[mutasi_detail_id]' AND serial_number='$_POST[serial_number]' AND serial_number!='0' AND status='1'"));
+			$d1=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM guna_sn WHERE serial_number='$_POST[serial_number]' AND serial_number!='0' AND status='1'"));
+			$d2=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM opname_sn WHERE serial_number='$_POST[serial_number]' AND serial_number!='0' AND status='1'"));
+			$d3=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM po_terima_sn WHERE serial_number='$_POST[serial_number]' AND serial_number!='0' AND status='1'"));
+			$d4=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM mutasi_sn WHERE serial_number='$_POST[serial_number]' AND serial_number!='0' AND status='1'"));
+			if(isset($d1['id'])=='' AND isset($d2['id'])=='' AND isset($d3['id'])=='' AND isset($d4['id'])==''){
 				mysqli_query($conn,"INSERT INTO mutasi_sn (mutasi_detail_id, serial_number, created_at, material_sn_id) VALUES ('$_POST[mutasi_detail_id]', '$_POST[serial_number]', '$waktu_sekarang', '$cek[id]')");
 
 				header("location: mutasi-sn-$_POST[mutasi_detail_id]");
@@ -274,7 +278,7 @@ else{
 			else{
 				?>
 				<script type="text/javascript">
-					alert("Serial Number sudah ada dalam daftar yang akan dimutasi");
+					alert("Serial Number tidak dapat diinput. Hal ini bisa disebabkan oleh beberapa kemungkinan berikut:\n1. Serial Number sudah diinput sebelumnya.\n2. Serial Number sedang dalam proses stok opname.\n3. Serial Number sudah pernah digunakan.\n4. Serial Number sudah diinput oleh cabang lainnya.\n5. Serial Number sedang dalam proses mutasi.\n\nMohon periksa kembali Serial Number yang Anda masukkan dengan teliti. Terima kasih atas perhatian Anda.");
 					window.history.back();
 				</script>
 				<?php
@@ -283,7 +287,7 @@ else{
 		else{
 			?>
 			<script type="text/javascript">
-				alert("Serial number tersebut tidak ada dalam gudang itu atau serial number tidak sesuai");
+				alert("Serial number tersebut tidak ada dalam gudang tersebut atau serial number tidak sesuai");
 				window.history.back();
 			</script>
 			<?php
