@@ -139,3 +139,55 @@ Stok Opname
    yang boleh completed hanyalah Admin HO [DONE]
    Tulian SO diganti menjadi Stok Opname [DONE]
    Kode nomor SO diganti menjadi OP [DONE]
+
+
+Rapat 24 Mei 2024
+- Wording kondisi menjadi Pembelian Awal
+- Di dalam View material view ada tombol "Dismantle" jika status Digunakan
+   >> Pada form ini yaitu
+      - Tanggal Dismantle
+      - Dokumen pendukung
+      - Status Material
+
+- Modul pelanggan
+  - CRUD dengan kolom ID Pelanggan dan Nama
+
+PENGGUNAAN
+- Tambah Penggunaan 
+  - Jika yang dipilih adalah Work Order  dan Tiket Gangguan, maka akan muncul form User Identity yang dimana opsi ini adalah data pelanggan, maka dari itu perlu dibuat master pelanggan
+  - Jika yang dipilih adalah Penggunaan Internal atau Project Develoment, maka akan muncul form User Identity yang dimana opsinya adalah subkategori dari masing-masing kategori Penggunaan
+  - Serial number yang dipilih adalah barang yang status "Tersedia dari PO" dan "Tersedia Bekas"
+
+Dismantle
+- Kode : DO
+- Ketika membuat form Dismantle, maka ketika memilih itemnya, dipilih dahulu kategori penggunaan dan kemudian muncul user identity
+  Setelah itu maka muncul barang-barang serial number sesuai dengan user identity tersebut (status material)
+- Header form yaitu, tanggal dismantle, dokumen pendukung
+   Status Disamntle barang
+
+
+Status Material SN
+- Tersedia menjadi tersedia dari PO
+- Digunakan
+- Tersedia bekas
+- Rusak
+- Hilang
+- Proses Klaim Garansi
+- Peralihan Hak Milik
+
+Material SN Log, perlu dibuatkan relasi ID nya sehingga bisa diklik view detail
+
+Penerimaan PO ditambahkan field
+   - Peruntukkan : Aset, Project, Habis Pakai
+     Kalau habis pakai dan project, maka barang yang masuk ini tidak boleh digunakan lagi (dalam arti tidak bisa masuk dalam dismantle), di mutasi, atau pun stock opname
+
+Ketika SO, apabila total SN tidak sama dengan total aktual, maka tombol on progress disabled
+
+Level User
+   Admin HO
+   Admin Cabang
+   Staff Gudang : hanya bisa buka persediaan material dan data material
+
+Laporan Penggunaan Material
+
+Laporan Stok Gudang
