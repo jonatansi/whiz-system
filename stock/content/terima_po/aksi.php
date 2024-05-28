@@ -92,7 +92,7 @@ else{
 			$jumlah_item = $d['jumlah_diterima']*$d['jumlah_konversi'];
 			$harga = $d['harga']/$jumlah_item;
 			
-			$sql="INSERT INTO po_terima_sn (po_terima_detail_id, serial_number, created_at, material_sn_id, status, harga, material_sn_status_id) VALUES ('$d[id]', '$_POST[serial_number]', '$waktu_sekarang', '0', '1', '$harga', '500')";
+			$sql="INSERT INTO po_terima_sn (po_terima_detail_id, serial_number, created_at, material_sn_id, status, harga, material_sn_status_id, master_klasifikasi_material_id) VALUES ('$d[id]', '$_POST[serial_number]', '$waktu_sekarang', '0', '1', '$harga', '500', '$_POST[master_klasifikasi_material_id]')";
 
 			//CEK APAKAH SERIAL NUMBER SDH ADA ATAU BELUM DI MATERIAL SN
 			if($_POST['serial_number']=='0'){
@@ -249,7 +249,7 @@ else{
 				//MASUKKAN DATA KE DALAM MASTER MATERIAL SERIAL NUMBER
 				$terima_sn = mysqli_query($conn,"SELECT * FROM po_terima_sn WHERE po_terima_detail_id='$r[id]' AND status='2'");
 				while($tsn=mysqli_fetch_array($terima_sn)){
-					mysqli_query($conn,"INSERT INTO material_sn (master_material_id, status_id, keterangan, serial_number, master_gudang_id, created_at, harga, master_kategori_material_id, master_kondisi_id, master_klasifikasi_material_id) VALUES ('$r[master_material_id]', '$tsn[material_sn_status_id]', '', '$tsn[serial_number]', '$r[master_gudang_id]', '$waktu_sekarang', '$tsn[harga]', '$r[master_kategori_material_id]', '$r[master_kondisi_id]', '$r[master_klasifikasi_material_id]')");
+					mysqli_query($conn,"INSERT INTO material_sn (master_material_id, status_id, keterangan, serial_number, master_gudang_id, created_at, harga, master_kategori_material_id, master_kondisi_id, master_klasifikasi_material_id) VALUES ('$r[master_material_id]', '$tsn[material_sn_status_id]', '', '$tsn[serial_number]', '$r[master_gudang_id]', '$waktu_sekarang', '$tsn[harga]', '$r[master_kategori_material_id]', '$r[master_kondisi_id]', '$tsn[master_klasifikasi_material_id]')");
 
 					$material_sn_id = mysqli_insert_id($conn);
 

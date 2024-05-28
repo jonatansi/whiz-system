@@ -65,19 +65,19 @@ $no=$start+1;
 while( $row=mysqli_fetch_array($sql_data)) {  // preparing an array
     $transaksi="";
     if($row['act_type_id']=='1'){
-        $transaksi = "<a href='terimapo-view-$row[act_table_id]'>$row[transaction_number]</a>";
+        $transaksi = "<a href='terimapo-view-$row[act_table_id]' class='text-primary'>$row[transaction_number]</a>";
     }
     else if($row['act_type_id']=='2'){
-        $transaksi = "<a href='mutasi-view-$row[act_table_id]'>$row[transaction_number]</a>";
+        $transaksi = "<a href='mutasi-view-$row[act_table_id]' class='text-primary'>$row[transaction_number]</a>";
     }
     else if($row['act_type_id']=='3'){
-        $transaksi = "<a href='opname-view-$row[act_table_id]'>$row[transaction_number]</a>";
+        $transaksi = "<a href='opname-view-$row[act_table_id]' class='text-primary'>$row[transaction_number]</a>";
     }
     else if($row['act_type_id']=='4'){
-        $transaksi = "<a href='dismantle-view-$row[act_table_id]'>$row[transaction_number]</a>";
+        $transaksi = "<a href='dismantle-view-$row[act_table_id]' class='text-primary'>$row[transaction_number]</a>";
     }
     else if($row['act_type_id']=='5'){
-        $transaksi = "<a href='guna-view-$row[act_table_id]'>$row[transaction_number]</a>";
+        $transaksi = "<a href='guna-view-$row[act_table_id]' class='text-primary'>$row[transaction_number]</a>";
     }
     
     $nestedData=array(); 

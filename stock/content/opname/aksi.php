@@ -194,7 +194,7 @@ else{
 							$sql="INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name,  act_type_id, act_table_id, transaction_number) VALUES ('$st[id]', '$jumlah_berubah', '0', '$balance_current', '$waktu_sekarang', 'Stok Opname', '$r[id]', '110', 'opname_detail', '3', '$_POST[opname_id]', '$number')";
 						}
 						else{
-							$sql="INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name, act_type_id, act_table_id, transaction_number) VALUES ('$st[id]', '0', '$jumlah_berubah', '$balance_current', '$waktu_sekarang', 'Stok Opname', '$r[id]', '110', 'opname_detail'. '3', '$_POST[opname_id]', '$number')";
+							$sql="INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name, act_type_id, act_table_id, transaction_number) VALUES ('$st[id]', '0', '$jumlah_berubah', '$balance_current', '$waktu_sekarang', 'Stok Opname', '$r[id]', '110', 'opname_detail', '3', '$_POST[opname_id]', '$number')";
 						}
 
 						mysqli_query($conn,$sql);

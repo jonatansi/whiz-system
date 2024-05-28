@@ -79,7 +79,7 @@ $jumlah_item = $d['jumlah_diterima']*$d['jumlah_konversi'];
                                         Diperuntukkan <small class="text-danger">*</small>
                                     </label>
                                     <div class="col-md-3">
-                                        <select name="master_klasifikasi_material_id" class="form-control">
+                                        <select name="master_klasifikasi_material_id" class="form-control" required <?php if($jumlah_item<=$d['total_sn']){echo "disabled";}?>>
                                             <?php
                                             $tampil=mysqli_query($conn,"SELECT * FROM master_klasifikasi_material");
                                             while($r=mysqli_fetch_array($tampil)){
@@ -88,7 +88,7 @@ $jumlah_item = $d['jumlah_diterima']*$d['jumlah_konversi'];
                                             ?>
                                         </select>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <button type="submit" class="btn btn-success"  <?php if($jumlah_item<=$d['total_sn']){echo "disabled";}?>>Simpan</button>
                                     </div>
                                 </div>
@@ -123,7 +123,7 @@ $jumlah_item = $d['jumlah_diterima']*$d['jumlah_konversi'];
                                                 <td><?php echo $no;?></td>
                                                 <td><?php echo $r['serial_number'];?></td>
                                                 <td><?php echo formatAngka($r['harga']);?></td>
-                                                <td><?php echo $r['nama_klasifiksi'];?></td>
+                                                <td><?php echo $r['nama_klasifikasi'];?></td>
                                                 <td>
                                                     <?php
                                                     if($r['status']=='1'){

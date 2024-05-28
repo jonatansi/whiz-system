@@ -157,9 +157,9 @@ if(isset($d['id'])!=''){
     
 </script>
 <?php
-$order_column_add = datatable_column("2", "text-end", "true");
-$order_column_add.= datatable_column("3", "text-end", "true");
+$order_column_add = datatable_column("3", "text-end", "true");
 $order_column_add.= datatable_column("4", "text-end", "true");
+$order_column_add.= datatable_column("5", "text-end", "true");
 
 $filter = datatable_filter("id_bulan");
 $filter.= datatable_filter("tahun");
