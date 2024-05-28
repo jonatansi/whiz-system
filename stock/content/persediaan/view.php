@@ -140,6 +140,7 @@ if(isset($d['id'])!=''){
                         <tr>
                             <th width="15%">Tanggal / Jam</th>
                             <th width="30%">Keterangan</th>
+                            <th>No Transaksi</th>
                             <th>Masuk</th>
                             <th>Keluar</th>
                             <th>Saldo</th>

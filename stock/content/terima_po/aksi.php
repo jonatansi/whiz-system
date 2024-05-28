@@ -243,7 +243,7 @@ else{
 				}
 
 				//CATAT KE DALAM LOG
-				mysqli_query($conn,"INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name) VALUES ('$stok_id', '$jumlah_masuk', '0', '$balance_current', '$waktu_sekarang', 'Receipt of materials $number', '$r[id]', '101', 'po_terima_detail')");
+				mysqli_query($conn,"INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name, act_type_id, act_table_id, transaction_number) VALUES ('$stok_id', '$jumlah_masuk', '0', '$balance_current', '$waktu_sekarang', 'Receipt of materials', '$r[id]', '101', 'po_terima_detail', '1', '$_POST[po_terima_id]', '$number')");
 
 
 				//MASUKKAN DATA KE DALAM MASTER MATERIAL SERIAL NUMBER

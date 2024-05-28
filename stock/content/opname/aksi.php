@@ -191,10 +191,10 @@ else{
 						$balance_current = $st['jumlah']+$jumlah_berubah;
 
 						if($jumlah_berubah>0){
-							$sql="INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name) VALUES ('$st[id]', '$jumlah_berubah', '0', '$balance_current', '$waktu_sekarang', 'Stok Opname $number', '$r[id]', '110', 'opname_detail')";
+							$sql="INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name,  act_type_id, act_table_id, transaction_number) VALUES ('$st[id]', '$jumlah_berubah', '0', '$balance_current', '$waktu_sekarang', 'Stok Opname', '$r[id]', '110', 'opname_detail', '3', '$_POST[opname_id]', '$number')";
 						}
 						else{
-							$sql="INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name) VALUES ('$st[id]', '0', '$jumlah_berubah', '$balance_current', '$waktu_sekarang', 'Stok Opname $number', '$r[id]', '110', 'opname_detail')";
+							$sql="INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name, act_type_id, act_table_id, transaction_number) VALUES ('$st[id]', '0', '$jumlah_berubah', '$balance_current', '$waktu_sekarang', 'Stok Opname', '$r[id]', '110', 'opname_detail'. '3', '$_POST[opname_id]', '$number')";
 						}
 
 						mysqli_query($conn,$sql);
@@ -211,10 +211,10 @@ else{
 
 							$balance_current = $st['jumlah']+$jumlah_berubah;
 							if($jumlah_berubah>0){
-								$sql="INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name) VALUES ('$st[id]', '$jumlah_berubah', '0', '$balance_current', '$waktu_sekarang', 'Stok Opname $number', '$r[id]', '110', 'opname_detail')";
+								$sql="INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name,  act_type_id, act_table_id, transaction_number) VALUES ('$st[id]', '$jumlah_berubah', '0', '$balance_current', '$waktu_sekarang', 'Stok Opname', '$r[id]', '110', 'opname_detail', '3', '$_POST[opname_id]', '$number')";
 							}
 							else{
-								$sql="INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name) VALUES ('$st[id]', '0', '$jumlah_berubah', '$balance_current', '$waktu_sekarang', 'Stok Opname $number', '$r[id]', '110', 'opname_detail')";
+								$sql="INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name, act_type_id, act_table_id, transaction_number) VALUES ('$st[id]', '0', '$jumlah_berubah', '$balance_current', '$waktu_sekarang', 'Stok Opname', '$r[id]', '110', 'opname_detail', '3', '$_POST[opname_id]', '$number')";
 							}
 
 							mysqli_query($conn,$sql);
@@ -228,7 +228,7 @@ else{
 							
 							$stok_id = mysqli_insert_id($conn);
 
-							$sql="INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name) VALUES ('$stok_id', '$r[jumlah_aktual]', '0', '$r[jumlah_aktual]', '$waktu_sekarang', 'Stok Opname $number', '$r[id]', '110', 'opname_detail')";
+							$sql="INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name, act_type_id, act_table_id, transaction_number) VALUES ('$stok_id', '$r[jumlah_aktual]', '0', '$r[jumlah_aktual]', '$waktu_sekarang', 'Stok Opname $number', '$r[id]', '110', 'opname_detail', '3', '$_POST[opname_id]', '$number')";
 							
 							mysqli_query($conn, $sql);
 

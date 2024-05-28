@@ -175,7 +175,7 @@ else{
 					$st=mysqli_fetch_array(mysqli_query($conn,"SELECT a.id, a.jumlah FROM stok a INNER JOIN stok_kondisi b ON a.id=b.stok_id WHERE b.id='$r[stok_kondisi_id]' AND a.deleted_at IS NULL"));
 					$balance_current = $st['jumlah']-$r['jumlah'];
 
-					mysqli_query($conn,"INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name) VALUES ('$st[id]', '0', '$r[jumlah]', '$balance_current', '$waktu_sekarang', 'Mutasi material $number', '$r[id]', '115', 'mutasi_detail')");
+					mysqli_query($conn,"INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name,  act_type_id, act_table_id, transaction_number) VALUES ('$st[id]', '0', '$r[jumlah]', '$balance_current', '$waktu_sekarang', 'Mutasi material', '$r[id]', '115', 'mutasi_detail', '2', '$_POST[mutasi_id]', '$number')");
 
 					// mysqli_query($conn,"UPDATE stok_kondisi SET jumlah=(jumlah-$r[jumlah]) WHERE id='$r[stok_kondisi_id]'");
 
@@ -217,7 +217,7 @@ else{
 					}
 
 					//CATAT KE DALAM LOG
-					mysqli_query($conn,"INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name) VALUES ('$stok_id', '$jumlah_masuk', '0', '$balance_current', '$waktu_sekarang', 'Mutasi material $number', '$r[id]', '115', 'mutasi_detail')");
+					mysqli_query($conn,"INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name,  act_type_id, act_table_id, transaction_number) VALUES ('$stok_id', '$jumlah_masuk', '0', '$balance_current', '$waktu_sekarang', 'Mutasi material', '$r[id]', '115', 'mutasi_detail', '2', '$_POST[mutasi_id]', '$number')");
 					
 				}
 			}
