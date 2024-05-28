@@ -22,7 +22,7 @@ LEFT JOIN (
 ) AS total_item_query ON a.id = total_item_query.opname_id
 LEFT JOIN (
     SELECT g.opname_id, COUNT(f.id) AS total_sn 
-    FROM opname_sn f INNER JOIN opname_detail g ON f.opname_detail_id = g.id AND g.deleted_at IS NULL AND f.material_sn_status_id='500'
+    FROM opname_sn f INNER JOIN opname_detail g ON f.opname_detail_id = g.id AND g.deleted_at IS NULL AND f.material_sn_status_id IN (500,501)
     GROUP BY g.opname_id
 ) AS total_sn_query ON a.id = total_sn_query.opname_id
 WHERE  a.deleted_at IS NULL AND a.id='$_GET[id]'";

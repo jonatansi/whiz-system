@@ -22,7 +22,7 @@ $so =  mysqli_fetch_array(mysqli_query($conn,"SELECT status_id FROM opname WHERE
     </thead>
     <tbody>
         <?php
-        $tampil=mysqli_query($conn,"SELECT a.id, a.jumlah_tercatat, a.stok_kondisi_id, a.jumlah_aktual, a.remark, b.merk_type, c.nama AS nama_kategori_material, d.nama AS nama_satuan_kecil, e.nama AS nama_kondisi, (SELECT COUNT(f.id) FROM opname_sn f WHERE a.id=f.opname_detail_id AND f.material_sn_status_id='500') AS total_sn 
+        $tampil=mysqli_query($conn,"SELECT a.id, a.jumlah_tercatat, a.stok_kondisi_id, a.jumlah_aktual, a.remark, b.merk_type, c.nama AS nama_kategori_material, d.nama AS nama_satuan_kecil, e.nama AS nama_kondisi, (SELECT COUNT(f.id) FROM opname_sn f WHERE a.id=f.opname_detail_id AND f.material_sn_status_id IN (500,501)) AS total_sn 
         FROM opname_detail a
         LEFT JOIN master_material b ON a.master_material_id=b.id AND b.deleted_at IS NULL
         LEFT JOIN master_kategori_material c ON b.master_kategori_material_id=c.id AND c.deleted_at IS NULL

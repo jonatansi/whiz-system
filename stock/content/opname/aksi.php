@@ -70,7 +70,7 @@ else{
 				//MATERIAL SN YANG DIOPNAME
 				if($r['jumlah']>0){
 					for($i=1;$i<=$r['jumlah'];$i++){
-						$sn = mysqli_fetch_array(mysqli_query($conn,"SELECT a.* FROM material_sn a WHERE a.master_material_id='$r[master_material_id]' AND a.status_id='500' AND a.master_gudang_id='$r[master_gudang_id]' AND a.master_kondisi_id='$r[master_kondisi_id]' AND NOT EXISTS (SELECT NULL FROM opname_sn c WHERE c.serial_number=a.serial_number AND c.opname_detail_id='$opname_detail_id')"));
+						$sn = mysqli_fetch_array(mysqli_query($conn,"SELECT a.* FROM material_sn a WHERE a.master_material_id='$r[master_material_id]' AND a.status_id IN (500,501) AND a.master_gudang_id='$r[master_gudang_id]' AND a.master_kondisi_id='$r[master_kondisi_id]' AND NOT EXISTS (SELECT NULL FROM opname_sn c WHERE c.serial_number=a.serial_number AND c.opname_detail_id='$opname_detail_id')"));
 						if(isset($sn['id'])!=''){
 							mysqli_query($conn,"INSERT INTO opname_sn (opname_detail_id, serial_number, material_sn_id, status, harga, created_at, material_sn_status_id) VALUES ('$opname_detail_id', '$sn[serial_number]', '$sn[id]', '1', '$sn[harga]', '$waktu_sekarang', '$sn[status_id]')");
 						}
@@ -305,7 +305,7 @@ else{
 		//CEK APAKAH SERIAL NUMBER ITU MEMANG ADA DI GUDANG ITU
 		$cek = mysqli_fetch_array(mysqli_query($conn,"SELECT a.* FROM material_sn a 
 		INNER JOIN opname_detail b ON a.master_gudang_id=b.master_gudang_id AND b.deleted_at IS NULL AND a.master_material_id=b.master_material_id
-		WHERE a.serial_number='$_POST[serial_number]' AND b.id='$_POST[opname_detail_id]' AND a.status_id='500'"));
+		WHERE a.serial_number='$_POST[serial_number]' AND b.id='$_POST[opname_detail_id]' AND a.status_id IN (500,501)"));
 
 		$harga = str_replace(".","",$_POST['harga']);
 

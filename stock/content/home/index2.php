@@ -85,7 +85,7 @@
                         <div >
                             <h4 class="fs-20 fw-bold mb-1 text-fixed-white">
                                 <?php
-                                $c=mysqli_fetch_array(mysqli_query($conn,"SELECT SUM(harga) AS tot FROM material_sn WHERE status_id='500'"));
+                                $c=mysqli_fetch_array(mysqli_query($conn,"SELECT SUM(harga) AS tot FROM material_sn WHERE status_id IN (500,501)"));
                                 echo formatAngka($c['tot']);
                                 ?>
                             </h4>

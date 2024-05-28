@@ -212,7 +212,7 @@ else{
 		//CEK APAKAH SERIAL NUMBER ITU MEMANG ADA DI GUDANG ITU
 		$cek = mysqli_fetch_array(mysqli_query($conn,"SELECT a.* FROM material_sn a 
 		INNER JOIN guna_detail b ON a.master_gudang_id=b.master_gudang_asal_id AND b.deleted_at IS NULL AND a.master_material_id=b.master_material_id
-		WHERE a.serial_number='$_POST[serial_number]' AND b.id='$_POST[guna_detail_id]' AND a.status_id='500'"));
+		WHERE a.serial_number='$_POST[serial_number]' AND b.id='$_POST[guna_detail_id]' AND a.status_id IN (500, 501)"));
 
 		if(isset($cek['id'])!=''){
 			//CEK APAKAH SERIAL NUMBER INI SUDAH ADA DI DALAM LIST guna SN ATAU BELUM DIKECUALIKAN UNTUK '0'
