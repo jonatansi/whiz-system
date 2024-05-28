@@ -140,7 +140,7 @@ Stok Opname
    Tulian SO diganti menjadi Stok Opname [DONE]
    Kode nomor SO diganti menjadi OP [DONE]
 
-
+=================================
 Rapat 24 Mei 2024
 - Wording kondisi menjadi Pembelian Awal [DONE]
 - Di dalam View material view ada tombol "Dismantle" jika status Digunakan //diganti menjadi satu menu sendiri
@@ -149,7 +149,7 @@ Rapat 24 Mei 2024
       - Dokumen pendukung
       - Status Material
 
-- Modul pelanggan
+- Modul pelanggan [DONE]
   - CRUD dengan kolom ID Pelanggan dan Nama
 
 PENGGUNAAN
@@ -166,7 +166,7 @@ Dismantle
    Status Disamntle barang
 
 
-Status Material SN
+Status Material SN [DONE]
 - Tersedia menjadi tersedia dari PO
 - Digunakan
 - Tersedia bekas

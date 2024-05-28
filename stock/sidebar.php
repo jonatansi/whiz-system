@@ -30,6 +30,13 @@
                     </a>
                 </li>
 
+                <li class="slide <?php if($module=='customer'){echo "active";}?>">
+                    <a href="<?php echo $BASE_URL_STOCK;?>/customer" class="side-menu__item <?php if($module=='customer'){echo "active";}?>">
+                        <i class="fa fa-user-alt side-menu__icon"></i>
+                        <span class="side-menu__label">Pelanggan</span>
+                    </a>
+                </li>
+
                 <li class="slide__category"><span class="category-name">Material</span></li>
 
                 <li class="slide <?php if($module=='persediaan'){echo "active";}?>">
@@ -82,6 +89,13 @@
                     <a href="<?php echo $BASE_URL_STOCK;?>/mutasi" class="side-menu__item <?php if($module=='mutasi'){echo "active";}?>">
                         <i class="fe fe-git-branch side-menu__icon"></i>
                         <span class="side-menu__label">Mutasi Material</span>
+                    </a>
+                </li>
+
+                <li class="slide <?php if($module=='dismantle'){echo "active";}?>">
+                    <a href="<?php echo $BASE_URL_STOCK;?>/dismantle" class="side-menu__item <?php if($module=='dismantle'){echo "active";}?>">
+                        <i class="fa fa-tape side-menu__icon"></i>
+                        <span class="side-menu__label">Dismantle</span>
                     </a>
                 </li>
 

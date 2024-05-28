@@ -33,8 +33,8 @@
         else if($module=='material'){
             include "content/material/index.php";
         }
-        else if($module=='cari'){
-            include "content/cari/index.php";
+        else if($module=='customer'){
+            include "content/customer/index.php";
         }
         ?>
     </div>

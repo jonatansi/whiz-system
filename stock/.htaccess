@@ -182,4 +182,14 @@ RewriteRule ^material-view-([0-9]+)$ media.php?module=material&act=view&id=$1 [Q
 RewriteRule ^cari$ media.php?module=cari [QSA,L]
 RewriteRule ^cari-material$ content/cari/aksi.php?act=material [QSA,L]
 
+
+###PELANGGAN
+RewriteRule ^customer$ media.php?module=customer [QSA,L]
+RewriteRule ^customer-data$ content/customer/aksi.php?act=data_json [QSA,L]
+RewriteRule ^customer-tambah$ content/customer/aksi.php?act=tambah [QSA,L]
+RewriteRule ^customer-input$ content/customer/aksi.php?act=input [QSA,L]
+RewriteRule ^customer-edit$ content/customer/aksi.php?act=edit [QSA,L]
+RewriteRule ^customer-update$ content/customer/aksi.php?act=update [QSA,L]
+RewriteRule ^customer-delete-([0-9a-zA-Z-]+)$ content/customer/aksi.php?act=delete&id=$1 [QSA,L]
+
 </IfModule>
