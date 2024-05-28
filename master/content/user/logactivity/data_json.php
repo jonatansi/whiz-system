@@ -9,8 +9,8 @@ else{
 	include "../../../../konfig/library.php";
     include "../../../../konfig/fungsi_tanggal.php";
 	
-    include "../../../services/send_discord.php";
-    include "../../../services/get_error.php";
+    include "../../../../services/send_discord.php";
+    include "../../../../services/get_error.php";
     
     $columns = array( 
         0 =>'a.id', 

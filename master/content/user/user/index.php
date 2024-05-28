@@ -37,14 +37,16 @@
                                 <th>No. Handphone</th>
                                 <th>Jabatan</th>
                                 <th>Branch</th>
+                                <th>Level</th>
                                 <th width="120px">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             $no=1;
-                            $tampil=mysqli_query($conn,"SELECT a.*, b.nama AS nama_cabang FROM pegawai a
+                            $tampil=mysqli_query($conn,"SELECT a.*, b.nama AS nama_cabang, c.nama AS nama_level FROM pegawai a
                             LEFT JOIN master_cabang b ON a.master_cabang_id=b.id AND b.deleted_at IS NULL
+                            LEFT JOIN pegawai_level c ON a.level_id=c.id
                             WHERE a.deleted_at IS NULL ORDER BY a.updated_at DESC");
                             while($r=mysqli_fetch_array($tampil)){
                                 ?>
@@ -57,6 +59,7 @@
                                     <td><?php echo $r['no_handphone'];?></td>
                                     <td><?php echo $r['jabatan'];?></td>
                                     <td><?php echo $r['nama_cabang'];?></td>
+                                    <td><?php echo $r['nama_level'];?></td>
                                     <td class="text-center">
                                         <button type="button" class="btn btn-sm btn-primary btnEdit" data-toggle="tooltip" data-placement="top" title="Edit" id="<?php echo $r['id'];?>"><i class="bi bi-pen"></i> Edit</button>
                                         <button type="button" class="btn btn-sm btn-danger btnDelete" data-toggle="tooltip" data-placement="top" title="Hapus" id="<?php echo $r['id'];?>"><i class="bi bi-trash"></i> Delete</button>

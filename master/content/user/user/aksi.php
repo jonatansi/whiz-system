@@ -13,8 +13,8 @@ else{
 	include "../../../../konfig/myencrypt.php";
 	include "../../../../konfig/fungsi_form_modal.php";
 
-	include "../../../services/send_discord.php";
-    include "../../../services/get_error.php";
+	include "../../../../services/send_discord.php";
+    include "../../../../services/get_error.php";
 	
 	$act=$_GET['act'];
     
@@ -28,7 +28,7 @@ else{
         
 		$password=encrypt($_POST['password']);
 
-		$sql="INSERT INTO pegawai (master_cabang_id, username, password, nama, email, no_handphone, jabatan, created_at, updated_at) VALUES ('$_POST[master_cabang_id]', '$_POST[username]', '$password', '$_POST[nama]', '$_POST[email]', '$_POST[no_handphone]', '$_POST[jabatan]', '$waktu_sekarang', '$waktu_sekarang')";
+		$sql="INSERT INTO pegawai (master_cabang_id, username, password, nama, email, no_handphone, jabatan, created_at, updated_at, level_id) VALUES ('$_POST[master_cabang_id]', '$_POST[username]', '$password', '$_POST[nama]', '$_POST[email]', '$_POST[no_handphone]', '$_POST[jabatan]', '$waktu_sekarang', '$waktu_sekarang', '$_POST[level_id]')";
 
 		mysqli_query($conn,$sql);
 		$d=mysqli_insert_id($conn);
@@ -47,7 +47,7 @@ else{
 
 		$password=encrypt($_POST['password']);
 		
-        $sql="UPDATE pegawai SET master_cabang_id='$_POST[master_cabang_id]', username='$_POST[username]', password='$password', nama='$_POST[nama]', email='$_POST[email]', no_handphone='$_POST[no_handphone]', jabatan='$_POST[jabatan]', updated_at='$waktu_sekarang' WHERE id='$_POST[id]'";
+        $sql="UPDATE pegawai SET master_cabang_id='$_POST[master_cabang_id]', username='$_POST[username]', password='$password', nama='$_POST[nama]', email='$_POST[email]', no_handphone='$_POST[no_handphone]', jabatan='$_POST[jabatan]', updated_at='$waktu_sekarang', level_id='$_POST[level_id]' WHERE id='$_POST[id]'";
 
         mysqli_query($conn,$sql);
 

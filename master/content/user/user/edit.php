@@ -65,10 +65,28 @@ $password=decrypt($d['password']);
                         </div>
                     </div>
 
-                    <div class="col-md-12 mb-2">
+                    <div class="col-md-6 mb-2">
                         <div class="form-group">
                             <label>Jabatan <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" value="<?php echo $d['jabatan'];?>" name="jabatan" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <div class="form-group">
+                            <label>Level <span class="text-danger">*</span></label>
+                            <select name="level_id" class="form-control" required>
+                                <?php
+                                $tampil=mysqli_query($conn,"SELECT * FROM pegawai_level");
+                                while($r=mysqli_fetch_array($tampil)){
+                                    if($r['id']==$d['level_id']){
+                                        echo "<option value='$r[id]' selected>$r[nama]</option>";
+                                    }
+                                    else{
+                                        echo "<option value='$r[id]'>$r[nama]</option>";
+                                    }
+                                }
+                                ?>
+                            </select>
                         </div>
                     </div>
                 </div>
