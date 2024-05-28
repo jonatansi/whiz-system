@@ -79,9 +79,23 @@ else{
         include "add/table.php";
 	}
 
+	else if($act=='master_guna_kategori'){
+		include "add/master_guna_kategori.php";
+	}
+
 	else if($act=='input'){
 		$tanggal_awal = "$thn_sekarang-01-01";
 		$tanggal_akhir = "$thn_sekarang-12:31";
+
+		$d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM master_guna WHERE id='$_POST[master_guna_id]'"));
+		if($d['type']=='1'){
+			$sql="SELECT id, kode, nama FROM master_customer WHERE id='$_POST[master_guna_kategori_id]'";
+		}
+		else if($d['type']=='2'){
+			$sql="SELECT id, nama FROM master_guna_kategori WHERE id=$_POST[master_guna_kategori_id]'";
+		}
+		$x=mysqli_fetch_array(mysqli_query($conn,$sql));
+		$user_identity = $x['nama'];
 
 		$d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM master_guna WHERE id='$_POST[master_guna_id]'"));
 
@@ -94,7 +108,7 @@ else{
 
 		$status_id = 300;
 
-		$sql="INSERT INTO guna (nomor, tanggal, created_master_cabang_id, created_pegawai_id, master_guna_id, used_master_cabang_id, request_pegawai_id, request_pegawai_jabatan, no_ref, alamat_tujuan, lok_provinsi_id, lok_kabupaten_id, lok_kecamatan_id, lok_kelurahan_id, tujuan_kode_pos, urutan, status_id, created_at, updated_at, deskripsi, tujuan_penggunaan) VALUES ('$number', '$_POST[tanggal]', '$_SESSION[master_cabang_id]', '$_SESSION[login_user]',  '$_POST[master_guna_id]', '$_SESSION[master_cabang_id]', '$_POST[request_pegawai_id]', '$_POST[request_pegawai_jabatan]', '$_POST[no_ref]', '$_POST[alamat_tujuan]', '$_POST[lok_provinsi_id]', '$_POST[lok_kabupaten_id]', '$_POST[lok_kecamatan_id]', '$_POST[lok_kelurahan_id]', '$_POST[tujuan_kode_pos]', '$urutan', '$status_id', '$waktu_sekarang', '$waktu_sekarang', '$_POST[deskripsi]', '$_POST[tujuan_penggunaan]')";
+		$sql="INSERT INTO guna (nomor, tanggal, created_master_cabang_id, created_pegawai_id, master_guna_id, used_master_cabang_id, request_pegawai_id, request_pegawai_jabatan, no_ref, alamat_tujuan, lok_provinsi_id, lok_kabupaten_id, lok_kecamatan_id, lok_kelurahan_id, tujuan_kode_pos, urutan, status_id, created_at, updated_at, deskripsi, tujuan_penggunaan, master_guna_kategori_id, user_identity) VALUES ('$number', '$_POST[tanggal]', '$_SESSION[master_cabang_id]', '$_SESSION[login_user]',  '$_POST[master_guna_id]', '$_SESSION[master_cabang_id]', '$_POST[request_pegawai_id]', '$_POST[request_pegawai_jabatan]', '$_POST[no_ref]', '$_POST[alamat_tujuan]', '$_POST[lok_provinsi_id]', '$_POST[lok_kabupaten_id]', '$_POST[lok_kecamatan_id]', '$_POST[lok_kelurahan_id]', '$_POST[tujuan_kode_pos]', '$urutan', '$status_id', '$waktu_sekarang', '$waktu_sekarang', '$_POST[deskripsi]', '$_POST[tujuan_penggunaan]', '$_POST[master_guna_kategori_id]', '$user_identity')";
 
 		mysqli_query($conn, $sql);
 
@@ -169,7 +183,7 @@ else{
 					mysqli_query($conn,"UPDATE material_sn SET status_id='505' WHERE id='$r[material_sn_id]'");
 
 					//CATAT DI LOG MATERIAL SN
-					mysqli_query($conn,"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark) VALUES ('$r[material_sn_id]', '525', '$waktu_sekarang', 'Penggunaan Material pada Transaksi $number')");
+					mysqli_query($conn,"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark, act_type_id, act_table_id, transaction_number) VALUES ('$r[material_sn_id]', '525', '$waktu_sekarang', 'Penggunaan Material', '5', '$_POST[guna_id]', '$number')");
 				}
 			}
 

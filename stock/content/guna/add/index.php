@@ -80,13 +80,30 @@
                             </div>
                             <div class="row form-group">
                                 <label class="col-md-5 pt-2 text-end">
+                                    User Identity <small class="text-danger">*</small>
+                                </label>
+                                <div class="col-md-7">
+                                    <select name="master_guna_kategori_id" class="form-control" required id="master_guna_kategori_id">
+                                    
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <label class="col-md-5 pt-2 text-end">
                                     Nomor Referensi <small class="text-danger">*</small>
                                 </label>
                                 <div class="col-md-7">
                                     <input type="text" name="no_ref" class="form-control" required>
                                 </div>
                             </div>
-                            
+                            <div class="row form-group">
+                                <label class="col-md-5 pt-2 text-end">
+                                    Tujuan Penggunaan <small class="text-danger">*</small>
+                                </label>
+                                <div class="col-md-7">
+                                    <input type="text"  name="tujuan_penggunaan" class="form-control" required>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
@@ -128,14 +145,6 @@
                                 </label>
                                 <div class="col-md-7">
                                     <textarea name="alamat_tujuan" class="form-control" required></textarea>
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <label class="col-md-5 pt-2 text-end">
-                                    Tujuan Penggunaan <small class="text-danger">*</small>
-                                </label>
-                                <div class="col-md-7">
-                                    <input type="text"  name="tujuan_penggunaan" class="form-control" required>
                                 </div>
                             </div>
                         </div>
@@ -180,23 +189,40 @@
 </div>
 </form>
 <script type="text/javascript">
-$(document).ready( function () {
-    $.ajax({
-        type: 'POST',
-        url: 'guna-table-material-add',
-        beforeSend: function() {
-            $('.preloader').show();
-            $('#table_add_material').html("Loading...");
-        },
-        complete: function() {
-            $('.preloader').hide();
-        },
+$(document).ready(function () {
+    // Function to handle AJAX requests
+    function sendAjaxRequest(type, url, data, targetElement) {
+        $.ajax({
+            type: type,
+            url: url,
+            data: data,
+            beforeSend: function() {
+                $('.preloader').show();
+                $(targetElement).html("Loading...");
+            },
+            complete: function() {
+                $('.preloader').hide();
+            },
+            success: function(response) {
+                $(targetElement).html(response);
+            }
+        });
+    }
 
-        success: function(msg) {
-            $('#table_add_material').html(msg);
-        }
+    // Initial AJAX request for adding materials
+    sendAjaxRequest('POST', 'guna-table-material-add', {}, '#table_add_material');
+
+    // Initial AJAX request for master kategori
+    var masterGunaId = $("#master_guna_id").val();
+    sendAjaxRequest('POST', 'guna-master-kategori', { 'master_guna_id': masterGunaId }, '#master_guna_kategori_id');
+
+    // Event handler for change event on master_guna_id
+    $("#master_guna_id").change(function() {
+        var masterGunaId = $(this).val();
+        sendAjaxRequest('POST', 'guna-master-kategori', { 'master_guna_id': masterGunaId }, '#master_guna_kategori_id');
     });
-});  
+});
+
 
 function validateForm() {
     var requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');

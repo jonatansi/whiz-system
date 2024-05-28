@@ -92,39 +92,47 @@
 </form>
 <script type="text/javascript">
 $(document).ready(function () {
-    function validateGudang() {
-        var master_gudang_tujuan_id = $("#master_gudang_tujuan_id").val();
+    // Function to handle AJAX requests with optional callback
+    function sendAjaxRequest(type, url, data, targetElement, callback) {
         $.ajax({
-            type: 'POST',
-            url: "mutasi-validasi-gudang",
-            cache: false,
-            data: {
-                'master_gudang_tujuan_id': master_gudang_tujuan_id
+            type: type,
+            url: url,
+            data: data,
+            beforeSend: function () {
+                $('.preloader').show();
+                if (targetElement) {
+                    $(targetElement).html("Loading...");
+                }
             },
-            success: function (data) {
-                $("#btnSubmit").prop("disabled", data == 'true');
+            complete: function () {
+                $('.preloader').hide();
+            },
+            success: function (response) {
+                if (targetElement) {
+                    $(targetElement).html(response);
+                }
+                if (callback && typeof callback === 'function') {
+                    callback(response);
+                }
             }
         });
     }
 
-    $.ajax({
-        type: 'POST',
-        url: 'mutasi-table-material-add',
-        beforeSend: function () {
-            $('.preloader').show();
-            $('#table_add_material').html("Loading...");
-        },
-        complete: function () {
-            $('.preloader').hide();
-        },
-        success: function (msg) {
-            $('#table_add_material').html(msg);
-            validateGudang();
-        }
-    });
+    // Function to validate Gudang
+    function validateGudang() {
+        var masterGudangTujuanId = $("#master_gudang_tujuan_id").val();
+        sendAjaxRequest('POST', 'mutasi-validasi-gudang', { 'master_gudang_tujuan_id': masterGudangTujuanId }, null, function(data) {
+            $("#btnSubmit").prop("disabled", data === 'true');
+        });
+    }
 
+    // Initial AJAX request for adding materials and validate Gudang
+    sendAjaxRequest('POST', 'mutasi-table-material-add', {}, '#table_add_material', validateGudang);
+
+    // Event handler for change event on master_gudang_tujuan_id
     $("#master_gudang_tujuan_id").change(validateGudang);
 });
+
 
 function validateForm() {
     var requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');

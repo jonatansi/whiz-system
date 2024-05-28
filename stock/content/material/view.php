@@ -68,6 +68,7 @@
                                     <tr>
                                         <th width="15%">Tanggal / Jam</th>
                                         <th>Status</th>
+                                        <th>Transaksi</th>
                                         <th>Keterangan</th>
                                     </tr>
                                 </thead>
@@ -76,10 +77,26 @@
                                     $tampil=mysqli_query($conn,"SELECT a.*, b.nama AS nama_status,b.warna AS warna_status FROM material_sn_log a INNER JOIN master_status b ON a.status_id=b.id WHERE a.material_sn_id='$d[id]'");
                                     while($r=mysqli_fetch_array($tampil)){
                                         $status = "<span class='badge bg-$r[warna_status]'>$r[nama_status]</span>";
+                                        if($r['act_type_id']=='1'){
+                                            $transaksi = "<a href='terimapo-view-$r[act_table_id]'>$r[transaction_number]</a>";
+                                        }
+                                        else if($r['act_type_id']=='2'){
+                                            $transaksi = "<a href='mutasi-view-$r[act_table_id]'>$r[transaction_number]</a>";
+                                        }
+                                        else if($r['act_type_id']=='3'){
+                                            $transaksi = "<a href='opname-view-$r[act_table_id]'>$r[transaction_number]</a>";
+                                        }
+                                        else if($r['act_type_id']=='4'){
+                                            $transaksi = "<a href='dismantle-view-$r[act_table_id]'>$r[transaction_number]</a>";
+                                        }
+                                        else if($r['act_type_id']=='5'){
+                                            $transaksi = "<a href='guna-view-$r[act_table_id]'>$r[transaction_number]</a>";
+                                        }
                                         ?>
                                         <tr>
                                             <td><?php echo WaktuIndo($r['created_at']);?></td>
                                             <td><?php echo $status;?></td>
+                                            <td><?php echo $transaksi;?></td>
                                             <td><?php echo $r['remark'];?></td>
                                         </tr>
                                         <?php

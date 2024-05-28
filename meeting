@@ -157,8 +157,8 @@ Rapat 24 Mei 2024
 
 PENGGUNAAN
 - Tambah Penggunaan 
-  - Jika yang dipilih adalah Work Order  dan Tiket Gangguan, maka akan muncul form User Identity yang dimana opsi ini adalah data pelanggan, maka dari itu perlu dibuat master pelanggan
-  - Jika yang dipilih adalah Penggunaan Internal atau Project Development, maka akan muncul form User Identity yang dimana opsinya adalah subkategori dari masing-masing kategori Penggunaan
+  - Jika yang dipilih adalah Work Order  dan Tiket Gangguan, maka akan muncul form User Identity yang dimana opsi ini adalah data pelanggan, maka dari itu perlu dibuat master pelanggan [DONE]
+  - Jika yang dipilih adalah Penggunaan Internal atau Project Development, maka akan muncul form User Identity yang dimana opsinya adalah subkategori dari masing-masing kategori Penggunaan [DONE]
   - Serial number yang dipilih adalah barang yang status "Tersedia dari PO" dan "Tersedia Bekas". Ini diterapkan juga saat stok opname dan mutasi barang [DONE]
 
 Dismantle
@@ -178,7 +178,7 @@ Status Material SN [DONE]
 - Proses Klaim Garansi
 - Peralihan Hak Milik
 
-Material SN Log, perlu dibuatkan relasi ID nya sehingga bisa diklik view detail
+Material SN Log, perlu dibuatkan relasi ID nya sehingga bisa diklik view detail [DONE]
 
 Penerimaan PO ditambahkan field
    - Peruntukkan : Aset, Project, Habis Pakai

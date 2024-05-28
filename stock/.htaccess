@@ -119,6 +119,7 @@ RewriteRule ^guna-data$ content/guna/aksi.php?act=data_json [QSA,L]
 
 RewriteRule ^guna-tambah$ media.php?module=guna&act=tambah [QSA,L]
 RewriteRule ^guna-table-material-add$ content/guna/aksi.php?act=table_add_material [QSA,L]
+RewriteRule ^guna-master-kategori$ content/guna/aksi.php?act=master_guna_kategori [QSA,L]
 RewriteRule ^guna-input$ content/guna/aksi.php?act=input [QSA,L]
 
 RewriteRule ^guna-tambah-material$ content/guna/aksi.php?act=tambah_material [QSA,L]

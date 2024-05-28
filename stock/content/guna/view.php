@@ -87,6 +87,10 @@ if(isset($d['id'])!=''){
                                 <td class="fw-bold">Jabatan Requester</td>
                                 <td class="text-end"><?php echo $d['request_pegawai_jabatan'];?></td>
                             </tr>
+                            <tr>
+                                <td class="fw-bold">Remark / Note</td>
+                                <td class="text-end"><?php echo $d['deskripsi'];?></td>
+                            </tr>
                         </table>
                     </div>
                     <div class="col-md-4 offset-md-4">
@@ -95,7 +99,10 @@ if(isset($d['id'])!=''){
                                 <td class="fw-bold">Kategori Penggunaan</td>
                                 <td class="text-end"><?php echo $d['nama_kegunaan'];?></td>
                             </tr>
-
+                            <tr>
+                                <td class="fw-bold">User Identity</td>
+                                <td class="text-end"><?php echo $d['user_identity'];?></td>
+                            </tr>
                             <tr>
                                 <td class="fw-bold">Tujuan Penggunaan</td>
                                 <td class="text-end"><?php echo $d['tujuan_penggunaan'];?></td>
@@ -112,10 +119,7 @@ if(isset($d['id'])!=''){
                                     ?>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="fw-bold">Remark / Note</td>
-                                <td class="text-end"><?php echo $d['deskripsi'];?></td>
-                            </tr>
+                            
                         </table>
                     </div>
                 </div>

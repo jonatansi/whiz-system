@@ -162,7 +162,7 @@ else{
 					mysqli_query($conn,"UPDATE material_sn SET master_gudang_id='$d[master_gudang_tujuan_id]' WHERE id='$r[material_sn_id]'");
 					// echo"UPDATE material_sn SET master_gudang_id='$d[master_gudang_tujuan_id]' WHERE id='$r[material_sn_id]'<br>";
 					
-					mysqli_query($conn,"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark) VALUES ('$r[material_sn_id]', '520', '$waktu_sekarang', 'Mutasi pada Transaksi $d[nomor]')");
+					mysqli_query($conn,"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark, act_type_id, act_table_id, transaction_number) VALUES ('$r[material_sn_id]', '520', '$waktu_sekarang', 'Mutasi Material', '2', '$_POST[mutasi_id]', '$number')");
 					// echo"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark) VALUES ('$r[material_sn_id]', '520', '$waktu_sekarang', 'Mutasi pada Transaksi $d[nomor]')<br>";
 				}
 

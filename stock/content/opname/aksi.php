@@ -255,7 +255,7 @@ else{
 					mysqli_query($conn,"UPDATE opname_sn SET status='2', material_sn_id='$material_sn_id' WHERE id='$r[id]'");
 
 					//CATAT DI LOG MATERIAL SN
-					mysqli_query($conn,"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark) VALUES ('$material_sn_id', '$r[material_sn_status_id]', '$waktu_sekarang', 'Stok Opname pada Transaksi $number dengan keterangan $r[remark]')");
+					mysqli_query($conn,"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark, act_type_id, act_table_id, transaction_number) VALUES ('$material_sn_id', '$r[material_sn_status_id]', '$waktu_sekarang', 'Stok Opname dengan keterangan $r[remark]', '3', '$_POST[opname_id]', '$number')");
 				}
 			}
 

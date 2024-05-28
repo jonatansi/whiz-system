@@ -256,7 +256,7 @@ else{
 					mysqli_query($conn,"UPDATE po_terima_sn SET material_sn_id='$material_sn_id' WHERE id='$tsn[id]'");
 
 					//MASUKKAN DATA LOG SERIAL NUMBER
-					mysqli_query($conn,"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark) VALUES ('$material_sn_id', '515', '$waktu_sekarang', 'Receipt of materials $number')");
+					mysqli_query($conn,"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark, act_type_id, act_table_id, transaction_number) VALUES ('$material_sn_id', '515', '$waktu_sekarang', 'Receipt of materials', '1', '$_POST[po_terima_id]', '$number')");
 				}
 			}
 
