@@ -77,6 +77,7 @@
                                     $tampil=mysqli_query($conn,"SELECT a.*, b.nama AS nama_status,b.warna AS warna_status FROM material_sn_log a INNER JOIN master_status b ON a.status_id=b.id WHERE a.material_sn_id='$d[id]'");
                                     while($r=mysqli_fetch_array($tampil)){
                                         $status = "<span class='badge bg-$r[warna_status]'>$r[nama_status]</span>";
+                                        $transaksi="";
                                         if($r['act_type_id']=='1'){
                                             $transaksi = "<a href='terimapo-view-$r[act_table_id]'>$r[transaction_number]</a>";
                                         }

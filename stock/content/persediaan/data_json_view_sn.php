@@ -66,10 +66,11 @@ $data = array();
 $no=$start+1;
 
 while( $row=mysqli_fetch_array($sql_data)) {  // preparing an array
+
     $status="<span class='badge bg-$row[warna_status]'>$row[nama_status]</span>";
     $nestedData=array(); 
     $nestedData[] = WaktuIndo($row['created_at']);
-    $nestedData[] = $row["serial_number"];
+    $nestedData[] = "<a href='material-view-$row[id]' class='text-primary'>$row[serial_number]</a>";
     $nestedData[] = $status;
     $nestedData[] = $row['nama_kondisi'];
     $nestedData[] = formatAngka($row['harga']);

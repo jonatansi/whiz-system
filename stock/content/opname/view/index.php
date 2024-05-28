@@ -58,7 +58,7 @@ if(isset($d['id'])!=''){
                         <?php
                         if($d['status_id']=='350' AND $d['created_master_cabang_id']==$_SESSION['master_cabang_id']){
                             ?>
-                            <button class='btn btn-success btn-sm ml-2 btnNext' id='<?php echo $d['id'];?>'><i class='fas fa-check'></i> On Progress</button>
+                            <button class='btn btn-success btn-sm ml-2 btnNext' id='<?php echo $d['id'];?>' <?php if($d['total_aktual']!=$d['total_sn']){echo "disabled";}?>><i class='fas fa-check'></i> On Progress</button>
                             <button class='btn btn-danger btn-sm ml-2 btnCancel' id='<?php echo $d['id'];?>'><i class='fas fa-times'></i> Cancel</button>
                             <?php
                         }

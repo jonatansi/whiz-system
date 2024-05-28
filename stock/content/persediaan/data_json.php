@@ -79,7 +79,7 @@ while( $row=mysqli_fetch_array($sql_data)) {  // preparing an array
     $nestedData[] = $no;
     $nestedData[] = $row['nama_kategori'];
     $nestedData[] = $row["merk_type"];
-    $nestedData[] = "<a href='persediaan-view-$row[id]' target='_blank' class='text-primary'>$row[jumlah]</a>";
+    $nestedData[] = "<a href='persediaan-view-$row[id]' class='text-primary'>$row[jumlah]</a>";
     $nestedData[] = $row['nama_satuan'];
     $nestedData[] = $row['nama_gudang'];
                     
