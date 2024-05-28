@@ -51,6 +51,15 @@
                                     <input type="date" name="tanggal" class="form-control" required max="<?php echo $tgl_sekarang;?>" value="<?php echo $tgl_sekarang;?>">
                                 </div>
                             </div>
+
+                            <div class="row form-group">
+                                <label class="col-md-5 pt-2 text-end">
+                                    Remark / Note
+                                </label>
+                                <div class="col-md-7">
+                                    <textarea name="deskripsi" class="form-control"></textarea>
+                                </div>
+                            </div>
                             
                         </div>
                         <div class="col-md-6"> 
@@ -59,7 +68,7 @@
                                     Kategori Penggunaan <small class="text-danger">*</small>
                                 </label>
                                 <div class="col-md-7">
-                                    <select name="master_guna_id" class="form-control" required>
+                                    <select name="master_guna_id" class="form-control" required id="master_guna_id">
                                     <?php
                                         $tampil=mysqli_query($conn, "SELECT * FROM master_guna ORDER BY nama");
                                         while($r=mysqli_fetch_array($tampil)){
@@ -77,14 +86,7 @@
                                     <input type="text" name="no_ref" class="form-control" required>
                                 </div>
                             </div>
-                            <div class="row form-group">
-                                <label class="col-md-5 pt-2 text-end">
-                                    Remark / Note
-                                </label>
-                                <div class="col-md-7">
-                                    <textarea name="deskripsi" class="form-control"></textarea>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                     

@@ -152,10 +152,13 @@ Rapat 24 Mei 2024
 - Modul pelanggan [DONE]
   - CRUD dengan kolom ID Pelanggan dan Nama
 
+- Modul user identity project development dan penggunaan internal [DONE]
+
+
 PENGGUNAAN
 - Tambah Penggunaan 
   - Jika yang dipilih adalah Work Order  dan Tiket Gangguan, maka akan muncul form User Identity yang dimana opsi ini adalah data pelanggan, maka dari itu perlu dibuat master pelanggan
-  - Jika yang dipilih adalah Penggunaan Internal atau Project Develoment, maka akan muncul form User Identity yang dimana opsinya adalah subkategori dari masing-masing kategori Penggunaan
+  - Jika yang dipilih adalah Penggunaan Internal atau Project Development, maka akan muncul form User Identity yang dimana opsinya adalah subkategori dari masing-masing kategori Penggunaan
   - Serial number yang dipilih adalah barang yang status "Tersedia dari PO" dan "Tersedia Bekas"
 
 Dismantle

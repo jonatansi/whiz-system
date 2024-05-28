@@ -25,6 +25,9 @@
         else if($module=='user'){
             include "content/user/index.php";
         }
+        else if($module=='katguna'){
+            include "content/katguna/index.php";
+        }
         ?>
     </div>
 </div>

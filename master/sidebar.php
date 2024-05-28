@@ -72,6 +72,13 @@
                         <span class="side-menu__label">Material</span>
                     </a>
                 </li>
+
+                <li class="slide <?php if($module=='katguna'){echo "active";}?>">
+                    <a href="<?php echo $BASE_URL_MASTER;?>/katguna" class="side-menu__item <?php if($module=='katguna'){echo "active";}?>">
+                        <i class="fa fa-list side-menu__icon"></i>
+                        <span class="side-menu__label">UI Penggunaan</span>
+                    </a>
+                </li>
                 
                 
                 <li class="slide__category"><span class="category-name">User Management</span></li>

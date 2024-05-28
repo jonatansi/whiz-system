@@ -90,4 +90,13 @@ RewriteRule ^satuan-edit$ content/satuan/aksi.php?act=edit [QSA,L]
 RewriteRule ^satuan-update$ content/satuan/aksi.php?act=update [QSA,L]
 RewriteRule ^satuan-delete-([0-9a-zA-Z-]+)$ content/satuan/aksi.php?act=delete&id=$1 [QSA,L]
 
+
+### kategori penggunaan
+RewriteRule ^katguna$ media.php?module=katguna [QSA,L]
+RewriteRule ^katguna-tambah$ content/katguna/aksi.php?act=tambah [QSA,L]
+RewriteRule ^katguna-input$ content/katguna/aksi.php?act=input [QSA,L]
+RewriteRule ^katguna-edit$ content/katguna/aksi.php?act=edit [QSA,L]
+RewriteRule ^katguna-update$ content/katguna/aksi.php?act=update [QSA,L]
+RewriteRule ^katguna-delete-([0-9a-zA-Z-]+)$ content/katguna/aksi.php?act=delete&id=$1 [QSA,L]
+
 </IfModule>
