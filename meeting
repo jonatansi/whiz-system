@@ -142,8 +142,8 @@ Stok Opname
 
 
 Rapat 24 Mei 2024
-- Wording kondisi menjadi Pembelian Awal
-- Di dalam View material view ada tombol "Dismantle" jika status Digunakan
+- Wording kondisi menjadi Pembelian Awal [DONE]
+- Di dalam View material view ada tombol "Dismantle" jika status Digunakan //diganti menjadi satu menu sendiri
    >> Pada form ini yaitu
       - Tanggal Dismantle
       - Dokumen pendukung

@@ -253,7 +253,7 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[id]'"));
                     <th class="text-left">MERK/TYPE</th>
                     <th>JLH SATUAN BESAR</th>
                     <th>JLH SATUAN DASAR</th>
-                    <th>KONDISI</th>
+                    <th>KONDISI PEMBELIAN AWAL</th>
                     <th>HARGA SATUAN</th>
                     <th>SUBTOTAL</th>
                 </tr>

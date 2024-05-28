@@ -6,7 +6,7 @@
             <th>Merk/Type</th>
             <th>Jlh Tercatat</th>
             <th>Satuan</th>
-            <th>Kondisi</th>
+            <th>Kondisi Pembelian Awal</th>
         </tr>
     </thead>
     <tbody>

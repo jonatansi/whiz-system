@@ -109,7 +109,7 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[po_id]'"));
                             <th><input type="checkbox" onclick="toggle(this);" checked></th>
                             <th>KATEGORI</th>
                             <th>MERK/TYPE</th>
-                            <th>KONDISI</th>
+                            <th>KONDISI PEMBELIAN AWAL</th>
                             <th>JLH ITEM</th>
                             <th width="150px">SDH DITERIMA</th>
                             <th width="150px">JLH DITERIMA <small class="text-danger">* </small></th>

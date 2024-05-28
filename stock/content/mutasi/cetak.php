@@ -225,7 +225,7 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[id]'"));
                     <th class="text-left">KATEGORI</th>
                     <th class="text-left">MERK/TYPE</th>
                     <th>JLH ITEM</th>
-                    <th>KONDISI</th>
+                    <th>KONDISI PEMBELIAN AWAL</th>
                     <th>GUDANG ASAL</th>
                     <th>SN</th>
                 </tr>

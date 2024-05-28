@@ -11,7 +11,7 @@ $so =  mysqli_fetch_array(mysqli_query($conn,"SELECT status_id FROM opname WHERE
             <th>Jlh Aktual</th>
             <th>Total SN Diinput</th>
             <th>Satuan</th>
-            <th>Kondisi</th>
+            <th>Kondisi Pembelian Awal</th>
             <th>Remark</th>
             <?php
             if($so['status_id']!='365' AND $so['status_id']!='355'){

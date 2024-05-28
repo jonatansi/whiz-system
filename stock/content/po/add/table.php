@@ -6,7 +6,7 @@
             <th>Merk/Type</th>
             <th>Jlh Satuan Besar</th>
             <th>Jlh Satuan Dasar</th>
-            <th>Kondisi</th>
+            <th>Kondisi Pembelian Awal</th>
             <th>Harga Satuan</th>
             <th>Jumlah Harga</th>
             <th width="60px">Aksi</th>

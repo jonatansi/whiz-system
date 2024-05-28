@@ -102,7 +102,7 @@ if(isset($d['id'])!=''){
                                 <th width="50px">NO</th>
                                 <th>KATEGORI</th>
                                 <th>MERK/TYPE</th>
-                                <th>KONDISI</th>
+                                <th>KONDISI PEMBELIAN AWAL</th>
                                 <th>JLH DITERIMA</th>
                                 <th>JLH ITEM</th>
                                 <th>GUDANG</th>

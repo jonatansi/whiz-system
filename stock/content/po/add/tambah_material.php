@@ -31,7 +31,7 @@
 
                 <div class="row mb-3">
                     <div class="col-md-12">
-                        <label>Kondisi <span class="text-danger">*</span></label>
+                        <label>Kondisi Pembelian Awal<span class="text-danger">*</span></label>
                         <select name="master_kondisi_id" class="form-control select2"required>
                         <?php
                             $tampil=mysqli_query($conn,"SELECT * FROM master_kondisi WHERE deleted_at IS NULL ORDER BY nama");

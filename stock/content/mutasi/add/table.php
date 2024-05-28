@@ -5,7 +5,7 @@
             <th>Kategori</th>
             <th>Merk/Type</th>
             <th>Jlh Item</th>
-            <th>Kondisi</th>
+            <th>Kondisi Pembelian Awal</th>
             <th>Gudang Asal</th>
             <th width="60px">Aksi</th>
         </tr>

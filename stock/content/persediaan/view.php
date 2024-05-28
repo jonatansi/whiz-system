@@ -88,7 +88,7 @@ if(isset($d['id'])!=''){
                             <th width="15%">Tanggal / Jam</th>
                             <th>Serial Number</th>
                             <th>Status</th>
-                            <th>Kondisi</th>
+                            <th>Kondisi Pembelian Awal</th>
                             <th>Harga</th>
                         </tr>
                     </thead>
