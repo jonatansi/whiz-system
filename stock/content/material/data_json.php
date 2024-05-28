@@ -5,23 +5,26 @@ $columns = array(
     2=> 'c.nama',
     3=> 'f.merk_type',
     4=> 'd.nama',
-    5=> 'b.nama',
-    6=> 'g.nama',
-    7=> 'a.harga',
-    8=> 'e.nama'
+    5=> 'h.nama',
+    6=> 'b.nama',
+    7=> 'g.nama',
+    8=> 'a.harga',
+    9=> 'e.nama'
 );
 
-$pencarian = array('a.id', 'a.serial_number', 'c.nama', 'f.merk_type', 'd.nama', 'b.nama', 'g.nama', 'a.harga', 'e.nama');
+$pencarian = array('a.id', 'a.serial_number', 'c.nama', 'f.merk_type', 'd.nama', 'h.nama', 'b.nama', 'g.nama', 'a.harga', 'e.nama');
 
 $pegawai = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai WHERE id='$_SESSION[login_user]'"));
 
-$query = "SELECT a.*, b.nama AS nama_gudang, c.nama AS nama_kategori, d.nama AS nama_kondisi, e.nama AS nama_status, e.warna AS warna_status, f.merk_type, g.nama AS nama_cabang FROM material_sn a
+$query = "SELECT a.*, b.nama AS nama_gudang, c.nama AS nama_kategori, d.nama AS nama_kondisi, e.nama AS nama_status, e.warna AS warna_status, f.merk_type, g.nama AS nama_cabang, h.nama AS nama_klasifikasi FROM material_sn a
 LEFT JOIN master_gudang b ON a.master_gudang_id=b.id AND b.deleted_at IS NULL
 LEFT JOIN master_kategori_material c on a.master_kategori_material_id=c.id AND c.deleted_at IS NULL
 LEFT JOIN master_kondisi d ON a.master_kondisi_id=d.id AND d.deleted_at IS NULL
 LEFT JOIN master_material f ON a.master_material_id=f.id AND f.deleted_at IS NULL
 LEFT JOIN master_cabang g ON b.master_cabang_id=g.id AND g.deleted_at IS NULL
-LEFT JOIN master_status e ON a.status_id=e.id WHERE b.deleted_at IS NULL";
+LEFT JOIN master_status e ON a.status_id=e.id 
+LEFT JOIN master_klasifikasi_material h ON a.master_klasifikasi_material_id=h.id
+WHERE b.deleted_at IS NULL";
 
 if($_SESSION['master_cabang_id']!='1'){
     $query.=" AND g.id='$_SESSION[master_cabang_id]' ";
@@ -83,6 +86,7 @@ while( $row=mysqli_fetch_array($sql_data)) {  // preparing an array
     $nestedData[] = $row['nama_kategori'];
     $nestedData[] = $row['merk_type'];
     $nestedData[] = $row['nama_kondisi'];
+    $nestedData[] = $row['nama_klasifikasi'];
     $nestedData[] = $row['nama_gudang'];
     $nestedData[] = $row['nama_cabang'];
     $nestedData[] = formatAngka($row['harga']);

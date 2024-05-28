@@ -22,7 +22,7 @@
                 <!-- Start::slide__category -->
                 <li class="slide__category"><span class="category-name">General</span></li>
                 <!-- End::slide__category -->
-
+               
                 <li class="slide <?php if($module=='home'){echo "active";}?>">
                     <a href="<?php echo $BASE_URL_STOCK;?>/home" class="side-menu__item <?php if($module=='home'){echo "active";}?>">
                         <i class="fe fe-home side-menu__icon"></i>
@@ -30,12 +30,18 @@
                     </a>
                 </li>
 
+                <?php
+                if($_SESSION['level_id']!='3'){
+                ?>
                 <li class="slide <?php if($module=='customer'){echo "active";}?>">
                     <a href="<?php echo $BASE_URL_STOCK;?>/customer" class="side-menu__item <?php if($module=='customer'){echo "active";}?>">
                         <i class="fa fa-user-alt side-menu__icon"></i>
                         <span class="side-menu__label">Pelanggan</span>
                     </a>
                 </li>
+                <?php
+                }
+                ?>
 
                 <li class="slide__category"><span class="category-name">Material</span></li>
 
@@ -59,7 +65,9 @@
                         <span class="side-menu__label">Pencarian Material</span>
                     </a>
                 </li> -->
-
+                <?php
+                if($_SESSION['level_id']!='3'){
+                ?>
                 <li class="slide__category"><span class="category-name">Purchase Order</span></li>
 
                 <li class="slide <?php if($module=='po'){echo "active";}?>">
@@ -105,10 +113,9 @@
                         <span class="side-menu__label">Stok Opname</span>
                     </a>
                 </li>
-
-
-                
-                
+                <?php
+                }
+                ?>
             </ul>
             <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"> <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path> </svg></div>
         </nav>

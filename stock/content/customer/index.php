@@ -11,7 +11,13 @@
 
     <div class="d-flex my-xl-auto right-content align-items-center">
         <div class="pe-1 mb-xl-0">
+            <?php
+            if($_SESSION['level_id']=='2'){
+            ?>
             <button type="button" class="btn btn-dark me-2 btn-b btnAdd"><i class="mdi mdi-plus-circle"></i> Tambah Pelanggan</button>
+            <?php
+            }
+            ?>
         </div>
     </div>
 </div>

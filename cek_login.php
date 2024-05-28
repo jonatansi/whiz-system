@@ -47,6 +47,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 				$_SESSION['username']   = $_POST['username'];
 				$_SESSION['login_system'] = 1;
 				$_SESSION['master_cabang_id'] = $row['master_cabang_id'];
+				$_SESSION['level_id'] = $row['level_id'];
 
 				mysqli_query($conn,"UPDATE pegawai SET is_login='Y', last_login_at='$waktu_sekarang' WHERE id='$row[id]'");
 

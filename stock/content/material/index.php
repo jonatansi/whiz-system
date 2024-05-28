@@ -30,6 +30,7 @@ if(isset($_GET['act'])==''){
                                     <th class="text-center">Kategori</th>
                                     <th>Merk/Type</th>
                                     <th>Pembelian Awal</th>
+                                    <th>Klasifikasi</th>
                                     <th>Gudang</th>
                                     <th>Cabang</th>
                                     <th>Harga</th>

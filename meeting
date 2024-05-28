@@ -176,12 +176,12 @@ Status Material SN [DONE]
 Material SN Log, perlu dibuatkan relasi ID nya sehingga bisa diklik view detail [DONE]
 
 Penerimaan PO ditambahkan field
-   - Peruntukkan : Aset, Project, Habis Pakai
+   - Peruntukkan : Aset, Project, Habis Pakai [DONE]
      Kalau habis pakai dan project, maka barang yang masuk ini tidak boleh digunakan lagi (dalam arti tidak bisa masuk dalam dismantle), di mutasi, atau pun stock opname
 
 Ketika SO, apabila total SN tidak sama dengan total aktual, maka tombol on progress disabled [DONE]
 
-Level User
+Level User [DONE]
    Admin HO
    Admin Cabang
    Staff Gudang : hanya bisa buka persediaan material dan data material
