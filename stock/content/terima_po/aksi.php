@@ -249,7 +249,7 @@ else{
 				//MASUKKAN DATA KE DALAM MASTER MATERIAL SERIAL NUMBER
 				$terima_sn = mysqli_query($conn,"SELECT * FROM po_terima_sn WHERE po_terima_detail_id='$r[id]' AND status='2'");
 				while($tsn=mysqli_fetch_array($terima_sn)){
-					mysqli_query($conn,"INSERT INTO material_sn (master_material_id, status_id, keterangan, serial_number, master_gudang_id, created_at, harga, master_kategori_material_id, master_kondisi_id) VALUES ('$r[master_material_id]', '$tsn[material_sn_status_id]', '', '$tsn[serial_number]', '$r[master_gudang_id]', '$waktu_sekarang', '$tsn[harga]', '$r[master_kategori_material_id]', '$r[master_kondisi_id]')");
+					mysqli_query($conn,"INSERT INTO material_sn (master_material_id, status_id, keterangan, serial_number, master_gudang_id, created_at, harga, master_kategori_material_id, master_kondisi_id, master_klasifikasi_material_id) VALUES ('$r[master_material_id]', '$tsn[material_sn_status_id]', '', '$tsn[serial_number]', '$r[master_gudang_id]', '$waktu_sekarang', '$tsn[harga]', '$r[master_kategori_material_id]', '$r[master_kondisi_id]', '$r[master_klasifikasi_material_id]')");
 
 					$material_sn_id = mysqli_insert_id($conn);
 
@@ -276,8 +276,6 @@ else{
 		
 			mysqli_query($conn,"UPDATE po SET status_id='$status_po', updated_at='$waktu_sekarang' WHERE id='$_POST[po_id]' AND deleted_at IS NULL");
 			
-			
-
 			mysqli_query($conn,"INSERT INTO po_log (po_id, status_id, created_at, pegawai_id, dokumen, remark) VALUES ('$_POST[po_id]', '$status_po', '$waktu_sekarang', '$_SESSION[login_user]', '$nama_file_unik', '$_POST[remark]')");
 
 			mysqli_commit($conn);

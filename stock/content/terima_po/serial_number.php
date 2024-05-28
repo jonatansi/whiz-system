@@ -72,8 +72,21 @@ $jumlah_item = $d['jumlah_diterima']*$d['jumlah_konversi'];
                                     <label class="col-md-2 text-end pt-2">
                                         Serial Number <small class="text-danger">*</small>
                                     </label>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <input type="text" class="form-control" name="serial_number" required autofocus <?php if($jumlah_item<=$d['total_sn']){echo "disabled";}?>>
+                                    </div>
+                                    <label class="col-md-2 text-end pt-2">
+                                        Diperuntukkan <small class="text-danger">*</small>
+                                    </label>
+                                    <div class="col-md-3">
+                                        <select name="master_klasifikasi_material_id" class="form-control">
+                                            <?php
+                                            $tampil=mysqli_query($conn,"SELECT * FROM master_klasifikasi_material");
+                                            while($r=mysqli_fetch_array($tampil)){
+                                                echo "<option value='$r[id]'>$r[nama]</option>";
+                                            }
+                                            ?>
+                                        </select>
                                     </div>
                                     <div class="col-md-3">
                                         <button type="submit" class="btn btn-success"  <?php if($jumlah_item<=$d['total_sn']){echo "disabled";}?>>Simpan</button>
@@ -94,13 +107,14 @@ $jumlah_item = $d['jumlah_diterima']*$d['jumlah_konversi'];
                                             <th width="100">No.</th>
                                             <th>Serial Number</th>
                                             <th>Harga</th>
+                                            <th>Diperuntukkan</th>
                                             <th width="100px">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
                                         $no=1;
-                                        $tampil=mysqli_query($conn,"SELECT * FROM po_terima_sn WHERE po_terima_detail_id='$_GET[id]'");
+                                        $tampil=mysqli_query($conn,"SELECT a.*, b.nama AS nama_klasifikasi FROM po_terima_sn a LEFT JOIN master_klasifikasi_material b ON a.master_klasifikasi_material_id=b.id WHERE a.po_terima_detail_id='$_GET[id]'");
                                         while($r=mysqli_fetch_array($tampil)){
                                             $datetimeObj = new DateTime($r['created_at']);
                                             $tanggal_sn = $datetimeObj->format('Y-m-d');
@@ -109,6 +123,7 @@ $jumlah_item = $d['jumlah_diterima']*$d['jumlah_konversi'];
                                                 <td><?php echo $no;?></td>
                                                 <td><?php echo $r['serial_number'];?></td>
                                                 <td><?php echo formatAngka($r['harga']);?></td>
+                                                <td><?php echo $r['nama_klasifiksi'];?></td>
                                                 <td>
                                                     <?php
                                                     if($r['status']=='1'){

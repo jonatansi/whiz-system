@@ -34,6 +34,7 @@ $('#loginForm').submit(function(e) {
                 $.post("ceklogin", { 
                     username: username, 
                     password: password,
+                    id_portal: id_portal,
                     token: token
                 },
                 function(data) {
@@ -44,6 +45,9 @@ $('#loginForm').submit(function(e) {
                     else{
                         if(data=='-1'){
                             $("#error").html("<div class='alert alert-danger'>Not valid from Google Recaptcha</div>");
+                        }
+                        else if(data=='notauth'){
+                            $("#error").html("<div class='alert alert-danger'>You are not authorized for access this portal</div>");
                         }
                         else{
                             $("#error").html("<div class='alert alert-danger'>Invalid Login</div>");

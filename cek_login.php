@@ -35,27 +35,32 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
 		$row = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM pegawai WHERE username='$username' AND password='$password' AND deleted_at IS NULL"));
 		if (isset($row['id']) != '') {
-            include "timeout.php";
-            timer();
+			if(($_POST['id_portal']=='master' AND $row['level_id']=='1') OR $_POST['id_portal']=='stock'){
+				include "timeout.php";
+				timer();
 
-            session_regenerate_id();
-            
-            $sid = session_id();
-            $_SESSION['login_user'] = $row['id'];
-            $_SESSION['id_session'] = $sid;
-            $_SESSION['username']   = $_POST['username'];
-            $_SESSION['login_system'] = 1;
-			$_SESSION['master_cabang_id'] = $row['master_cabang_id'];
+				session_regenerate_id();
+				
+				$sid = session_id();
+				$_SESSION['login_user'] = $row['id'];
+				$_SESSION['id_session'] = $sid;
+				$_SESSION['username']   = $_POST['username'];
+				$_SESSION['login_system'] = 1;
+				$_SESSION['master_cabang_id'] = $row['master_cabang_id'];
 
-            mysqli_query($conn,"UPDATE pegawai SET is_login='Y', last_login_at='$waktu_sekarang' WHERE id='$row[id]'");
+				mysqli_query($conn,"UPDATE pegawai SET is_login='Y', last_login_at='$waktu_sekarang' WHERE id='$row[id]'");
 
-			$user_ip = getUserIP();
+				$user_ip = getUserIP();
 
-			$browser = getBrowser();
+				$browser = getBrowser();
 
-			mysqli_query($conn,"INSERT INTO pegawai_log_login (pegawai_id, login_at, id_session, ip_address, browser) VALUES ('$_SESSION[login_user]', '$waktu_sekarang', '$_SESSION[id_session]', '$user_ip', '$browser')");
+				mysqli_query($conn,"INSERT INTO pegawai_log_login (pegawai_id, login_at, id_session, ip_address, browser) VALUES ('$_SESSION[login_user]', '$waktu_sekarang', '$_SESSION[id_session]', '$user_ip', '$browser')");
 
-            echo "ok";
+				echo "ok";
+			}
+			else{
+				echo "notauth";
+			}
         }
 		else{
 			echo "wrong";
