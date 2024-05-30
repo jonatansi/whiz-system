@@ -24,7 +24,12 @@ else{
 	}
 
 	else if($act=='input'){
-		$kode = strtoupper($_POST['kode']);
+		$d=mysqli_fetch_array(mysqli_query($conn,"SELECT kode FROM master_cabang WHERE id='$_SESSION[master_cabang_id]' AND deleted_at IS NULL"));
+		$e=mysqli_fetch_array(mysqli_query($conn,"SELECT MAX(counter) AS counter FROM master_customer WHERE master_cabang_id='$_SESSION[master_cabang_id]' AND deleted_at IS NULL"));
+		$counter = $e['counter']+1;
+		$urutan_nomor= sprintf("%06s",$counter);
+
+		$kode = "WLH-$d[kode]-$thn".$urutan_nomor;
 
 		$sql="INSERT INTO master_customer (kode, nama, master_cabang_id, created_at, updated_at) VALUES ('$kode', '$_POST[nama]', '$_SESSION[master_cabang_id]', '$waktu_sekarang', '$waktu_sekarang')";
 
@@ -40,9 +45,8 @@ else{
 	}
 
 	else if($act=='update'){
-		$kode = strtoupper($_POST['kode']);
 
-        $sql="UPDATE master_customer SET kode='$kode', nama='$_POST[nama]', updated_at='$waktu_sekarang' WHERE id='$_POST[id]'";
+        $sql="UPDATE master_customer SET nama='$_POST[nama]', updated_at='$waktu_sekarang' WHERE id='$_POST[id]'";
 
         mysqli_query($conn,$sql);
 
