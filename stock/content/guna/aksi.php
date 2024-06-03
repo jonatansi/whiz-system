@@ -190,7 +190,7 @@ else{
 				while($r=mysqli_fetch_array($data)){ 
 					
 					//UPDATE INFO MATERIAL SN TELAH DIGUNAKAN
-					mysqli_query($conn,"UPDATE material_sn SET status_id='505' WHERE id='$r[material_sn_id]'");
+					mysqli_query($conn,"UPDATE material_sn SET status_id='505', master_guna_id='$d[master_guna_id]', master_guna_kategori_id='$d[master_guna_kategori_id]', user_identity='$d[user_identity]' WHERE id='$r[material_sn_id]'");
 
 					//CATAT DI LOG MATERIAL SN
 					mysqli_query($conn,"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark, act_type_id, act_table_id, transaction_number) VALUES ('$r[material_sn_id]', '525', '$waktu_sekarang', 'Penggunaan Material', '5', '$_POST[guna_id]', '$number')");

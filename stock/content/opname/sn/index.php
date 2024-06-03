@@ -1,5 +1,5 @@
 <?php
-$sql="SELECT a.id, a.opname_id,  a.jumlah_tercatat, a.jumlah_aktual, b.merk_type, c.nama AS nama_kategori_material, d.nama AS nama_satuan_kecil, e.nama AS nama_kondisi, (SELECT COUNT(f.id) FROM opname_sn f WHERE a.id=f.opname_detail_id AND f.material_sn_status_id IN (500.501)) AS total_sn 
+$sql="SELECT a.id, a.opname_id,  a.jumlah_tercatat, a.jumlah_aktual, b.merk_type, c.nama AS nama_kategori_material, d.nama AS nama_satuan_kecil, e.nama AS nama_kondisi, (SELECT COUNT(f.id) FROM opname_sn f WHERE a.id=f.opname_detail_id AND f.material_sn_status_id IN (500,501)) AS total_sn 
 FROM opname_detail a
 LEFT JOIN master_material b ON a.master_material_id=b.id AND b.deleted_at IS NULL
 LEFT JOIN master_kategori_material c ON b.master_kategori_material_id=c.id AND c.deleted_at IS NULL

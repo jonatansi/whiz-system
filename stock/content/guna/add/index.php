@@ -69,7 +69,7 @@
                                 </label>
                                 <div class="col-md-7">
                                     <select name="master_guna_id" class="form-control" required id="master_guna_id">
-                                    <?php
+                                        <?php
                                         $tampil=mysqli_query($conn, "SELECT * FROM master_guna ORDER BY nama");
                                         while($r=mysqli_fetch_array($tampil)){
                                             echo "<option value='$r[id]'>$r[kode] - $r[nama]</option>";

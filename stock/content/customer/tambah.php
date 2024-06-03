@@ -7,12 +7,12 @@
 			</div>
 			<div class="modal-body" id="form-data">
                 <div class="row">
-                    <div class="col-md-12 mb-2">
+                    <!-- <div class="col-md-12 mb-2">
                         <div class="form-group">
                             <label>ID Pelanggan <span class="text-danger">*</span></label>
                             <input type="text" class="form-control text-uppercase" value="" name="kode" required>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="col-md-12 mb-2">
                         <div class="form-group">

@@ -29,7 +29,7 @@ if(isset($_GET['act'])==''){
                                     <th>Serial Number</th>
                                     <th class="text-center">Kategori</th>
                                     <th>Merk/Type</th>
-                                    <th>Pembelian Awal</th>
+                                    <th>Kondisi Pembelian Awal</th>
                                     <th>Klasifikasi</th>
                                     <th>Gudang</th>
                                     <th>Cabang</th>

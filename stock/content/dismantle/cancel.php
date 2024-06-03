@@ -1,9 +1,9 @@
-<form action="terimapo-cancel-action" method="POST" enctype="multipart/form-data" id="form_crud">
-<input type="hidden" name="po_terima_id" value="<?php echo $_POST['id'];?>">
+<form action="dismantle-cancel-action" method="POST" enctype="multipart/form-data" id="form_crud">
+<input type="hidden" name="dismantle_id" value="<?php echo $_POST['id'];?>">
 	<div class="modal-dialog modal-md a-lightSpeed">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h6 class="modal-title" id="modal-standard-title">Cancel Penerimaan PO</h6>
+				<h6 class="modal-title" id="modal-standard-title">Cancel Dismantle</h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body" id="form-data">
