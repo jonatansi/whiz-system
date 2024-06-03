@@ -60,7 +60,6 @@ RewriteRule ^po-cancel-action$ content/po/aksi.php?act=cancel_action [QSA,L]
 RewriteRule ^terimapo$ media.php?module=terima_po [QSA,L]
 RewriteRule ^terimapo-data$ content/terima_po/aksi.php?act=data_json [QSA,L]
 
-
 RewriteRule ^terimapo-tambahform$ content/terima_po/aksi.php?act=tambah_form [QSA,L]
 RewriteRule ^terimapo-tambah$ media.php?module=terima_po&act=tambah [QSA,L]
 RewriteRule ^terimapo-input$ content/terima_po/aksi.php?act=input [QSA,L]
@@ -77,6 +76,8 @@ RewriteRule ^terimapo-next-action$ content/terima_po/aksi.php?act=next_action [Q
 
 RewriteRule ^terimapo-cancel$ content/terima_po/aksi.php?act=cancel [QSA,L]
 RewriteRule ^terimapo-cancel-action$ content/terima_po/aksi.php?act=cancel_action [QSA,L]
+
+
 
 ### PERSEDIAAN
 RewriteRule ^persediaan$ media.php?module=persediaan [QSA,L]
@@ -174,6 +175,25 @@ RewriteRule ^opname-sn-update$ content/opname/aksi.php?act=sn_update [QSA,L]
 RewriteRule ^opname-sn-delete$ content/opname/aksi.php?act=sn_delete [QSA,L]
 
 
+### DISAMNTLE
+RewriteRule ^dismantle$ media.php?module=dismantle [QSA,L]
+RewriteRule ^dismantle-data$ content/dismantle/aksi.php?act=data_json [QSA,L]
+
+RewriteRule ^dismantle-tambahform$ content/dismantle/aksi.php?act=tambah_form [QSA,L]
+RewriteRule ^dismantle-useridentity$ content/dismantle/aksi.php?act=useridentity [QSA,L]
+
+RewriteRule ^dismantle-tambah$ media.php?module=dismantle&act=tambah [QSA,L]
+RewriteRule ^dismantle-input$ content/dismantle/aksi.php?act=input [QSA,L]
+
+RewriteRule ^dismantle-view-([0-9]+)$ media.php?module=dismantle&act=view&id=$1 [QSA,L]
+
+RewriteRule ^dismantle-next$ content/dismantle/aksi.php?act=next [QSA,L]
+RewriteRule ^dismantle-next-action$ content/dismantle/aksi.php?act=next_action [QSA,L]
+
+RewriteRule ^dismantle-cancel$ content/dismantle/aksi.php?act=cancel [QSA,L]
+RewriteRule ^dismantle-cancel-action$ content/dismantle/aksi.php?act=cancel_action [QSA,L]
+
+
 ### DATA MATERIAL
 RewriteRule ^material$ media.php?module=material [QSA,L]
 RewriteRule ^material-data$ content/material/aksi.php?act=data_json [QSA,L]
@@ -192,5 +212,6 @@ RewriteRule ^customer-input$ content/customer/aksi.php?act=input [QSA,L]
 RewriteRule ^customer-edit$ content/customer/aksi.php?act=edit [QSA,L]
 RewriteRule ^customer-update$ content/customer/aksi.php?act=update [QSA,L]
 RewriteRule ^customer-delete-([0-9a-zA-Z-]+)$ content/customer/aksi.php?act=delete&id=$1 [QSA,L]
+
 
 </IfModule>

@@ -27,6 +27,9 @@
         else if($module=='opname'){
             include "content/opname/index.php";
         }
+        else if($module=='dismantle'){
+            include "content/dismantle/index.php";
+        }
         else if($module=='profile'){
             include "content/profile/index.php";
         }

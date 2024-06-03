@@ -101,6 +101,10 @@ TRUNCATE TABLE stok;
 TRUNCATE TABLE stok_kondisi;
 TRUNCATE TABLE stok_log;
 
+TRUNCATE TABLE dismantle;
+TRUNCATE TABLE dismantle_log;
+TRUNCATE TABLE dismantle_sn;
+
 
 
 Meeting 15 Mei 2024
@@ -158,7 +162,7 @@ PENGGUNAAN
 Dismantle
 - Kode : DO
 - Ketika membuat form Dismantle, maka ketika memilih itemnya, dipilih dahulu kategori penggunaan dan kemudian muncul user identity
-  Setelah itu maka muncul barang-barang serial number sesuai dengan user identity tersebut (status material)
+  Setelah itu maka muncul barang-barang serial number sesuai dengan user identity tersebut (status material) dan termasuk klasifikasi barang aset
 - Header form yaitu, tanggal dismantle, dokumen pendukung
    Status Disamntle barang
 
