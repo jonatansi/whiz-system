@@ -44,7 +44,7 @@ else{
 			$urutan = $a['urutan']+1;
 			$urutan_nomor= sprintf("%05s",$urutan);
 
-			$number = "IN-UVT-$urutan_nomor-$thn".$bulan;
+			$number = "IN-WDB-$urutan_nomor-$thn".$bulan;
 
 			$sql="INSERT INTO po_terima (nomor, po_id, remark, status_id, urutan, created_at, updated_at, tanggal) VALUES ('$number', '$_POST[po_id]', '$_POST[remark]', '200', '$urutan_nomor', '$waktu_sekarang', '$waktu_sekarang', '$_POST[tanggal]')";
 			mysqli_query($conn, $sql);

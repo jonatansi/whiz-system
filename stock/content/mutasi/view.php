@@ -1,7 +1,8 @@
 <?php
-$sql="SELECT a.*,  b.nama AS nama_cabang, c.nama AS nama_gudang, d.nama AS nama_status, d.warna AS warna_status, COALESCE(total_item_query.total_item, 0) AS total_item, COALESCE(total_sn_query.total_sn, 0) AS total_sn
+$sql="SELECT a.*,  b.nama AS nama_cabang, c.nama AS nama_gudang, d.nama AS nama_status, d.warna AS warna_status, COALESCE(total_item_query.total_item, 0) AS total_item, COALESCE(total_sn_query.total_sn, 0) AS total_sn, x.nama AS admin_branch
 FROM mutasi a 
 LEFT JOIN master_cabang b ON a.created_master_cabang_id = b.id AND b.deleted_at IS NULL
+LEFT JOIN pegawai x ON a.request_pegawai_id=x.id AND x.deleted_at IS NULL
 LEFT JOIN master_gudang c ON a.master_gudang_tujuan_id = c.id AND c.deleted_at IS NULL
 LEFT JOIN master_status d ON a.status_id = d.id
 LEFT JOIN (SELECT mutasi_id, SUM(jumlah) AS total_item FROM mutasi_detail WHERE deleted_at IS NULL AND mutasi_id IS NOT NULL GROUP BY mutasi_id) AS total_item_query 
@@ -39,13 +40,13 @@ if(isset($d['id'])!=''){
                         <?php
                         if($d['status_id']=='250' AND $d['created_master_cabang_id']==$_SESSION['master_cabang_id']){
                             ?>
-                            <button class='btn btn-success btn-sm ml-2 btnNext' id='<?php echo $d['id'];?>'><i class='fas fa-check'></i> On Progress</button>
+                            <button class='btn btn-success btn-sm ml-2 btnNext' id='<?php echo $d['id'];?>'><i class='fas fa-check'></i> Progress</button>
                             <button class='btn btn-danger btn-sm ml-2 btnCancel' id='<?php echo $d['id'];?>'><i class='fas fa-times'></i> Cancel</button>
                             <?php
                         }
                         if($d['status_id']=='260' AND $d['created_master_cabang_id']==$_SESSION['master_cabang_id']){
                             ?>
-                            <button class='btn btn-success btn-sm ml-2 btnNext' id='<?php echo $d['id'];?>' <?php if($d['total_item']!=$d['total_sn']){echo "disabled";}?>><i class='fas fa-check'></i> Completed</button>
+                            <button class='btn btn-success btn-sm ml-2 btnNext' id='<?php echo $d['id'];?>' <?php if($d['total_item']!=$d['total_sn']){echo "disabled";}?>><i class='fas fa-check'></i> Complete</button>
                             <button class='btn btn-danger btn-sm ml-2 btnCancel' id='<?php echo $d['id'];?>'><i class='fas fa-times'></i> Cancel</button>
                             <?php
                         }
@@ -57,6 +58,43 @@ if(isset($d['id'])!=''){
             <div class="card-body">
                 <!-- <iframe src="<?php echo $BASE_URL;?>/stock/mutasi-cetak-<?php echo $d['id'];?>" style="width:100%; height:100%; border:none" id="Iframe"></iframe> -->
 
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <table class="mytable">
+                            <tr>
+                                <td class="fw-bold">Admin Branch</td>
+                                <td class="text-end"><?php echo $d['admin_branch'];?></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Nama Requester</td>
+                                <td class="text-end"><?php echo $d['request_pegawai_jabatan'];?></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Status</td>
+                                <td class="text-end"><?php echo "<span class='badge bg-$d[warna_status]'>$d[nama_status]</span>";?></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-4 offset-md-4">
+                        <table class="mytable">
+                            <tr>
+                                <td class="fw-bold">Tanggal</td>
+                                <td class="text-end"><?php echo dateFormat($d['tanggal']);?></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Gudang Tujuan</td>
+                                <td class="text-end"><?php echo $d['nama_gudang'];?></td>
+                            </tr>
+
+                            <tr>
+                                <td class="fw-bold">Remark</td>
+                                <td class="text-end"><?php echo $d['deskripsi'];?></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                
                 <table class="table" id="my_datatable">
                     <thead class="table-info">
                         <tr>

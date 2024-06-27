@@ -83,6 +83,7 @@
                         <input type="text" class="form-control rupiah" name="harga" required>
                     </div>
                 </div>
+                <p class="text-danger">Harga yang di input adalah nominal Harga sudah termasuk PPN</p>
 			</div>
 			<div class="modal-footer p-2">
                 <button type="submit" class="btn btn-success has-ripple"><i class="bi bi-check"></i> Simpan</button>

@@ -72,7 +72,7 @@ else{
 			$urutan_nomor= sprintf("%05s",$urutan);
 
 			// $po_number = "PO-$thn".$bulan."-".$kode_cabang.$urutan_nomor;
-			$po_number = "PO-UVT-".$thn.$bulan."-".$kode_cabang.$urutan_nomor;;
+			$po_number = "PO-WDB-".$thn.$bulan."-".$kode_cabang.$urutan_nomor;;
 
 			$d=mysqli_fetch_array(mysqli_query($conn,"SELECT master_cabang_id FROM pegawai WHERE id='$_SESSION[login_user]' AND deleted_at IS NULL"));
 

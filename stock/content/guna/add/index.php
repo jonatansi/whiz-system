@@ -22,7 +22,7 @@
                         <div class="col-md-6">
                             <div class="row form-group">
                                 <label class="col-md-5 pt-2 text-end">
-                                    Nama Requester <small class="text-danger">*</small>
+                                    Admin Branch <small class="text-danger">*</small>
                                 </label>
                                 <div class="col-md-7">
                                     <select name="request_pegawai_id" class="form-control" required>
@@ -37,7 +37,7 @@
                             </div>
                             <div class="row form-group">
                                 <label class="col-md-5 pt-2 text-end">
-                                    Jabatan Requester <small class="text-danger">*</small>
+                                    Nama Requester <small class="text-danger">*</small>
                                 </label>
                                 <div class="col-md-7">
                                     <input type="text" name="request_pegawai_jabatan" class="form-control" required>

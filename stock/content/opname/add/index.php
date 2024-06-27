@@ -20,7 +20,7 @@
                     <div class="col-md-5">
                         <div class="row form-group">
                             <label class="col-md-5 pt-2 text-end">
-                                PIC <small class="text-danger">*</small>
+                                Admin Branch <small class="text-danger">*</small>
                             </label>
                             <div class="col-md-7">
                                 <select name="pic_pegawai_id" class="form-control" required>
@@ -35,7 +35,7 @@
                         </div>
                         <div class="row form-group">
                             <label class="col-md-5 pt-2 text-end">
-                                Jabatan <small class="text-danger">*</small>
+                                PIC Opname <small class="text-danger">*</small>
                             </label>
                             <div class="col-md-7">
                                 <input type="text" name="pic_pegawai_jabatan" class="form-control" required>

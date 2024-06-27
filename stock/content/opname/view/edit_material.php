@@ -32,3 +32,8 @@ $d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM opname_detail WHERE id='
 		</div>
 	</div>
 </form>
+<script type="text/javascript">
+    $('form').submit(function(){
+        $(this).find(':submit').attr('disabled','disabled');
+    });
+</script>

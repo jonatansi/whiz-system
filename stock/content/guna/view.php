@@ -44,13 +44,13 @@ if(isset($d['id'])!=''){
                         <?php
                         if($d['status_id']=='300' AND $d['created_master_cabang_id']==$_SESSION['master_cabang_id']){
                             ?>
-                            <button class='btn btn-success btn-sm ml-2 btnNext' id='<?php echo $d['id'];?>'><i class='fas fa-check'></i> On Progress</button>
+                            <button class='btn btn-success btn-sm ml-2 btnNext' id='<?php echo $d['id'];?>'><i class='fas fa-check'></i> Progress</button>
                             <button class='btn btn-danger btn-sm ml-2 btnCancel' id='<?php echo $d['id'];?>'><i class='fas fa-times'></i> Cancel</button>
                             <?php
                         }
                         if($d['status_id']=='310' AND $d['created_master_cabang_id']==$_SESSION['master_cabang_id']){
                             ?>
-                            <button class='btn btn-success btn-sm ml-2 btnNext' id='<?php echo $d['id'];?>' <?php if($d['total_item']!=$d['total_sn']){echo "disabled";}?>><i class='fas fa-check'></i> Completed</button>
+                            <button class='btn btn-success btn-sm ml-2 btnNext' id='<?php echo $d['id'];?>' <?php if($d['total_item']!=$d['total_sn']){echo "disabled";}?>><i class='fas fa-check'></i> Complete</button>
                             <button class='btn btn-danger btn-sm ml-2 btnCancel' id='<?php echo $d['id'];?>'><i class='fas fa-times'></i> Cancel</button>
                             <?php
                         }
@@ -80,11 +80,11 @@ if(isset($d['id'])!=''){
                                 <td class="text-end"><?php echo "<span class='badge bg-$d[warna_status]'>$d[nama_status]</span>";?></td>
                             </tr>
                             <tr>
-                                <td class="fw-bold">Nama Requester</td>
+                                <td class="fw-bold">Admin Branch</td>
                                 <td class="text-end"><?php echo $d['nama_requester'];?></td>
                             </tr>
                             <tr>
-                                <td class="fw-bold">Jabatan Requester</td>
+                                <td class="fw-bold">Nama Requester</td>
                                 <td class="text-end"><?php echo $d['request_pegawai_jabatan'];?></td>
                             </tr>
                             <tr>

@@ -48,7 +48,7 @@ else{
 			$urutan = $a['urutan']+1;
 			$urutan_nomor= sprintf("%05s",$urutan);
 
-			$number = "DO-UVT-$urutan_nomor-$thn".$bulan;
+			$number = "DO-WDB-$urutan_nomor-$thn".$bulan;
 
 			//INSERT KE DISMANTLE HEADER
 			mysqli_query($conn,"INSERT INTO dismantle (nomor, tanggal, master_guna_id, master_guna_kategori_id, user_identity, status_id, urutan, remark, created_master_cabang_id, created_pegawai_id, created_at, updated_at) VALUES ('$number', '$_POST[tanggal]', '$_POST[master_guna_id]', '$_POST[master_guna_kategori_id]', '$_POST[user_identity]', '550', '$urutan', '$_POST[remark]', '$_SESSION[master_cabang_id]', '$_SESSION[login_user]', '$waktu_sekarang', '$waktu_sekarang')");
@@ -189,7 +189,7 @@ else{
 			mysqli_rollback($conn);
 			echo $e;
 		}
-		// header("location: dismantle-view-$_POST[dismantle_id]");
+		header("location: dismantle-view-$_POST[dismantle_id]");
 	}
 	mysqli_close($conn);
 	

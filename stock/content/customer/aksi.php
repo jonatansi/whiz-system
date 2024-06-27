@@ -31,7 +31,7 @@ else{
 
 		$kode = "WLH-$d[kode]-$thn".$urutan_nomor;
 
-		$sql="INSERT INTO master_customer (kode, nama, master_cabang_id, created_at, updated_at) VALUES ('$kode', '$_POST[nama]', '$_SESSION[master_cabang_id]', '$waktu_sekarang', '$waktu_sekarang')";
+		$sql="INSERT INTO master_customer (kode, nama, master_cabang_id, created_at, updated_at, `counter`) VALUES ('$kode', '$_POST[nama]', '$_SESSION[master_cabang_id]', '$waktu_sekarang', '$waktu_sekarang', '$counter')";
 
 		mysqli_query($conn,$sql);
 		$d=mysqli_insert_id($conn);

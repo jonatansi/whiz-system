@@ -2,7 +2,7 @@
 $d=mysqli_fetch_array(mysqli_query($conn,"SELECT status_id FROM po WHERE id='$_POST[id]'"));
 if($d['status_id']=='1'){
     $next_status_id = 10;
-    $title = "Submitted PO";
+    $title = "Submit PO";
 }
 else if($d['status_id']=='10'){
     $next_status_id = 15;
@@ -35,3 +35,9 @@ else if($d['status_id']=='10'){
 		</div>
 	</div>
 </form>
+
+<script type="text/javascript">
+    $('form').submit(function(){
+        $(this).find(':submit').attr('disabled','disabled');
+    });
+</script>

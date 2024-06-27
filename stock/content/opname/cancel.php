@@ -19,3 +19,8 @@
 		</div>
 	</div>
 </form>
+<script type="text/javascript">
+    $('form').submit(function(){
+        $(this).find(':submit').attr('disabled','disabled');
+    });
+</script>

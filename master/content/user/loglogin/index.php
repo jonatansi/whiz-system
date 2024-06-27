@@ -1,4 +1,5 @@
 <?php
+$tgl_sekarang = date("Y-m-d");
 if(isset($_GET['tanggal_awal'])){
     $tanggal_awal=$_GET['tanggal_awal'];
     $tanggal_akhir=$_GET['tanggal_akhir'];

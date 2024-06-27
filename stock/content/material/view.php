@@ -40,7 +40,7 @@
                             <table class="table table-sm">
                                 <tbody>
                                     <tr><td width="150px">Serial Number</td><td class="fw-bold text-end"><?php echo $d['serial_number'];?></td></tr>
-                                    <tr><td>Kode</td><td class="fw-bold text-end"><?php echo $d['kode_material'];?></td></tr>
+                                    <tr><td>ID Material</td><td class="fw-bold text-end"><?php echo $d['kode_material'];?></td></tr>
                                     <tr><td>Kategori</td><td class="fw-bold text-end"><?php echo $d['nama_kategori'];?></td></tr>
                                     <tr><td>Merk/Type</td><td class="fw-bold text-end"><?php echo $d['merk_type'];?></td></tr>
                                     <tr><td>Uom</td><td class="fw-bold text-end"><?php echo $d['uom'];?></td></tr>

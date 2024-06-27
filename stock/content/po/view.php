@@ -39,7 +39,7 @@ if(isset($d['id'])!=''){
                         <?php
                         if($d['status_id']=='1' AND $pegawai['master_cabang_id']=='1'){
                             ?>
-                            <button class='btn btn-success btn-sm ml-2 btnNext' id='<?php echo $d['id'];?>'><i class='fas fa-check'></i> Submitted</button>
+                            <button class='btn btn-success btn-sm ml-2 btnNext' id='<?php echo $d['id'];?>'><i class='fas fa-check'></i> Submit</button>
                             <button class='btn btn-danger btn-sm ml-2 btnCancel' id='<?php echo $d['id'];?>'><i class='fas fa-times'></i> Cancel</button>
                             <?php
                         }
@@ -49,8 +49,12 @@ if(isset($d['id'])!=''){
                             <button class='btn btn-danger btn-sm ml-2 btnCancel' id='<?php echo $d['id'];?>'><i class='fas fa-times'></i> Cancel</button>
                             <?php
                         }
+                        if($d['status_id']>='10'){
                         ?>
-                        <!-- <button class='btn btn-danger btn-sm ml-2 btnCetak' id='<?php echo $d['id'];?>'><i class='fas fa-print'></i> Cetak</button> -->
+                            <button class='btn btn-danger btn-sm ml-2 btnCetak' id='<?php echo $d['id'];?>'><i class='fas fa-print'></i> Cetak</button>
+                        <?php
+                        }
+                        ?>
                     </div>
                 </div>
             </div>

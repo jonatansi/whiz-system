@@ -88,6 +88,7 @@ if(isset($d['id'])!=''){
                             <th width="15%">Tanggal / Jam</th>
                             <th>Serial Number</th>
                             <th>Status</th>
+                            <th>Klasifikasi</th>
                             <th>Kondisi Pembelian Awal</th>
                             <th>Harga</th>
                         </tr>
@@ -169,7 +170,8 @@ echo generate_datatable("persediaan-view-data", "0", "asc", $order_column_add, '
 
 $order_column_add= datatable_column("2", "text-center", "true");
 $order_column_add.= datatable_column("3", "text-center", "true");
-$order_column_add.= datatable_column("4", "text-end", "true");
+$order_column_add.= datatable_column("4", "text-center", "true");
+$order_column_add.= datatable_column("5", "text-end", "true");
 $filter= datatable_filter("stok_id");
 echo generate_datatable("persediaan-view-data-sn", "0", "asc", $order_column_add, '', $filter, "datatable_ajax_sn");
 }

@@ -3,18 +3,20 @@ $columns = array(
     0 =>'a.created_at', 
     1=> 'a.serial_number',
     2 =>'b.nama',
-    3=> 'c.nama',
-    4=> 'a.harga'
+    3 =>'d.nama',
+    4=> 'c.nama',
+    5=> 'a.harga'
 );
 
-$pencarian = array('a.created_at', 'a.serial_number', 'b.nama', 'c.nama', 'a.harga');
+$pencarian = array('a.created_at', 'a.serial_number', 'b.nama', 'd.nama', 'c.nama', 'a.harga');
 
 $d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM stok WHERE id='$_POST[stok_id]'"));
 
-$query = "SELECT a.*, b.nama AS nama_status, b.warna AS warna_status, c.nama AS nama_kondisi
+$query = "SELECT a.*, b.nama AS nama_status, b.warna AS warna_status, c.nama AS nama_kondisi, d.nama AS nama_klasifikasi
 FROM material_sn a 
 LEFT JOIN master_status b ON a.status_id=b.id
 LEFT JOIN master_kondisi c ON a.master_kondisi_id=c.id
+LEFT JOIN master_klasifikasi_material d ON a.master_klasifikasi_material_id=d.id
 WHERE a.master_gudang_id='$d[master_gudang_id]' AND a.master_material_id='$d[master_material_id]'";
 
 $totalData = mysqli_num_rows(mysqli_query($conn, $query));
@@ -72,6 +74,7 @@ while( $row=mysqli_fetch_array($sql_data)) {  // preparing an array
     $nestedData[] = WaktuIndo($row['created_at']);
     $nestedData[] = "<a href='material-view-$row[id]' class='text-primary'>$row[serial_number]</a>";
     $nestedData[] = $status;
+    $nestedData[] = $row['nama_klasifikasi'];
     $nestedData[] = $row['nama_kondisi'];
     $nestedData[] = formatAngka($row['harga']);
                     

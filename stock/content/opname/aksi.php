@@ -46,7 +46,7 @@ else{
 			$urutan = $a['urutan']+1;
 			$urutan_nomor= sprintf("%05s",$urutan);
 
-			$number = "OP-UVT-$urutan_nomor-$thn".$bulan;
+			$number = "OP-WDB-$urutan_nomor-$thn".$bulan;
 
 			$status_id = 350;
 
@@ -72,7 +72,7 @@ else{
 					for($i=1;$i<=$r['jumlah'];$i++){
 						$sn = mysqli_fetch_array(mysqli_query($conn,"SELECT a.* FROM material_sn a WHERE a.master_material_id='$r[master_material_id]' AND a.status_id IN (500,501) AND a.master_gudang_id='$r[master_gudang_id]' AND a.master_kondisi_id='$r[master_kondisi_id]' AND NOT EXISTS (SELECT NULL FROM opname_sn c WHERE c.serial_number=a.serial_number AND c.opname_detail_id='$opname_detail_id')"));
 						if(isset($sn['id'])!=''){
-							mysqli_query($conn,"INSERT INTO opname_sn (opname_detail_id, serial_number, material_sn_id, status, harga, created_at, material_sn_status_id) VALUES ('$opname_detail_id', '$sn[serial_number]', '$sn[id]', '1', '$sn[harga]', '$waktu_sekarang', '$sn[status_id]')");
+							mysqli_query($conn,"INSERT INTO opname_sn (opname_detail_id, serial_number, material_sn_id, status, harga, created_at, material_sn_status_id, master_klasifikasi_material_id) VALUES ('$opname_detail_id', '$sn[serial_number]', '$sn[id]', '1', '$sn[harga]', '$waktu_sekarang', '$sn[status_id]', '$sn[master_klasifikasi_material_id]')");
 						}
 					}
 				}
@@ -174,6 +174,7 @@ else{
 				//HEADER opname
 				$d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM opname WHERE id='$_POST[opname_id]' AND deleted_at IS NULL"));
 				$number = $d['nomor'];
+				$created_master_cabang_id=$d['created_master_cabang_id'];
 
 				//UPDATE BAHWA TELAH JADI DIopnameKAN
 				mysqli_query($conn,"UPDATE opname_sn a INNER JOIN opname_detail b ON a.opname_detail_id = b.id SET a.status='2' WHERE b.opname_id='$_POST[opname_id]'");
@@ -203,7 +204,7 @@ else{
 						mysqli_query($conn,"UPDATE stok SET jumlah='$balance_current' WHERE id='$st[id]'");
 					}
 					else{
-						$st = mysqli_fetch_array(mysqli_query($conn,"SELECT id, jumlah FROM stok WHERE master_cabang_id='$_SESSION[master_cabang_id]' AND master_gudang_id='$r[master_gudang_id]' AND master_material_id='$r[master_material_id]'"));
+						$st = mysqli_fetch_array(mysqli_query($conn,"SELECT id, jumlah FROM stok WHERE master_cabang_id='$created_master_cabang_id' AND master_gudang_id='$r[master_gudang_id]' AND master_material_id='$r[master_material_id]'"));
 						if(isset($st['id'])!=''){
 							mysqli_query($conn,"INSERT INTO stok_kondisi (stok_id, master_kondisi_id, created_at, updated_at, jumlah) VALUES ('$st[id]', '$r[master_kondisi_id]', '$waktu_sekarang', '$waktu_sekarang', '$r[jumlah_aktual]')");
 
@@ -224,8 +225,8 @@ else{
 
 						}
 						else{
-							mysqli_query($conn,"INSERT INTO stok (master_cabang_id, master_gudang_id, master_material_id, jumlah, created_at, updated_at) VALUES ('$_SESSION[master_cabang_id]', '$r[master_gudang_id]', '$r[master_material_id]', '$r[jumlah_aktual]', '$waktu_sekarang', '$waktu_sekarang')");
-							
+							mysqli_query($conn,"INSERT INTO stok (master_cabang_id, master_gudang_id, master_material_id, jumlah, created_at, updated_at) VALUES ('$created_master_cabang_id', '$r[master_gudang_id]', '$r[master_material_id]', '$r[jumlah_aktual]', '$waktu_sekarang', '$waktu_sekarang')");
+
 							$stok_id = mysqli_insert_id($conn);
 
 							$sql="INSERT INTO stok_log (stok_id, masuk, keluar, balance, created_at, remark, table_id, status_id, table_name, act_type_id, act_table_id, transaction_number) VALUES ('$stok_id', '$r[jumlah_aktual]', '0', '$r[jumlah_aktual]', '$waktu_sekarang', 'Stok Opname $number', '$r[id]', '110', 'opname_detail', '3', '$_POST[opname_id]', '$number')";
@@ -238,7 +239,7 @@ else{
 				}
 
 				//UPDATE POSISI MATERIAL SN
-				$data = mysqli_query($conn,"SELECT a.*, b.serial_number, b.material_sn_id, b.status, b.harga, b.material_sn_status_id, b.harga FROM opname_detail a INNER JOIN opname_sn b ON a.id=b.opname_detail_id WHERE a.opname_id='$_POST[opname_id]' AND a.deleted_at IS NULL");
+				$data = mysqli_query($conn,"SELECT a.*, b.serial_number, b.material_sn_id, b.status, b.harga, b.material_sn_status_id, b.harga, b.master_klasifikasi_material_id FROM opname_detail a INNER JOIN opname_sn b ON a.id=b.opname_detail_id WHERE a.opname_id='$_POST[opname_id]' AND a.deleted_at IS NULL");
 				while($r=mysqli_fetch_array($data)){ 
 					if($r['material_sn_id']!='0'){
 						//UPDATE INFO MATERIAL SN
@@ -247,7 +248,7 @@ else{
 						$material_sn_id = $r['material_sn_status_id'];
 					}
 					else{
-						mysqli_query($conn,"INSERT INTO material_sn (master_material_id, status_id, keterangan, serial_number, master_gudang_id, created_at, harga, master_kategori_material_id, master_kondisi_id) VALUES ('$r[master_material_id]', '$r[material_sn_status_id]', '$r[remark]', '$r[serial_number]', '$r[master_gudang_id]', '$waktu_sekarang', '$r[harga]', '$r[master_kategori_material_id]', '$r[master_kondisi_id]')");
+						mysqli_query($conn,"INSERT INTO material_sn (master_material_id, status_id, keterangan, serial_number, master_gudang_id, created_at, harga, master_kategori_material_id, master_kondisi_id, master_klasifikasi_material_id) VALUES ('$r[master_material_id]', '$r[material_sn_status_id]', '$r[remark]', '$r[serial_number]', '$r[master_gudang_id]', '$waktu_sekarang', '$r[harga]', '$r[master_kategori_material_id]', '$r[master_kondisi_id]', '$r[master_klasifikasi_material_id]')");
 
 						$material_sn_id = mysqli_insert_id($conn);
 					}
@@ -317,7 +318,7 @@ else{
 			$d3=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM po_terima_sn WHERE serial_number='$_POST[serial_number]' AND serial_number!='0' AND status='1'"));
 			$d4=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM mutasi_sn WHERE serial_number='$_POST[serial_number]' AND serial_number!='0' AND status='1'"));
 			if(isset($d1['id'])=='' AND isset($d2['id'])=='' AND isset($d3['id'])=='' AND isset($d4['id'])==''){
-				mysqli_query($conn,"INSERT INTO opname_sn (opname_detail_id, serial_number, created_at, material_sn_id, harga, status, material_sn_status_id) VALUES ('$_POST[opname_detail_id]', '$_POST[serial_number]', '$waktu_sekarang', '$cek[id]', '$harga', '1', '$cek[status_id]')");
+				mysqli_query($conn,"INSERT INTO opname_sn (opname_detail_id, serial_number, created_at, material_sn_id, harga, status, material_sn_status_id, master_klasifikasi_material_id) VALUES ('$_POST[opname_detail_id]', '$_POST[serial_number]', '$waktu_sekarang', '$cek[id]', '$harga', '1', '$cek[status_id]', '$_POST[master_klasifikasi_material_id]')");
 
 				// header("location: opname-sn-$_POST[opname_detail_id]");
 			}
@@ -343,7 +344,7 @@ else{
 			$d4=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM mutasi_sn WHERE serial_number='$_POST[serial_number]' AND serial_number!='0' AND status='1'"));
 			$d5=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM material_sn WHERE serial_number='$_POST[serial_number]'"));
 			if(isset($d1['id'])=='' AND isset($d2['id'])=='' AND isset($d3['id'])=='' AND isset($d4['id'])=='' AND isset($d5['id'])==''){
-				mysqli_query($conn,"INSERT INTO opname_sn (opname_detail_id, serial_number, created_at, harga, status, material_sn_id, material_sn_status_id, remark) VALUES ('$_POST[opname_detail_id]', '$_POST[serial_number]', '$waktu_sekarang', '$harga', '1', '0', '500', '$_POST[remark]')");
+				mysqli_query($conn,"INSERT INTO opname_sn (opname_detail_id, serial_number, created_at, harga, status, material_sn_id, material_sn_status_id, remark, master_klasifikasi_material_id) VALUES ('$_POST[opname_detail_id]', '$_POST[serial_number]', '$waktu_sekarang', '$harga', '1', '0', '500', '$_POST[remark]', '$_POST[master_klasifikasi_material_id]')");
 			}
 			else{
 				?>

@@ -23,6 +23,19 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-12">
+                                <label>Diperuntukkan <span class="text-danger">*</span></label>
+                                <select name="master_klasifikasi_material_id" class="form-control" required>
+                                    <?php
+                                    $tampil=mysqli_query($conn,"SELECT * FROM master_klasifikasi_material");
+                                    while($r=mysqli_fetch_array($tampil)){
+                                        echo "<option value='$r[id]'>$r[nama]</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
                                 <label>Remark <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="remark" required placeholder="Misalnya : Retur project">
                             </div>

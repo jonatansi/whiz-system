@@ -98,7 +98,7 @@ else{
 		$urutan = $a['urutan']+1;
 		$urutan_nomor= sprintf("%05s",$urutan);
 
-		$number = "MM-UVT-$urutan_nomor-$thn".$bulan;
+		$number = "MM-WDB-$urutan_nomor-$thn".$bulan;
 
 		$status_id = 250;
 

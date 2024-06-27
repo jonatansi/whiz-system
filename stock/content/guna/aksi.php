@@ -92,12 +92,14 @@ else{
 			$d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM master_guna WHERE id='$_POST[master_guna_id]'"));
 			if($d['type']=='1'){
 				$sql="SELECT id, kode, nama FROM master_customer WHERE id='$_POST[master_guna_kategori_id]'";
+				$x=mysqli_fetch_array(mysqli_query($conn,$sql));
+				$user_identity = "$x[kode] - $x[nama]";
 			}
 			else if($d['type']=='2'){
 				$sql="SELECT id, nama FROM master_guna_kategori WHERE id='$_POST[master_guna_kategori_id]'";
+				$x=mysqli_fetch_array(mysqli_query($conn,$sql));
+				$user_identity = $x['nama'];
 			}
-			$x=mysqli_fetch_array(mysqli_query($conn,$sql));
-			$user_identity = $x['nama'];
 
 			$d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM master_guna WHERE id='$_POST[master_guna_id]'"));
 
@@ -106,7 +108,7 @@ else{
 			$urutan = $a['urutan']+1;
 			$urutan_nomor= sprintf("%05s",$urutan);
 
-			$number = "$d[kode]-UVT-$urutan_nomor-$thn".$bulan;
+			$number = "$d[kode]-WDB-$urutan_nomor-$thn".$bulan;
 
 			$status_id = 300;
 
