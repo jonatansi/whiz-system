@@ -111,7 +111,7 @@ if(isset($d['id'])!=''){
 <script type="text/javascript">
     $(".btnCetak").click(function() {
         var id = this.id;
-        window.open("po-cetak-"+id, "popupWindow", "width=600,height=600,scrollbars=yes");
+        window.open("po-cetak2-"+id, "popupWindow", "width=600,height=600,scrollbars=yes");
     });
 
     var frame = document.getElementById("Iframe");    

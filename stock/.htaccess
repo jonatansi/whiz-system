@@ -50,6 +50,7 @@ RewriteRule ^po-delete-material$ content/po/aksi.php?act=delete_material [QSA,L]
 RewriteRule ^po-view-([0-9]+)$ media.php?module=po&act=view&id=$1 [QSA,L]
 
 RewriteRule ^po-cetak-([0-9]+)$ content/po/aksi.php?act=cetak&id=$1 [QSA,L]
+RewriteRule ^po-cetak2-([0-9]+)$ content/po/aksi.php?act=cetak2&id=$1 [QSA,L]
 RewriteRule ^po-next$ content/po/aksi.php?act=next [QSA,L]
 RewriteRule ^po-next-action$ content/po/aksi.php?act=next_action [QSA,L]
 

@@ -35,6 +35,7 @@ if(isset($_GET['act'])==''){
                                     <th>Cabang</th>
                                     <th>Harga</th>
                                     <th>Status</th>
+                                    <th>User Identity</th>
                                 </tr>
                             </thead>
                             
@@ -48,9 +49,9 @@ if(isset($_GET['act'])==''){
     <?php 
 
     $order_column_add = datatable_column("4", "text-center", "true");
+    $order_column_add.= datatable_column("-4", "text-end", "true");
     $order_column_add.= datatable_column("-3", "text-end", "true");
-    $order_column_add.= datatable_column("-2", "text-end", "true");
-    $order_column_add.= datatable_column("-1", "text-center", "true");
+    $order_column_add.= datatable_column("-2", "text-center", "true");
     
     $disabled_column_serch_add = datatable_column_search_disabled(0);
 

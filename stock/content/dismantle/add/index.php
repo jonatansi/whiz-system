@@ -12,20 +12,14 @@
     </div>
 </div>
 <?php
-if($_GET['master_guna_id']!='' AND $_GET['master_guna_kategori_id']!=''){
-$d=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM master_guna WHERE id='$_GET[master_guna_id]'"));
-if($d['type']=='1'){
-    $sql="SELECT id, kode, nama FROM master_customer WHERE master_cabang_id='$_SESSION[master_cabang_id]' AND deleted_at IS NULL AND id='$_GET[master_guna_kategori_id]'";
-}
-else if($d['type']=='2'){
-    $sql="SELECT id, nama FROM master_guna_kategori WHERE master_guna_id='$_GET[master_guna_id]' AND deleted_at IS NULL AND id='$_GET[master_guna_kategori_id]'";
-}
-$x=mysqli_fetch_array(mysqli_query($conn,$sql));
+if($_GET['master_guna_kategori_id']!=''){
+$d=explode("|",$_GET['master_guna_kategori_id']);
+$master_guna_kategori_id=$d[0];
+$user_identity = $d[1];
 ?>
 <form method="POST" action="dismantle-input" enctype="multipart/form-data">
-<input type="hidden" name="master_guna_id" value="<?php echo $_GET['master_guna_id'];?>">
-<input type="hidden" name="master_guna_kategori_id" value="<?php echo $_GET['master_guna_kategori_id'];?>">
-<input type="hidden" name="user_identity" value="<?php echo $x['nama'];?>">
+<input type="hidden" name="master_guna_kategori_id" value="<?php echo $master_guna_kategori_id;?>">
+<input type="hidden" name="user_identity" value="<?php echo $user_identity;?>">
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -36,18 +30,9 @@ $x=mysqli_fetch_array(mysqli_query($conn,$sql));
                         <div class="col-md-6">
                             <table>
                                 <tr>
-                                    <td width="250px">Kategori Penggunaan</td>
-                                    <td width="10px">:</td>
-                                    <td><?php echo $d['nama'];?></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="col-md-6">
-                            <table>
-                                <tr>
                                     <td width="250px">User identity</td>
                                     <td width="10px">:</td>
-                                    <td><?php echo $x['nama'];?></td>
+                                    <td><?php echo $user_identity;?></td>
                                 </tr>
                             </table>
                         </div>
@@ -86,7 +71,7 @@ $x=mysqli_fetch_array(mysqli_query($conn,$sql));
                         LEFT JOIN master_material f ON a.master_material_id=f.id AND f.deleted_at IS NULL
                         LEFT JOIN master_status e ON a.status_id=e.id 
                         LEFT JOIN master_klasifikasi_material h ON a.master_klasifikasi_material_id=h.id
-                        WHERE b.deleted_at IS NULL AND b.master_cabang_id='$_SESSION[master_cabang_id]' AND master_guna_kategori_id='$_GET[master_guna_kategori_id]' AND a.master_klasifikasi_material_id='1' AND a.status_id='505' ORDER BY a.serial_number";
+                        WHERE b.deleted_at IS NULL AND b.master_cabang_id='$_SESSION[master_cabang_id]' AND master_guna_kategori_id='$master_guna_kategori_id' AND a.master_klasifikasi_material_id='1' AND a.status_id='505' ORDER BY a.serial_number";
 
                         $tampil=mysqli_query($conn,$query);
                         $grand_total=0;

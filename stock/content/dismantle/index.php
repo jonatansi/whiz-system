@@ -62,6 +62,7 @@ else{
                                     <th class="text-center">No. Transaksi</th>
                                     <th>Tanggal</th>
                                     <th>Branch</th>
+                                    <th>User Identity</th>
                                     <th>Status</th>
                                     <th>Total Item</th>
                                 </tr>
@@ -84,6 +85,7 @@ else{
     <?php 
     $order_column_add = datatable_column("-1", "text-center", "true");
     $disabled_column_serch_add = datatable_column_search_disabled(0);
+    $disabled_column_serch_add.= datatable_column_search_disabled(7);
 
     $filter = datatable_filter("tanggal_awal");
     $filter.= datatable_filter("tanggal_akhir");

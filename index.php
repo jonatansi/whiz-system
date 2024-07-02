@@ -10,13 +10,13 @@ include "konfig/base_url.php";
     <meta charset="UTF-8">
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title> UV-Tel Digital System</title>
+    <title>Management Asset and Transaction Inventory Order</title>
     <meta name="Description" content="PT. Whiz Digital Berjaya adalah perusahaan nasional yang bergerak dalam bidang penyediaan jasa dan infrastruktur telekomunikasi beserta IT Service, yang telah memiliki pengalaman panjang pada institusi Pemerintahan, BUMN maupun Koorporasi Swasta di Indonesia.">
     <meta name="Author" content="Whiz Digital">
 	<meta name="keywords" content="">
 
     <!-- Favicon -->
-    <link rel="icon" href="<?php echo $BASE_URL;?>/images/logo.png" type="image/x-icon">
+    <link rel="icon" href="<?php echo $BASE_URL;?>/images/favicon.png" type="image/x-icon">
 
     <!-- Bootstrap Css -->
     <link id="style" href="<?php echo $BASE_URL;?>/assets/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" >

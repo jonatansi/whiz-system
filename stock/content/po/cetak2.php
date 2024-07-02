@@ -200,9 +200,9 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[id]'"));
 		}
 		</script>
 	</head>
-	<body>
+	<body onload="myFunction()">
         <div class="width-40">
-            <img src="<?php echo $BASE_URL;?>/images/logocolor.png" style="max-width:300px;">
+            <img src="<?php echo $BASE_URL;?>/images/logocolor.png" style="max-width:200px;">
         </div>
         <div class="width-20">&nbsp;</div>
         <div class="width-40">
@@ -285,9 +285,9 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[id]'"));
                     <th>NO</th>
                     <th class="text-left">KATEGORI</th>
                     <th class="text-left">MERK/TYPE</th>
-                    <th>JLH SATUAN BESAR</th>
-                    <th>JLH SATUAN DASAR</th>
-                    <th>KONDISI PEMBELIAN AWAL</th>
+                    <th>JLH SATUAN<br>BESAR</th>
+                    <th>JLH SATUAN<br>DASAR</th>
+                    <th>KONDISI<br>PEMBELIAN AWAL</th>
                     <th>HARGA SATUAN</th>
                     <th>SUBTOTAL</th>
                 </tr>
@@ -354,5 +354,14 @@ WHERE a.deleted_at IS NULL AND a.id='$_GET[id]'"));
                 </tbody>
             </table>
         </div>
+        <div class="clear" style="margin-bottom: 2rem;"></div>
+        <footer>
+            <div class="width-50">
+                Disetujui oleh<br>
+                PT Whiz Digital Berjaya<br><br><br><br><br>
+               <b><u> <?php echo $d['nama_buat'];?></u></b><br>
+               <?php echo $d['jabatan'];?>
+            </div>
+        </footer>
 	</body>
 </html>
