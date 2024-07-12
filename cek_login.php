@@ -33,7 +33,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 	if($arrResponse["success"] == '1'  && $arrResponse["score"] >= 0.5) {
         $password=encrypt($password);
 
-		$row = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM pegawai WHERE username='$username' AND password='$password' AND deleted_at IS NULL"));
+		$row = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM pegawai WHERE email='$username' AND password='$password' AND deleted_at IS NULL"));
 		if (isset($row['id']) != '') {
 			if(($_POST['id_portal']=='master' AND $row['level_id']=='1') OR $_POST['id_portal']=='stock'){
 				include "timeout.php";

@@ -1,14 +1,62 @@
-$(".portalLogin").click(function() {
+function togglePassword() {
+    var passwordInput = document.getElementById("password");
+    var toggleIcon = document.querySelector(".toggle-password i");
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        toggleIcon.classList.remove("fa-eye");
+        toggleIcon.classList.add("fa-eye-slash");
+    } else {
+        passwordInput.type = "password";
+        toggleIcon.classList.remove("fa-eye-slash");
+        toggleIcon.classList.add("fa-eye");
+    }
+}
+
+function toggleActive(clickedElement) {
+    var circleItems = document.querySelectorAll('.circle-submenu');
+
+    // Iterasi melalui semua elemen dan hapus kelas 'active' dari setiap elemen
+    circleItems.forEach(function(item) {
+        item.classList.remove('active');
+    });
+
+    // Tambahkan kelas 'active' ke elemen yang diklik
+    clickedElement.classList.add('active');
+}
+
+$(document).ready(function () {    
+    $(".menu-circle").click(function() {
+        var id = this.id;
+        if(id=='mail'){
+            window.open('https://send-me.id', '_blank');
+        }
+        else if($id=='cloud'){
+            window.open('https://cloud.whizdigital.id', '_blank');
+        }
+        else if($id=='matrix'){
+
+        }
+        else if($id=='spy'){
+            
+        }
+        else if(id=='temp'){
+            
+        }
+    });
+});
+
+$(".circle-submenu").click(function() {
     var id = this.id;
     $("#btnLogin").prop("disabled",false);
-    $("#id_portal").val(id);
+    if(id=="whiz_master"){
+        var value = "master";
+    }
+    else if(id=='whiz_stock'){
+        var value = "stock";
+    }
+    $("#id_portal").val(value);
 
-    if(id=="master"){
-        $("#title_login").html("Master Data Management");
-    }
-    else if(id=='stock'){
-        $("#title_login").html("Stock Management");
-    }
 }); 
 
 $('#loginForm').submit(function(e) {
@@ -20,8 +68,8 @@ $('#loginForm').submit(function(e) {
     var password = $("#loginPassword").val();
     var id_portal = $("#id_portal").val();
     // var captcha = $("#g-recaptcha-response").val();
-    // var dataString = 'username=' + username + '&password=' + password + '&captcha=' + captcha;
-
+    var dataString = 'username=' + username + '&password=' + password;
+    alert(dataString);
     if ($.trim(username).length > 0 && $.trim(password).length > 0) {
 
         grecaptcha.ready(function() {
@@ -53,7 +101,7 @@ $('#loginForm').submit(function(e) {
                             $("#error").html("<div class='alert alert-danger'>Invalid Login</div>");
                         }
                         // $("#error").html(data);
-                        $("#btnLogin").html("Sign in");
+                        $("#btnLogin").html("Login");
                         $("#btnLogin").prop("disabled",false);
                     }
                 });

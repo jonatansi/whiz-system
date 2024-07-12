@@ -1,106 +1,126 @@
 <?php
 include "konfig/base_url.php";
 ?>
-
-<!DOCTYPE html>
-<html lang="en" dir="ltr" data-nav-layout="vertical" data-vertical-style="overlay" data-theme-mode="light" data-header-styles="light" data-menu-styles="light" data-toggled="close">
+<html>
 <head>
-
-    <!-- Meta Data -->
-    <meta charset="UTF-8">
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title> UV-Tel Digital System</title>
-    <meta name="Description" content="PT. Whiz Digital Berjaya adalah perusahaan nasional yang bergerak dalam bidang penyediaan jasa dan infrastruktur telekomunikasi beserta IT Service, yang telah memiliki pengalaman panjang pada institusi Pemerintahan, BUMN maupun Koorporasi Swasta di Indonesia.">
-    <meta name="Author" content="Whiz Digital">
-	<meta name="keywords" content="">
-
-    <!-- Favicon -->
-    <link rel="icon" href="<?php echo $BASE_URL;?>/images/logo.png" type="image/x-icon">
-
-    <!-- Bootstrap Css -->
+    <title>Stay Connected Whiz Digital</title>
+    <link rel="icon" href="<?php echo $BASE_URL;?>/images/loginpage/stayconnected.svg" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    
     <link id="style" href="<?php echo $BASE_URL;?>/assets/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" >
 
-    <!-- Style Css -->
-    <link href="<?php echo $BASE_URL;?>/assets/css/styles.min.css" rel="stylesheet" >
-
-    <!-- Icons Css -->
     <link href="<?php echo $BASE_URL;?>/assets/css/icons.min.css" rel="stylesheet" >
 
+    <link href="<?php echo $BASE_URL;?>/assets/css/style-login.css" rel="stylesheet">
     <script src="https://www.google.com/recaptcha/api.js?render=6LdQhl0pAAAAAORLRytMwFzYm6tlEFc5-oYfA6Zc"></script>
 </head>
-
 <body>
-
-    <div class="container-fluid custom-page">
-        <div class="row bg-white">
-            <!-- The image half -->
-            <div class="col-md-6 col-lg-6 col-xl-7 d-none d-md-flex bg-primary-transparent-3">
-                <div class="row w-100 mx-auto text-center">
-                    <div class="col-md-12 col-lg-12 col-xl-12 my-auto mx-auto w-100">
-                        <img src="<?php echo $BASE_URL;?>/images/login.jpeg"
-                            class="my-auto ht-xl-80p wd-md-100p wd-xl-80p mx-auto" alt="logo">
+    <div class="container-fluid body">
+        <div class="row ">
+            <div class="col-md-6">
+                <img src="<?php echo $BASE_URL;?>/images/loginpage/whizdigital.svg" class="img-header2">
+            </div>
+            <div class="col-md-6 text-end">
+                <img src="<?php echo $BASE_URL;?>/images/loginpage/whizlink.svg" class="img-header me-3">
+                <img src="<?php echo $BASE_URL;?>/images/loginpage/whizlink_home.svg" class="img-header2 me-3">
+                <img src="<?php echo $BASE_URL;?>/images/loginpage/octans.svg" class="img-header">
+            </div>
+        </div>
+        <div class="vh-80 d-flex justify-content-center align-items-center">
+            <div class="row w-100 justify-content-center align-items-center">
+                <div class="col-md-8 d-flex justify-content-center align-items-center">
+                    <div class="position-relative" id="circle-container">
+                        <div class="circle-center text-center">
+                            <img src="<?php echo $BASE_URL;?>/images/loginpage/werp.svg" alt="WERP Logo" class="circle-center-logo" id="werp">
+                        </div>
+                        <div class="circle-item whiz-matrix">
+                            <img src="<?php echo $BASE_URL;?>/images/loginpage/whiz_matrix.svg" alt="Whiz Matrix" id="matrix" class="menu-circle active">
+                            <p>Whiz Matrix</p>
+                        </div>
+                        <div class="circle-item whiz-spy">
+                            <img src="<?php echo $BASE_URL;?>/images/loginpage/whiz_spy.svg" alt="Whiz Spy" id="spy" class="menu-circle">
+                            <p>Whiz Spy</p>
+                        </div>
+                        <div class="circle-item whiz-temp">
+                            <img src="<?php echo $BASE_URL;?>/images/loginpage/whiz_temp.svg" alt="Whiz Temp" id="temp" class="menu-circle">
+                            <p>Whiz Temp</p>
+                        </div>
+                        <div class="circle-item whiz-mail">
+                            <img src="<?php echo $BASE_URL;?>/images/loginpage/whiz_mail.svg" alt="Whiz Mail" id="mail" class="menu-circle">
+                            <p>Whiz Mail</p>
+                        </div>
+                        <div class="circle-item whiz-cloud">
+                            <img src="<?php echo $BASE_URL;?>/images/loginpage/whiz_cloud.svg" alt="Whiz Cloud" id="cloud" class="menu-circle">
+                            <p>Whiz Cloud</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- The content half -->
-            <div class="col-md-6 col-lg-6 col-xl-5 bg-white py-4">
-                <div class="login d-flex align-items-center py-2">
-                    <!-- Demo content-->
-                    <div class="container p-0">
-                        <div class="row">
-                            <div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
-                                <div class="card-sigin">
-                                    <div class="card-sigin">
-                                        <div class="main-signup-header" style="border: 1px solid #CCC; padding:2rem;">
-                                            <div class="text-center">
-                                                <img src="<?php echo $BASE_URL;?>/images/logo.png" class="mb-2" alt="logo" style="max-height:80px;">
-                                                <h6 class="fw-medium mb-4 fs-17">Selamat datang kembali! Silakan masuk untuk melanjutkan.</h6>
-                                            </div>
-
-                                            <div class="d-flex justify-content-center mb-3">
-                                                <a href="#" title="Master Data Management" data-toggle="tooltip" data-placement="top" class="portalLogin" id="master">
-                                                    <img src="<?php echo $BASE_URL;?>/images/icon/master.jpeg" style="max-height:60px;" class="mx-3">
-                                                </a>
-                                                <a href="#" title="Stock Management" data-toggle="tooltip" data-placement="top" class="portalLogin" id="stock">
-                                                    <img src="<?php echo $BASE_URL;?>/images/icon/stock.jpeg" style="max-height:60px;">
-                                                </a>
-                                            </div>
-
-                                            <div id="title_login" class="text-center fw-bold fs-5"></div>
-                                            <form method="POST" action="ceklogin" id="loginForm">
-                                                <input type="hidden" name="id_portal" id="id_portal">
-                                                <div class="form-group mb-3">
-                                                    <label class="form-label">Username</label> 
-                                                    <input class="form-control" placeholder="Enter your username" type="text" id="loginUsername">
-                                                </div>
-                                                <div class="form-group mb-3">
-                                                    <label class="form-label">Password</label> 
-                                                    <input class="form-control" placeholder="Enter your password" type="password" id="loginPassword">
-                                                </div>
-                                                <div id="error" class="mt-3 mb-1"></div>
-                                                <button type="submit" class="btn btn-primary btn-block w-100" id="btnLogin" disabled>Sign In</button>
-                                            </form>
-                                        </div>
+                <div class="col-md-4">
+                    <div class="login-form w-100 shadow-sm rounded-4 py-5 px-4 bg-white">
+                        <div id="login_opsi">
+                            <img src="<?php echo $BASE_URL;?>/images/loginpage/whiz_matrix_logo.svg" alt="Whiz Matrix" style="max-width:200px;" id="img_login">
+                            <p class="mb-4" id="title_login">Management Asset and Transaction Inventory Order</p>
+                            <div class="row justify-content-center" style="min-height:100px;">
+                                <div class="col">
+                                    <div class="circle-submenu" id="whiz_master" onclick="toggleActive(this)">
+                                        <img src="<?php echo $BASE_URL;?>/images/loginpage/whiz_matrix_master.svg" alt="Master Data">
+                                        <p>Master Data</p>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="circle-submenu" id="whiz_stock" onclick="toggleActive(this)">
+                                        <img src="<?php echo $BASE_URL;?>/images/loginpage/whiz_matrix_asset.svg" alt="Asset Management">
+                                        <p>Asset Management</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div><!-- End -->
+                        <form id="loginForm" class="w-100" action="ceklogin">
+                            <input type="hidden" name="id_portal" id="id_portal">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fe fe-user"></i></span>
+                                    </div>
+                                    <input type="email" class="form-control form-email" id="loginUsername" placeholder="John@corporate.id">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fe fe-lock"></i></span>
+                                    </div>
+                                    <input type="password" class="form-control form-password" id="loginPassword" placeholder="Password">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text toggle-password" id="togglePassword" onclick="togglePassword()"><i class="fas fa-eye"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="error" class="mt-3 mb-1"></div>
+                            <button type="submit" class="btn btn-primary btn-block rounded-3" id="btnLogin">Login</button>
+                        </form>
+                    </div>
                 </div>
-            </div><!-- End -->
+            </div>
+        </div>
+
+        <div class="row ">
+            <div class="col-md-3">
+                <img src="<?php echo $BASE_URL;?>/images/loginpage/stayconnected.svg">
+            </div>
+            <div class="col-md-6 text-center">
+                Copyright © 2024 <b>PT. Whiz Digital Berjaya</b>
+            </div>
         </div>
     </div>
-
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-
-    <!-- Bootstrap JS -->
     <script src="<?php echo $BASE_URL;?>/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Show Password JS -->
-    <script src="<?php echo $BASE_URL;?>/assets/js/show-password.js"></script>
+    
 
     <script src="<?php echo $BASE_URL;?>/addons/js/login.js"></script>
 </body>
-
 </html>
