@@ -5,10 +5,11 @@ $columns = array(
     2=> 'a.nomor',
     3 =>'a.tanggal',
     4=> 'c.nama',
-    5=> 'e.nama',
+    5=> 'a.user_identity',
+    6=> 'e.nama',
 );
 
-$pencarian = array('a.id', 'a.created_at', 'a.nomor', 'a.tanggal', 'c.nama', 'e.nama');
+$pencarian = array('a.id', 'a.created_at', 'a.nomor', 'a.tanggal', 'c.nama', 'a.user_identity', 'e.nama');
 
 $pegawai = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai WHERE id='$_SESSION[login_user]'"));
 
@@ -80,6 +81,7 @@ while( $row=mysqli_fetch_array($sql_data)) {  // preparing an array
     $nestedData[] = "<a href='dismantle-view-$row[id]' class='text-primary'>$row[nomor]</a>";
     $nestedData[] = DateIndo($row["tanggal"]);
     $nestedData[] = $row['nama_cabang'];
+    $nestedData[] = $row['user_identity'];
     $nestedData[] = $status;
     $nestedData[] = formatAngka($row['total_item']);
     $data[] = $nestedData;

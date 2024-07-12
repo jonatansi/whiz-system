@@ -56,10 +56,18 @@ if(isset($d['id'])!=''){
                                 <td class="fw-bold">Tanggal</td>
                                 <td class="text-end"><?php echo dateFormat($d['tanggal']);?></td>
                             </tr>
+                            <tr>
+                                <td class="fw-bold">User Identity</td>
+                                <td class="text-end"><?php echo $d['user_identity'];?></td>
+                            </tr>
                         </table>
                     </div>
                     <div class="col-md-4 offset-md-4">
                         <table class="mytable">
+                            <tr>
+                                <td class="fw-bold">Branch</td>
+                                <td class="text-end"><?php echo $d['nama_cabang'];?></td>
+                            </tr>
                             <tr>
                                 <td class="fw-bold">Status</td>
                                 <td class="text-end"><?php echo "<span class='badge bg-$d[warna_status]'>$d[nama_status]</span>";?></td>

@@ -51,7 +51,7 @@ else{
 			$number = "DO-WDB-$urutan_nomor-$thn".$bulan;
 
 			//INSERT KE DISMANTLE HEADER
-			mysqli_query($conn,"INSERT INTO dismantle (nomor, tanggal, master_guna_id, master_guna_kategori_id, user_identity, status_id, urutan, remark, created_master_cabang_id, created_pegawai_id, created_at, updated_at) VALUES ('$number', '$_POST[tanggal]', '$_POST[master_guna_id]', '$_POST[master_guna_kategori_id]', '$_POST[user_identity]', '550', '$urutan', '$_POST[remark]', '$_SESSION[master_cabang_id]', '$_SESSION[login_user]', '$waktu_sekarang', '$waktu_sekarang')");
+			mysqli_query($conn,"INSERT INTO dismantle (nomor, tanggal, master_guna_kategori_id, user_identity, status_id, urutan, remark, created_master_cabang_id, created_pegawai_id, created_at, updated_at) VALUES ('$number', '$_POST[tanggal]', '$_POST[master_guna_kategori_id]', '$_POST[user_identity]', '550', '$urutan', '$_POST[remark]', '$_SESSION[master_cabang_id]', '$_SESSION[login_user]', '$waktu_sekarang', '$waktu_sekarang')");
 
 			$id = mysqli_insert_id($conn);
 
@@ -143,7 +143,7 @@ else{
 				$cek=mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM stok WHERE master_cabang_id='$_SESSION[master_cabang_id]' AND master_gudang_id='$r[master_gudang_id]' AND master_material_id='$r[master_material_id]' AND deleted_at IS NULL"));
 				
 				//UPDATE STATUS MATERIAL SN
-				mysqli_query($conn,"UPDATE material_sn SET status_id='$r[material_sn_status_id]', master_gudang_id='$r[master_gudang_id]' WHERE id='$r[material_sn_id]'");
+				mysqli_query($conn,"UPDATE material_sn SET status_id='$r[material_sn_status_id]', master_gudang_id='$r[master_gudang_id]', user_identity=NULL, master_guna_id=NULL, master_guna_kategori_id=NULL WHERE id='$r[material_sn_id]'");
 				
 				//CATAT DI LOG MATERIAL SN
 				mysqli_query($conn,"INSERT INTO material_sn_log (material_sn_id, status_id, created_at, remark, act_type_id, act_table_id, transaction_number) VALUES ('$r[material_sn_id]', '530', '$waktu_sekarang', 'Dismantle Material', '4', '$_POST[dismantle_id]', '$number')");

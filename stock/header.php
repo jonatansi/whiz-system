@@ -25,7 +25,7 @@
                     <i class="header-icon fe fe-align-left"></i>
                 </a>
                 <div class="main-header-center d-none d-lg-block">
-                    <b>Whiz Digital System</b>
+                    <b>Management Asset and Transaction Inventory Order</b>
                 </div>
                 <!-- End::header-link -->
             </div>

@@ -9,10 +9,11 @@ $columns = array(
     6=> 'b.nama',
     7=> 'g.nama',
     8=> 'a.harga',
-    9=> 'e.nama'
+    9=> 'e.nama',
+    10=>'a.user_identity'
 );
 
-$pencarian = array('a.id', 'a.serial_number', 'c.nama', 'f.merk_type', 'd.nama', 'h.nama', 'b.nama', 'g.nama', 'a.harga', 'e.nama');
+$pencarian = array('a.id', 'a.serial_number', 'c.nama', 'f.merk_type', 'd.nama', 'h.nama', 'b.nama', 'g.nama', 'a.harga', 'e.nama', 'a.user_identity');
 
 $pegawai = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai WHERE id='$_SESSION[login_user]'"));
 
@@ -91,6 +92,7 @@ while( $row=mysqli_fetch_array($sql_data)) {  // preparing an array
     $nestedData[] = $row['nama_cabang'];
     $nestedData[] = formatAngka($row['harga']);
     $nestedData[] = $status;
+    $nestedData[] = $row['user_identity'];
                     
     //$nestedData[] = $sql;
     $data[] = $nestedData;

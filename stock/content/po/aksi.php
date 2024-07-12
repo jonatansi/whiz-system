@@ -99,6 +99,10 @@ else{
 		include "cetak.php";
 	}
 
+	else if($act=='cetak2'){
+		include "cetak2.php";
+	}
+
 	else if($act=='next'){
 		include "next.php";
 	}
