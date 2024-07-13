@@ -13,7 +13,7 @@ include "konfig/base_url.php";
 
     <link href="<?php echo $BASE_URL;?>/assets/css/icons.min.css" rel="stylesheet" >
 
-    <link href="<?php echo $BASE_URL;?>/assets/css/style-login.css" rel="stylesheet">
+    <link href="<?php echo $BASE_URL;?>/assets/css/style-login.css?v1" rel="stylesheet">
     <script src="https://www.google.com/recaptcha/api.js?render=6LdQhl0pAAAAAORLRytMwFzYm6tlEFc5-oYfA6Zc"></script>
 </head>
 <body>
@@ -58,9 +58,9 @@ include "konfig/base_url.php";
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="login-form w-100 shadow-sm rounded-4 py-5 px-4 bg-white">
+                    <div class="login-form w-100 shadow-sm rounded-4 py-4 px-4 bg-white">
                         <div id="login_opsi">
-                            <img src="<?php echo $BASE_URL;?>/images/loginpage/whiz_matrix_logo.svg" alt="Whiz Matrix" style="max-width:200px;" id="img_login">
+                            <img src="<?php echo $BASE_URL;?>/images/loginpage/whiz_matrix_logo.svg" alt="Whiz Matrix" style="max-width:170px;" id="img_login">
                             <p class="mb-4" id="title_login">Management Asset and Transaction Inventory Order</p>
                             <div class="row justify-content-center" style="min-height:100px;">
                                 <div class="col">
