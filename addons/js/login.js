@@ -1,5 +1,5 @@
 function togglePassword() {
-    var passwordInput = document.getElementById("password");
+    var passwordInput = document.getElementById("loginPassword");
     var toggleIcon = document.querySelector(".toggle-password i");
 
     if (passwordInput.type === "password") {

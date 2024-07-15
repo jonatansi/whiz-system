@@ -121,6 +121,6 @@ include "konfig/base_url.php";
     <script src="<?php echo $BASE_URL;?>/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     
 
-    <script src="<?php echo $BASE_URL;?>/addons/js/login.js"></script>
+    <script src="<?php echo $BASE_URL;?>/addons/js/login.js?v1"></script>
 </body>
 </html>
