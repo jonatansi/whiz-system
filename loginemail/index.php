@@ -140,5 +140,33 @@
     <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 
+    <script>
+        function togglePassword() {
+            var passwordInput = document.getElementById("loginPassword");
+            var toggleIcon = document.querySelector(".toggle-password i");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggleIcon.classList.remove("fa-eye");
+                toggleIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                toggleIcon.classList.remove("fa-eye-slash");
+                toggleIcon.classList.add("fa-eye");
+            }
+        }
+
+        function toggleActive(clickedElement) {
+            var circleItems = document.querySelectorAll('.circle-submenu');
+
+            // Iterasi melalui semua elemen dan hapus kelas 'active' dari setiap elemen
+            circleItems.forEach(function(item) {
+                item.classList.remove('active');
+            });
+
+            // Tambahkan kelas 'active' ke elemen yang diklik
+            clickedElement.classList.add('active');
+        }
+    </script>
 </body>
 </html>
